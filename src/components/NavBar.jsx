@@ -45,9 +45,7 @@ export const NavBar = () => {
           <Link to="/Products">
             <button>Products</button>
           </Link>
-          <Link to="/BuildPc">
-            <button>Build PC</button>
-          </Link>
+          
         </div>
         {/* <div className="ContainerSearch">
             <Search />
@@ -106,19 +104,7 @@ export const NavBar = () => {
             }}
             ></BsMotherboard>
             </Link>
-        <Link to="/BuildPc">
-
-          <SlWrench
-            color="white"
-            size="25px"
-            style={{
-                marginLeft:"15px",
-                top: "10px",
-                right: "0px",
-                cursor: "pointer",
-            }}
-            ></SlWrench>
-            </Link>
+        
         </div>
 
         <div className="ContainerInfo">

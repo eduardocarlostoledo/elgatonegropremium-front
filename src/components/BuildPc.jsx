@@ -134,7 +134,7 @@ export const BuildPc = () => {
 
   const handleAddCart = (item) => {
     const newItem = { name: item.name, image: item.image, price: item.price };
-    fetch("https://back-production-148d.up.railway.app/cart", {
+    fetch("https://elgatonegropremium-back-production.up.railway.app/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

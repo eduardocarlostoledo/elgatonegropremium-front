@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { Home } from "./components/Home";
 import { Products } from "./components/Products";
 import { Detail } from "./components/Detail";
-import { BuildPc } from "./components/BuildPc";
 import { NavBar } from "./components/NavBar";
 import { Footer } from "./components/Footer";
 import { Register } from "./components/Register";
@@ -22,7 +21,7 @@ import About from "./components/About";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import ChangePass from "./components/Changepass";
 import axios from "axios";
-axios.defaults.baseURL = "https://back-production-148d.up.railway.app"
+axios.defaults.baseURL = "https://elgatonegropremium-back-production.up.railway.app"
 
 function App() {
   const dispatch = useDispatch();
@@ -64,8 +63,7 @@ function App() {
         <Route path="/about" element={<About />} />
 
         <Route path="/detail/:Name" element={<Detail />} />
-
-        <Route path="/BuildPc" element={<BuildPc />} />
+        
 
         <Route
           element={

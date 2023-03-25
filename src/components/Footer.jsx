@@ -6,7 +6,7 @@ export const Footer = () => {
         <footer className='ContainerFooter'>
             <div className='ContainerLogo'>
                 <div className='Logo'>
-                    <h3 className='Computer'>Computer Store</h3>
+                    <h3 className='Computer'>elgatonegropremium</h3>
                     <img width="60px" src="https://static.vecteezy.com/system/resources/thumbnails/009/096/946/small/monitor-screen-computer-with-colorful-rainbow-bubble-illustration-logo-design-vector.jpg" alt="" />
                     {/* logos */}
                 </div>

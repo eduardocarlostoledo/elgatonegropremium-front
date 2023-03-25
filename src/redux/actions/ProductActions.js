@@ -63,7 +63,7 @@ export const createProduct =  (payload)=> async(dispatch)=>{
 //   return async (dispatch) => {
 //     console.log("/products", product);
 //     try {
-//       const response = await fetch("https://back-production-148d.up.railway.app/products", {
+//       const response = await fetch("https://elgatonegropremium-back-production.up.railway.app/products", {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
