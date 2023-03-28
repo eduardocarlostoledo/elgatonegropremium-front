@@ -1,9 +1,20 @@
-.NavDiv {}
+.NavDiv {
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    position: fixed;
+    z-index: 999;
+    padding: 40px;
+    top: 0;
+}
 
 .NotResponsive {
     display: flex;
     justify-content: space-between;
-    background-color: #170127;
+    background-color: black;
     width: 100%;
     height: 60px;
     align-items: center;
@@ -18,19 +29,23 @@
 }
 
 .logo {
-    height: 60px;
     width: 150px;
-    background-color: #170127;
+    height: 60px;
+    margin-left: 20px;
+    margin-top: 5px;
 }
 
-.ContainerImg {
-    height: 60px;
-    width: 150px;
+.ContainerImg { /* aca estan seteados los logos de usuario y carrito */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .ContainerInfo {
     display: flex;
     justify-content: space-between;
+    
+    margin-right: 50px;
 }
 
 .buttonNav {
@@ -39,7 +54,7 @@
     margin: 10px;
     border: none;
     border-radius: 10px;
-    background-color: #170127;
+    background-color:black;
     color: white;
     user-select: none;
 }
@@ -56,7 +71,7 @@
     border: none;
     font-size: 18px;
     border-radius: 10px;
-    background-color: #7200ca;
+    background-color: black;
     color: white;
     user-select: none;
     border-bottom: 0.1em solid white;
@@ -70,12 +85,13 @@
 }
 
 .BtnLogSing {
+    
     width: 80px;
     height: 40px;
     margin: 5px;
     border: none;
     border-radius: 10px;
-    background-color: rgb(83, 32, 117);
+    background-color:black;
     color: white;
     user-select: none;
     font-size: 17px;
@@ -89,11 +105,12 @@
 }
 
 .BtnUser {
+    
     width: 50px;
     height: 50px;
     border: none;
     border-radius: 10px;
-    background-color: #170127;
+    background-color: black;
     color: white;
     user-select: none;
     transform: translateY(-2px);
@@ -108,14 +125,16 @@
 }
 
 .CartContainer {
+    
     margin-right: -22px;
     margin-left: 9px;
     margin-top: 11px;
-    background-color: #170127;
+    background-color: black;
     border: none;
 }
 
 .Cart {
+    
     font-size: 30px;
     color: white;
 }
@@ -135,6 +154,7 @@
 
 
 .UserLogo2 { 
+    
     margin-left: 12px;
     margin-top: 1px;
     font-size: 29px;
@@ -156,7 +176,7 @@
     .Responsive {
         display: flex;
         justify-content: space-between;
-        background-color: #170127;
+        background-color: black;
         width: 100%;
         height: 60px;
         align-items: center;

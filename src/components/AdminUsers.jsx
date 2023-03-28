@@ -48,7 +48,7 @@ export const AdminUsers = () => {
 
 
   useEffect(() => {
-    fetch(`https://elgatonegropremium-back-production.up.railway.app/order`)
+    fetch(`http://localhost:3001/order`)
       .then((res) => res.json())
       .then((data) => {
         setCountrie(data);

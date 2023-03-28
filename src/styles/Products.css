@@ -1,6 +1,20 @@
 
+.CardContainer{
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    gap: 15px;
+    
+}
+.contenedor_card {
+    
+    margin-top: 0%;
+}
+
 .Products{
-    margin-top: 120px;
+    margin-top: 50px;
 }
 
 .DivCardsFilters {
@@ -11,9 +25,9 @@
 .DivFilter {
     padding: 20px;
     width: 300px;
-    height: 500px;
+    height: 400px;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 7px;
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
@@ -21,19 +35,8 @@
     flex-direction: column;
     align-items: center;
     text-transform: uppercase;
-    margin-left: 40px;
-    margin-right: 60px;
-}
-.CardContainer{
-    margin-top: -20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-.DivProducts{
-    margin-bottom: 230px;
+    margin-left: 7px;
+    margin-right: 7px;
 }
 
 .ContainerFilters{
@@ -49,7 +52,7 @@
 .Filter{
    width: 250px; 
    height: 35px;
-   border-radius: 20px;
+   border-radius: 7px;
    text-align: center;
 }
 
@@ -79,7 +82,7 @@
 .SubmitBuscar {
     width: 60px;
     height: 35px;
-    border-radius: 20px;
+    border-radius: 7px;
     border: none;
     margin-left: 10px;
 }
@@ -87,7 +90,7 @@
 .InputB{
     width: 150px;
     height: 40px;
-    border-radius: 20px;
+    border-radius: 7px;
     border: solid 1px black;
     text-align: center;
 }
@@ -98,7 +101,7 @@
     padding-top: 10px;
     margin: 5px;
     border: none;
-    border-radius: 10px;
+    border-radius: 7px;
     background-color: rgb(26, 160, 194);
     color: white;
     user-select: none;
@@ -108,7 +111,7 @@
     height: 40px;
     border: none;
     background-color: #e7b8ff;
-    border-radius: 20px;
+    border-radius: 7px;
 }
 
 .SubmitB:hover{
@@ -125,7 +128,7 @@
     width: 200px;
     height: 40px;
     background-color: #e7b8ff;
-    border-radius: 20px;
+    border-radius: 7px;
     border: none;
 }
 .Todos:hover{

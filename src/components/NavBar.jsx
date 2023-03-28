@@ -21,11 +21,11 @@ export const NavBar = () => {
   const carts = useSelector((state) => state.cart);
   const itemQuantity = carts.reduce((acc, item) => acc + item.amount, 0);
   // console.log(itemQuantity);
-    // let Nav = useSelector((state) => state.ChangeNav);
-    // let Nav = useSelector((state) => state.UserActive);
-    // let usuario = JSON.parse(localStorage.getItem("USUARIO"))
-    // console.log(Nav);
-    // let Nav 
+  // let Nav = useSelector((state) => state.ChangeNav);
+  // let Nav = useSelector((state) => state.UserActive);
+  // let usuario = JSON.parse(localStorage.getItem("USUARIO"))
+  // console.log(Nav);
+  // let Nav
   useEffect(() => {
     dispatch(getUpdate());
     dispatch(getCart());
@@ -39,13 +39,13 @@ export const NavBar = () => {
           <Link to="/">
             <button>
               <ion-icon className="iconHome" name="home-outline"></ion-icon>{" "}
-              Home
+              Inicio
             </button>
           </Link>
           <Link to="/Products">
-            <button>Products</button>
+            <button>Tienda</button>
           </Link>
-          
+          <a href="https://wa.me/5493764331313">Anchor text</a>
         </div>
         {/* <div className="ContainerSearch">
             <Search />
@@ -79,32 +79,29 @@ export const NavBar = () => {
 
       <div className="Responsive">
         <div className="HomeButton">
-        <Link to="/">
-
-          <AiOutlineHome
-            color="white"
-            size="40px"
-            style={{
+          <Link to="/">
+            <AiOutlineHome
+              color="white"
+              size="40px"
+              style={{
                 top: "15px",
                 right: "0px",
                 cursor: "pointer",
-            }}
+              }}
             ></AiOutlineHome>
-            </Link>
-        <Link to="/Products">
-
-          <BsMotherboard
-            color="white"
-            size="25px"
-            style={{
-                marginLeft:"15px",
+          </Link>
+          <Link to="/Products">
+            <BsMotherboard
+              color="white"
+              size="25px"
+              style={{
+                marginLeft: "15px",
                 top: "10px",
                 right: "0px",
                 cursor: "pointer",
-            }}
+              }}
             ></BsMotherboard>
-            </Link>
-        
+          </Link>
         </div>
 
         <div className="ContainerInfo">

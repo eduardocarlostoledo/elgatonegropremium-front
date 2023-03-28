@@ -14,7 +14,7 @@ export default function AddToCart (item){
         e.preventDefault();
         const newItem = { name: item.name, image: item.image, price: item.price };        
         console.log("NEW ITEM" , newItem)
-        fetch('https://elgatonegropremium-back-production.up.railway.app/cart', {
+        fetch('http://localhost:3001/cart', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

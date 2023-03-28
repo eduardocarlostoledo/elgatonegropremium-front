@@ -1,9 +1,5 @@
 .starsCalification{
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin-right: 160px;
-    margin-top: 40px;
+    display:flex;   
 }
 .star{
     cursor:pointer;

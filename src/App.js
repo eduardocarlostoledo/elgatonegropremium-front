@@ -21,7 +21,8 @@ import About from "./components/About";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import ChangePass from "./components/Changepass";
 import axios from "axios";
-axios.defaults.baseURL = "https://elgatonegropremium-back-production.up.railway.app"
+axios.defaults.baseURL = "http://localhost:3001/"
+//"http://localhost:3001" ||
 
 function App() {
   const dispatch = useDispatch();

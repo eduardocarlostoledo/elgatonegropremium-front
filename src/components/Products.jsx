@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useNavigate } from "react-redux";
 import { filterByBrands, filterByPrice, filterByType, getAllBrands, getAllProducts, getAllProductsName, getAllTypes } from "../redux/actions/ProductActions";
 import Card from '../components/Card'
-import {Marcas} from '../components/Marcas'
+
 import Paginado from "./Paginado";
 
 export const Products = () => {
@@ -29,7 +29,7 @@ export const Products = () => {
     //   }, [navigate]);
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [charactersPerPage, ] = useState(9) //setCharactersPerPage
+    const [charactersPerPage, ] = useState(20) //setCharactersPerPage en 20 para que muestre 20 productos por pagina
     const indexOfLastCharacter = currentPage * charactersPerPage
     const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage
     const currentProducts = product.slice(indexOfFirstCharacter, indexOfLastCharacter)
@@ -89,32 +89,32 @@ export const Products = () => {
             <div className="Products">
                 <div className="DivCardsFilters">
                     <div className="DivFilter">
-                        <h2>Filters</h2>
-                        <button className="Todos" onClick={(e) => handleClick(e)}>Reload all Products</button>
+                        <h2>Filtros</h2>
+                        <button className="Todos" onClick={(e) => handleClick(e)}> Recargar Productos</button>
                         <div className="SearchButton" id="InputB">
-                            <input className='InputB' type='text' placeholder="Search..." onChange={(e) => handleInputChange(e)}/> 
+                            <input className='InputB' type='text' placeholder="Buscar..." onChange={(e) => handleInputChange(e)}/> 
                             <button className='SubmitB' type="submit" onClick={(e) => handleSubmit(e)}> < HiMagnifyingGlass className="icon"/></button>
                         </div>
                         <div className="ContainerFilters">
                             
                             <select id="filterBrandsSelect" className="Filter" onChange={(e) => handleFilterBrands(e)}>
-                                <option value="All" defaultValue='default'>All Brands</option>
+                                <option value="All" defaultValue='default'> Por Marcas</option>
                                 {brand.map((b, index) => ( 
                                     <option key={index} type="reset" value={b.name}>{b.name}</option>
                                 ))}
                             </select>
                             
                             <select id="filterTypesSelect" className="Filter" onChange={(e) => handleFilterTypes(e)}>
-                                <option value="All" defaultValue='default'>All Types</option>
+                                <option value="All" defaultValue='default'>Por tipos</option>
                                 {type.map((t, index) => {
                                     return <option key={index} value={t.name}>{t.name}</option>
                                 })} 
                             </select>
                             
                             <select id="filterPriceSelect" className="Filter" onChange={(e) => handleFilterPrice(e)}>
-                                <option value="all" disabled={true}>All price</option>
-                                <option value="ASC">Lower price</option>
-                                <option value="DES">Higher price</option>
+                                <option value="all" disabled={true}>Por Precio</option>
+                                <option value="ASC">Mas Barato</option>
+                                <option value="DES">Mas Caro</option>
                             </select>
                         </div>
                     </div>
