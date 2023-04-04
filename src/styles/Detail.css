@@ -1,11 +1,8 @@
 .DetailC {
-    display: flex;
-    
+    display: flex;    
     background-color: #ffffff;
     margin-bottom: 60px;
-    justify-content: center;
-    
-    
+    justify-content: center;        
 }
 
 .DataDiv {
@@ -35,8 +32,6 @@
     margin-right: 10px;
     background-color: #ffffff;
 }
-/* HASTA ACA FUNCIONA BIEN */
-
 
 .Link {
     position: absolute;
@@ -45,8 +40,6 @@
     text-decoration: none;
     color: rgb(241, 233, 233);
 }
-
-
 
 .DataDiv {
     
