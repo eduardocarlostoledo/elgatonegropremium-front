@@ -21,8 +21,7 @@ import About from "./components/About";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import ChangePass from "./components/Changepass";
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3001/"
-//"http://localhost:3001" ||
+axios.defaults.baseURL = `${process.env.REACT_APP_BACK}`
 
 function App() {
   const dispatch = useDispatch();

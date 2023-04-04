@@ -14,7 +14,7 @@ export default function AddToCart (item){
         e.preventDefault();
         const newItem = { name: item.name, image: item.image, price: item.price };        
         console.log("NEW ITEM" , newItem)
-        fetch('http://localhost:3001/cart', {
+        fetch(`${process.env.REACT_APP_BACK}/cart`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -59,27 +59,6 @@ export const createProduct =  (payload)=> async(dispatch)=>{
   dispatch({type: CREATE_PRODUCT, payload}))
 };
 
-// export const createProduct = (product) => {
-//   return async (dispatch) => {
-//     console.log("/products", product);
-//     try {
-//       const response = await fetch("http://localhost:3001/products", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(product),
-//       });
-
-//       console.log("CREATE_PRODUCT", response);
-//       const data = await response.json();
-//       dispatch({ type: "CREATE_PRODUCT", payload: data });
-
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-// };
 
 
 export const updateProduct= (id,payload)=> async()=>{

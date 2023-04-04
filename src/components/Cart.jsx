@@ -20,7 +20,7 @@ export default function Cart() {
   const products = useSelector((state) => state.allProducts);
 
   useEffect(() => {
-    fetch("http://localhost:3001/cart")
+    fetch(`${process.env.REACT_APP_BACK}/cart`)
       .then((response) => response.json())
       .then((data) => setCartItems([...data]))
       .catch((error) => swal("Cart is empty", "Cart is empty", "error"));
@@ -61,14 +61,14 @@ export default function Cart() {
       swal("You must log in to buy!", "You must log in to buy!", "error");
       navigate("/login");
     } else {
-      fetch("http://localhost:3001/pay/preference", {
+      fetch(`${process.env.REACT_APP_BACK}/pay/preference`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(preferencia.reverse()),
       });
-      fetch("http://localhost:3001/pay/create_preference", {
+      fetch(`${process.env.REACT_APP_BACK}/pay/create_preference`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export default function Cart() {
   const handleDeleteAllCart = async () => {
     try {
       // Hacer una petición DELETE al servidor para eliminar todo el contenido del carrito
-      await fetch("http://localhost:3001/cart", {
+      await fetch(`${process.env.REACT_APP_BACK}/cart`, {
         method: "DELETE",
       });
       // Actualizar el estado local del carrito para que se muestre vacío
