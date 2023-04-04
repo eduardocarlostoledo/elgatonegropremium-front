@@ -45,7 +45,10 @@ export const NavBar = () => {
           <Link to="/Products">
             <button>Tienda</button>
           </Link>
-          <a href="https://wa.me/5493764331313">Anchor text</a>
+
+          <a className= "botonwhatsapp" title="El Gato" href="https://wa.me/5493764331313"><img src="https://www.pixmagik.com/media/wysiwyg/logo_whatsapp.png" alt="WhatsApp El Gato" width="40" height="40" /></a>
+
+
         </div>
         {/* <div className="ContainerSearch">
             <Search />

@@ -88,9 +88,8 @@ export const Products = () => {
         <div className="DivProducts">
             <div className="Products">
                 <div className="DivCardsFilters">
-                    <div className="DivFilter">
-                        <h2>Filtros</h2>
-                        <button className="Todos" onClick={(e) => handleClick(e)}> Recargar Productos</button>
+                    <div className="DivFilter">                        
+                        <button className="Todos" onClick={(e) => handleClick(e)}> Recargar </button>
                         <div className="SearchButton" id="InputB">
                             <input className='InputB' type='text' placeholder="Buscar..." onChange={(e) => handleInputChange(e)}/> 
                             <button className='SubmitB' type="submit" onClick={(e) => handleSubmit(e)}> < HiMagnifyingGlass className="icon"/></button>
