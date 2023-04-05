@@ -6,6 +6,7 @@
     flex-wrap: wrap;
     margin-top: 40px;
     gap: 15px;
+    justify-content: center
     
 }
 .contenedor_card {
@@ -18,22 +19,23 @@
 }
 
 .DivCardsFilters {
-    display: flex;
+    
     flex-direction: row;
 }
 
-.DivFilter {    
-    margin-top: 40px;    
-    display: flex;    
+.DivFilter {
+    margin-top: 80px;
     align-content: center;
-    flex-direction: column;            
+    flex-direction: row;
+    display: flex;
+    justify-content: center
   }
 
 .ContainerFilters{    
-    display: flex;
+    
     flex-direction: column;
     justify-content: space-around; 
-    margin: 7px;
+    margin: 1px;
     gap: 7px;
 }
 
@@ -54,9 +56,7 @@
 }
 
 .SearchButton {
-    display: flex;    
-    gap: 7px;
-    
+    display: flex;
 }
 
 .swal-overlay--show-modal {
@@ -92,11 +92,11 @@
     user-select: none;
 }
 .SubmitB{
+    
     width: 35px;
-    height: 35px;
-    border: none;    
+    height: 35px;    
     border-radius: 7px;
-    margin: auto;
+    gap: 1px;   
 }
 
 .SubmitB:hover{
@@ -111,14 +111,10 @@
 }
 
 .Todos{
-    height: 35px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    margin: 7px;
-    gap: 7px;
+    height: 35px;    
     border-radius: 7px;
   }
+
 .Todos:hover{
     background-color: #119708;
     color: white;
@@ -146,12 +142,11 @@
     .searchButton {
         margin: 0;
     }
-    .Todos{
-        margin-bottom: 5px;
-    }
+
     .ContainerFilters {
-        gap: 5px;
-        margin-bottom: 0;
+        display: flex;
+        gap: 1px;
+        
     }
     .CardContainer{
         justify-content: center;

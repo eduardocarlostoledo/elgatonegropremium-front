@@ -97,7 +97,7 @@ export const Products = () => {
                         <div className="ContainerFilters">
                             
                             <select id="filterBrandsSelect" className="Filter" onChange={(e) => handleFilterBrands(e)}>
-                                <option value="All" defaultValue='default'> Por Marcas</option>
+                                <option value="All" defaultValue='default'> Calidad</option>
                                 {brand.map((b, index) => ( 
                                     <option key={index} type="reset" value={b.name}>{b.name}</option>
                                 ))}

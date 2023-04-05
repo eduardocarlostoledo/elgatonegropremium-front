@@ -207,11 +207,11 @@ export const CreateProducts = () => {
                             </div>
                         </div>
                         <div className='name'>
-                            <label className='nameLabelMap'>New Brand</label>
+                            <label className='nameLabelMap'>New Calidad</label>
                             <div className="ContainerTypeBrand">
                                 <input className='inputNew' type='text' value={brandInput} name='brand' placeholder="Brand Name" onChange={(e) => setBrandInput(e.target.value)}></input> 
                                 <select className='selectName' name='brand' placeholder="Select Brand" onChange={e=>handleChange(e)} required={true} defaultValue="">
-                                    <option value="" disabled>Select Brand</option>
+                                    <option value="" disabled>Select Calidad</option>
                                     {brands && brands.map((brand, index) => (
                                         <option key={index} value={brand.name}>{brand.name}</option>
                                     ))}
@@ -229,7 +229,7 @@ export const CreateProducts = () => {
                         </div>
                     }
                     
-                    <button className='buttonCrear' type="submit">Create Product</button>                          
+                    <button className='buttonCrear' type="submit">Publicar</button>                          
                 </form>
             </div>                  
         </div>
