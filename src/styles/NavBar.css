@@ -98,7 +98,7 @@
 
 
 .BuildAndProducts button:hover {
-    color: #12f8a0;
+    color: #8a8a8a;
     opacity: 0.7;
     cursor: pointer;
 }
@@ -118,7 +118,7 @@
 }
 
 .BtnLogSing:hover {
-    color: #12f8a0;
+    color: #8a8a8a;
     opacity: 0.7;
     cursor: pointer;
 }
@@ -138,7 +138,7 @@
 }
 
 .BtnUser:hover {
-    color: #12f8a0;
+    color: #8a8a8a;
     opacity: 0.9;
     cursor: pointer;
 }
@@ -152,17 +152,6 @@
     border: none;
 }
 
-.Cart {
-    
-    font-size: 30px;
-    color: white;
-}
-
-.Cart:hover {
-    color: #12f8a0;
-    opacity: 0.7;
-    cursor: pointer;
-}
 
 .UserLogo {
     margin-left: 18px;
@@ -182,7 +171,7 @@
 
 
 .UserLogo:hover {
-    color: #12f8a0;
+    color: #8a8a8a;
     opacity: 0.7;
     cursor: pointer;
 }

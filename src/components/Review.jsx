@@ -40,7 +40,7 @@ const Review = ({productId,nameUser,lastnameUser, setUpdateReviews}) => {
                 <StarsCalification setCalif={setCalification} key={key}/>
             </div>
             <div className='DivReview'>
-                <label className='NameReview'>Reviews</label>
+                <label className='NameReview'> Qué te pareció el producto</label>
                 {/* <input className='inputReview' onChange={handleInput} type="text" value={comment}/> */}
                 <textarea className='inputReview' type="text" value={comment} placeholder="Review" onChange={handleInput}></textarea>                 
                 <button className='ButtonReview' onClick={handleClick}>Send review</button>

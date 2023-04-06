@@ -1,4 +1,5 @@
 .ContainerReviews{
+    color: aliceblue;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -7,6 +8,7 @@
 }
 
 .StarReview{
+    color: aliceblue;
     margin-left: 560px;
     transform: translateY(40px);
 }
@@ -17,11 +19,12 @@
 }
 
 .NameReview{
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
+    color: white;
     margin-bottom: 20px;
     margin-top: 10px;
+    
 }
 
 .inputReview{
@@ -32,9 +35,9 @@
 }
 
 .ButtonReview{
-    margin-top: 40px;
+    
     width: 680px;
-    height: 40px;
+    
     border: none;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.627);
