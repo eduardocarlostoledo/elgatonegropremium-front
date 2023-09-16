@@ -19,22 +19,3 @@ input[type="radio"]{
     }
     
 }
-@media screen and (max-width: 550px){
-    .starsCalification{
-        transform: translateX(100px);
-    }
-}
-@media screen and (max-width: 450px){
-    .starsCalification{
-        transform: translateX(200px);
-    }
-}
-
-@media screen and (max-width: 450px){
-    .star{
-        width: 20px;
-    }
-    .starsCalification{
-        transform: translateX(6rem);
-    }
-}

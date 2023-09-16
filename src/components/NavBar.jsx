@@ -3,7 +3,7 @@ import "../styles/NavBar.css";
 import { AiOutlineShoppingCart, AiOutlineHome } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { BiUserPlus } from "react-icons/bi";
-import { BsMotherboard } from "react-icons/bs";
+import { BsFillHandbagFill } from "react-icons/bs";
 import { RiUserShared2Line } from "react-icons/ri";
 import { SlWrench } from "react-icons/sl";
 import { useSelector } from "react-redux";
@@ -85,7 +85,7 @@ export const NavBar = () => {
           <Link to="/">
             <AiOutlineHome
               color="white"
-              size="40px"
+              size="25px"
               style={{
                 top: "15px",
                 right: "0px",
@@ -94,7 +94,7 @@ export const NavBar = () => {
             ></AiOutlineHome>
           </Link>
           <Link to="/Products">
-            <BsMotherboard
+            <BsFillHandbagFill
               color="white"
               size="25px"
               style={{
@@ -103,7 +103,7 @@ export const NavBar = () => {
                 right: "0px",
                 cursor: "pointer",
               }}
-            ></BsMotherboard>
+            ></BsFillHandbagFill>
           </Link>
         </div>
 
@@ -151,7 +151,7 @@ export const NavBar = () => {
           <Link to="/Cart">
             <button className="CartContainer">
               {" "}
-              <AiOutlineShoppingCart size="35px" className="Cart" />
+              <AiOutlineShoppingCart size="25px" className="Cart" />
               {itemQuantity}
             </button>
           </Link>

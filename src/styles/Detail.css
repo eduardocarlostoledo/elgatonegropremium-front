@@ -1,6 +1,5 @@
-
+/* Estilos generales */
 .Cart {
-    
     font-size: 30px;
     color: white;
 }
@@ -11,7 +10,7 @@
     cursor: pointer;
 }
 
-.ContainerR{
+.ContainerR {
     display: flex;
     flex-direction: column;
     color: #ffffff;
@@ -19,9 +18,9 @@
 }
 
 .DetailC {
-    display: flex;    
-    background-color: #ffffff;    
-    justify-content: center;        
+    display: flex;
+    background-color: #ffffff;
+    justify-content: center;
 }
 
 .DataDiv {
@@ -33,108 +32,60 @@
     align-items: center;
 }
 
-.ImageDetail{  
+.ImageDetail {
+    border-radius: 20px;
     margin: 20px;
-    width: 300px;
-    height: 300px;
-    object-fit: contain;
-    
-    border-radius: 7px;
-
+    height: fit-content;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ 
 }
 
 .starsCalification {
     color: #9b2727;
     font-size: 10px;
     margin-right: 10px;
-    
 }
 
 .bi-house {
     color: rgb(241, 233, 233);
     font-size: 30px;
     margin-right: 10px;
-    
 }
 
 .Link {
+    display: flex;
     top: 40px;
-    
     text-decoration: none;
     color: rgb(241, 233, 233);
-    background-color: #9b2727;
 }
 
-.DataDiv {
-    
-    display: flex;
-    flex-direction: column;
-   
-    
-}
-.TypeBrandDiv{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+
+.Detalle, .TypeBrandDiv {
+
     align-items: center;
-    align-content: center;
-    margin-bottom: 20px;    
-}
-
-.Detalle{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    align-content: center;
-    margin-bottom: 20px;    
-}
-
-.AmountDetail{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    align-content: center;
-    margin-bottom: 20px;    
-}
-
-.ButtonDetail{
+    justify-content: center;
     margin-top: 20px;
-    margin-left: -120px;
-}
-
-.ReviewListo{
-    text-align: justify;
-    background-color: #ffffff;
-    border-radius: 20px;
-    margin-right: 140px;
-    margin-left: 140px;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    padding-right: 40px;
-    padding-left: 40px;
-}
-
-@media only screen and (max-width: 1700px) {
-    .DetailContainer {
-        height: 35em;
-        width: 90%;
-    }
-    .DetailContainer img{
-        width: 450px;
-    }
-    .Link {
-        left: 90px;
-    }
   }
 
-@media screen and (max-width: 650px){
-    .DetailC{
+/* Estilos para pantallas medianas (650px) */
+@media screen and (max-width: 650px) {
+
+    /* .ImageDetail {
+        border-radius: 7px;
+        margin: 20px;
+     size: auto;    
+    } */
+
+    .DetailC {
         flex-direction: column;
-        gap: 30px;
         align-items: center;
-        justify-content: space-around;
+    }
+
+    .ContainerR {
         margin: auto;
         margin-bottom: 0;
         margin-top: 60px;
@@ -144,74 +95,78 @@
         border-radius: 20px;
         margin-bottom: 60px;
     }
-    .DetailC img{
+
+    .DetailC img {
         width: 300px;
     }
-    .ReviewListo{
+
+    .ReviewListo {
         width: 500px;
         transform: translateX(-60px);
     }
-    .Link{
-        transform: translate3d(-4rem, -1.2rem, 0);
-    }
-    
+
 }
-@media screen and (max-width: 550px){
-    .DetailC{
+
+/* Estilos para pantallas pequeñas (550px) */
+@media screen and (max-width: 550px) {
+    .DetailC {
         width: 480px;
         margin-left: 40px;
     }
-    .ReviewListo{
+
+    .ReviewListo {
         width: 480px;
         transform: translateX(-80px);
     }
-    .starR{
+
+    .starR {
         margin-right: 20px;
     }
-    .Link{
-        transform: translate3d(-6rem, -1.2rem, 0);
-    }
+
 }
 
-@media screen and (max-width: 450px){
-    .DetailC{
+/* Estilos para pantallas más pequeñas (450px) */
+@media screen and (max-width: 450px) {
+    .DetailC {
         margin-left: 50px;
         width: 350px;
     }
 
-    .DetailC img{
+    .DetailC img {
         width: 250px;
     }
-    .Link{
-        transform: translate3d(-6rem, -1.2rem, 0);
-    }
-    .ReviewListo{
+
+
+    .ReviewListo {
         width: 300px;
         transform: translateX(-60px);
     }
-    .starR{
+
+    .starR {
         margin-right: 40px;
     }
-
 }
 
-@media screen and (max-width: 361px){
-    .DetailC{
+/* Estilos para pantallas aún más pequeñas (361px) */
+@media screen and (max-width: 361px) {
+    .DetailC {
         width: 300px;
         transform: translateX(-1rem);
     }
-    .ReviewListo{
+
+    .ReviewListo {
         width: 300px;
     }
 
-    .DetailC img{
+    .DetailC img {
         width: 200px;
     }
-    .Detalle{
-        font-size: 12px;
-        padding: 20px;
-    }
-    .Link{
-        transform: translate3d(-6rem, -1.2rem, 0);
-    }
+
+    .Detalle, .TypeBrandDiv {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px;
+      }
 }

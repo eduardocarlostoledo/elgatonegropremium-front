@@ -1,25 +1,23 @@
-
-.CardContainer{
+/* Estilos generales */
+.CardContainer {
     display: flex;
-    flex-direction: row;    
+    flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
     margin-top: 40px;
     gap: 15px;
-    justify-content: center
-    
+    justify-content: center;
 }
+
 .contenedor_card {
-    
     margin-top: 0%;
 }
 
-.Products{
+.Products {
     margin-top: 50px;
 }
 
 .DivCardsFilters {
-    
     background-color: #9b2727;
     flex-direction: row;
 }
@@ -29,32 +27,31 @@
     align-content: center;
     flex-direction: row;
     display: flex;
-    justify-content: center
-  }
+    justify-content: center;
+}
 
-.ContainerFilters{    
-    
+.ContainerFilters {
     flex-direction: column;
-    justify-content: space-around; 
+    justify-content: space-around;
     margin: 1px;
     gap: 7px;
 }
 
-.Filter{
-   width: 250px; 
-   height: 35px;
-   border-radius: 7px;
-   text-align: center;
+.Filter {
+    width: 250px;
+    height: 35px;
+    border-radius: 7px;
+    text-align: center;
 }
 
-.Filter option{
+.Filter option {
     background-color: white;
     color: #252425;
 }
 
-.Filter:hover{
-   background-color: #8a8a8a;
-   color: white;
+.Filter:hover {
+    background-color: #8a8a8a;
+    color: white;
 }
 
 .SearchButton {
@@ -74,7 +71,7 @@
     margin-left: 10px;
 }
 
-.InputB{    
+.InputB {
     height: 35px;
     border-radius: 7px;
     border: solid 1px #8a8a8a;
@@ -93,74 +90,70 @@
     color: white;
     user-select: none;
 }
-.SubmitB{
-    
+
+.SubmitB {
     width: 35px;
-    height: 35px;    
+    height: 35px;
     border-radius: 7px;
-    gap: 1px;   
+    gap: 1px;
 }
 
-.SubmitB:hover{
+.SubmitB:hover {
     background-color: #8a8a8a;
     color: white;
 }
-
 
 .icon {
     font-size: 25px;
     margin-bottom: 5px;
 }
 
-.Todos{
-    height: 35px;    
+.Todos {
+    height: 35px;
     border-radius: 7px;
-  }
+}
 
-.Todos:hover{
+.Todos:hover {
     background-color: #8a8a8a;
     color: white;
 }
 
-
-@media screen and (max-width: 650px){
-    .DivCardsFilters{
+/* Estilos para pantallas medianas (650px) */
+@media screen and (max-width: 650px) {
+    .DivFilter {
         flex-direction: column;
-        justify-content: center;
         align-items: center;
     }
-    .DivProducts{
-        margin-bottom: -130px;
-    }
-    .DivFilter{
+
+    .SearchButton {
         justify-content: center;
-        width: 80%;
-        height: 240px; 
-        margin: 0;
-    }
-    .DivFilter h2{
-        display: none;
-    }
-    .searchButton {
-        margin: 0;
     }
 
     .ContainerFilters {
-        display: flex;
-        gap: 1px;
-        
-    }
-    .CardContainer{
-        justify-content: center;
-        margin: 0;
-        padding: 0;
-        gap: 0;
+        margin-top: 20px;
+        align-items: center; /* Centra ContainerFilters horizontalmente */
     }
 }
 
-@media screen and (max-width: 400px){
-    .DivAllCards{
-        width: 8.75rem;
-        margin: 0px;
+/* Estilos para pantallas pequeñas (350px) */
+@media screen and (max-width: 330px) {
+    .DivFilter {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .SearchButton {
+        justify-content: center;
+    }
+
+    .ContainerFilters {
+        margin-top: 20px;
+        align-items: center; /* Centra ContainerFilters horizontalmente */
+    }
+
+    .Filter {
+        display: flex;
+        justify-content: center;
+
     }
 }
