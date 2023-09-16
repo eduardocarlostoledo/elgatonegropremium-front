@@ -130,8 +130,14 @@
     }
 
     .ContainerFilters {
+        display: flex;
         margin-top: 20px;
         align-items: center; /* Centra ContainerFilters horizontalmente */
+    }
+
+    .Filter {
+        display: flex;
+        justify-content: center;
     }
 }
 
@@ -147,6 +153,7 @@
     }
 
     .ContainerFilters {
+        display: flex;
         margin-top: 20px;
         align-items: center; /* Centra ContainerFilters horizontalmente */
     }
@@ -154,6 +161,5 @@
     .Filter {
         display: flex;
         justify-content: center;
-
     }
 }

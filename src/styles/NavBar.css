@@ -210,7 +210,5 @@
     .Responsive{
         width: 100%;
     }
-    body {
-        margin-top: 60px; /* Ajusta el valor según la altura de tu barra de navegación */
-    }
+    
 }

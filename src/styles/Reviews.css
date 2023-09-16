@@ -8,9 +8,11 @@
 }
 
 .StarReview{
+    display: flex;
+    align-items: center;
+    align-content: center;
     color: aliceblue;
     margin-left: 560px;
-    transform: translateY(40px);
 }
 
 .DivReview{
@@ -129,15 +131,20 @@
     }
 }
 
-@media screen and (max-width: 361px){
+@media screen and (max-width: 350px){
     .ContainerReviews{
         transform: translateX(-0.5rem);
     }
     
     .StarReview{
-        margin-left: 100px;
-        transform: translateY(40px);
+        display: flex;
     }   
+    
+    starsCalification{
+display: flex;    
+
+}
+
     .NameReview{
         margin-left: 20px;
     }
