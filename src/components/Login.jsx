@@ -66,15 +66,6 @@ export const Login = () => {
 
 
 
-    
-//   useEffect(() => {
-//     const isAuthenticated = localStorage.getItem('isAuthenticated');
-//     if (isAuthenticated === "On") {
-//       navigate('/Profile');
-//     }
-//   }, [navigate]);
-
-
     const viewAlert = async  () => {
 
           let hola = await dispatch(postUsersGoogle(infoGoogle));
@@ -232,11 +223,12 @@ export const Login = () => {
                         Login
                     </Button>
                 </div>
-                <div style={{marginLeft: "150px", color: "rgb(0, 96, 151)", cursor: "pointer"}}>
-                   <Link to="/changePass">I forgot my password</Link> 
-                </div>
+                <div style={{ textAlign: "center", color: "rgb(0, 96, 151)", cursor: "pointer", margin: "0 auto" }}>
+    <Link to="/changePass">Olvidé mi password</Link>
+</div>
+
                 <div className={styles.down}>
-                    <h5>Dont have an account? <Link to="/Register"><button className={styles.here}>Register</button></Link> </h5>
+                    <h5>No tenés cuenta? <Link to="/Register"><button className={styles.here}>Registráte</button></Link> </h5>
                 </div>
                     <div className={styles.containerBtn}>
                      {  !infoGoogle.name && !infoGoogle.email && !infoGoogle.lastname && <div id="signInDiv"></div>}
@@ -250,34 +242,3 @@ export const Login = () => {
 
 }
 
-
-// async function handleSubmit(e) {
-//     e.preventDefault();
-//     if (!input.password || !input.email) {
-//         return swal("Invalid", "Missing required fields!", "error");
-//     }
-//     else {
-//         const response = await dispatch(userLogin(input));
-//         if (response.data.success) {
-//             dispatch(UserActive(response.data))
-//             dispatch(ChangeNav())
-//             localStorage.setItem('isAuthenticated', "On");
-//             setErrormsg(false)
-//             setTimeout(() => {
-//                 setInput({
-//                     email: "",
-//                     password: ""
-//                 });
-//                 navigate("/Profile")
-//             }, 1300)
-
-//         } else {
-//             setErrormsg(true)
-//             setTimeout(() => {
-//                 setErrormsg(false)
-//             }, 5000)
-//             return
-//       }
-
-//     }
-//  }

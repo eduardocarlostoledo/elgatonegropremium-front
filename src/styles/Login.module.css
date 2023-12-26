@@ -1,5 +1,4 @@
-
-.ContainerAll { 
+.ContainerAll {
     background-color: rgba(255, 255, 255, 0.945);
     margin-top: 30px;
     width: 490px;
@@ -9,20 +8,20 @@
     box-shadow: 15px 15px 8px rgba(155, 147, 147, 0.75);
     margin-top: 100px;
     border-radius: 8px;
-
 }
 
-.ContainerAllForm { 
+.ContainerAllForm {
     display: flex;
     justify-content: center;
 }
-.here { 
-    color:  rgb(0, 96, 151);
+
+.here {
+    color: rgb(0, 96, 151);
     border: none;
     background-color: white;
 }
 
-.register { 
+.register {
     color: black;
     height: 45px;
     font-family: Arial, Helvetica, sans-serif;
@@ -33,16 +32,17 @@
 .name {
     width: 200px;
 }
-.hola { 
+
+.hola {
     display: flex;
     justify-content: space-between;
 }
 
-.lastname { 
+.lastname {
     width: 200px;
 }
 
-.btnR{ 
+.btnR {
     color: white;
     font-size: 23px;
     background-color: gray;
@@ -50,9 +50,9 @@
     height: 45px;
     margin-top: 15px;
     border: none;
-  
 }
-.btnR:hover { 
+
+.btnR:hover {
     background-color: rgb(102, 99, 99);
 }
 
@@ -60,7 +60,7 @@
     margin-bottom: 15px;
 }
 
-.containerBtn { 
+.containerBtn {
     display: flex;
     justify-content: center;
 }
@@ -71,7 +71,7 @@
     margin-bottom: 19px;
 }
 
-.icon { 
+.icon {
     margin-right: 5px;
     margin-bottom: 7px;
     font-size: 25px;
@@ -80,24 +80,22 @@
 .inputs:focus {
     border-color: rgb(0, 0, 0);
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2);
-
 }
 
 .warning {
     border: solid red 1px;
     border-radius: 0.2em;
-    
-  }
-  
-  .spanError {
+}
+
+.spanError {
     font-size: 12px;
     position: absolute;
     color: red;
     margin-top: 2px;
-    margin-bottom:15px ;
-  }
+    margin-bottom: 15px;
+}
 
-.msgerr { 
+.msgerr {
     font-size: 15px;
     color: red;
     margin-left: 133px;
@@ -115,6 +113,21 @@
 
 @media (max-width: 500px) {
     .ContainerAll {
-      width: 80%;
+        width: 80%;
+        max-width: 350px; /* Nuevo ajuste para pantallas de 350px */
     }
-  }
+}
+
+@media (max-width: 767px) {
+    /* Media query para pantallas con ancho máximo de 767px (pantallas móviles) */
+    .ContainerFooter {
+        display: none; /* Oculta .ContainerFooter en pantallas móviles */
+    }
+}
+
+@media (max-width: 767px) {
+    /* Media query para pantallas con ancho máximo de 767px (pantallas móviles) */
+    footer {
+        display: none; /* Oculta el footer en pantallas móviles */
+    }
+}

@@ -30,11 +30,11 @@ export const Detail = () => {
 
 
   useEffect(() => {
-    console.log(userActive)
+    //console.log(userActive)
     dispatch(getCart());    
   }, []);
   
-  console.log(detail);
+  //console.log(detail);
   
 
 

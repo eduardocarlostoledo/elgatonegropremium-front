@@ -45,8 +45,9 @@ export const NavBar = () => {
           <Link to="/Products">
             <button>Tienda</button>
           </Link>
-
-          <a className= "botonwhatsapp" title="El Gato" href="https://wa.me/5493764331313"><img src="https://www.pixmagik.com/media/wysiwyg/logo_whatsapp.png" alt="WhatsApp El Gato" width="40" height="40" /></a>
+          <a className="botonwhatsapp" title="El Gato" href="https://wa.me/5493764331313">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/800px-WhatsApp.svg.png" alt="WhatsApp El Gato" width="40" height="40" />
+</a>
 
 
         </div>

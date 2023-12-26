@@ -58,7 +58,7 @@ export default function Cart() {
     e.preventDefault();
     if (!cartItems.length) swal("Cart is empty", "Cart is empty", "error");
     else if (userActive === null) {
-      swal("You must log in to buy!", "You must log in to buy!", "error");
+      swal("Inicia Sesión", "Podés Conectar con Google para comprar", "error");
       navigate("/login");
     } else {
       fetch(`${process.env.REACT_APP_BACK}/pay/preference`, {
@@ -98,7 +98,7 @@ export default function Cart() {
       },
       render: {
         container: "#button-checkout", // Class name where the payment button will be displayed
-        label: "Pay", // Change the payment button text (optional)
+        label: "Pagar", // Change the payment button text (optional)
       },
     });
   };
@@ -121,15 +121,9 @@ export default function Cart() {
 
   return (
     <div className="ContainerCart">
-      <div className="botones_de_pago">
-        <div className="BotonCheckout">
-            <h2 className="h2">Detalle de tu Compra: ${total}</h2>
-          <button className="ButtonCart" onClick={handleCheckout}>
-            Checkout
-          </button>
-          <div id="button-checkout"></div>
-        </div>
-      </div>
+     <p className="title"
+     style={{ textAlign: "center", color: "rgb(0, 96, 151)", cursor: "pointer", margin: "0 auto" }}
+      >Tus Productos</p>
 
       <div className="NavCart">
         {cartItems.length == 0 ? (
@@ -151,6 +145,17 @@ export default function Cart() {
           ))
         )}
       </div>
+
+      <div className="botones_de_pago">
+        <div className="BotonCheckout">
+            <h2 className="h2">Detalle de tu Compra: ${total}</h2>
+          <button className="ButtonCart" onClick={handleCheckout}>
+            Finalizar Pedido
+          </button>
+          <div id="button-checkout"></div>
+        </div>
+      </div>
+
       <div>
       <button className='ButtonDeleteAll' onClick={handleDeleteAllCart}>Vaciar Carrito</button>
       </div>

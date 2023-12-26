@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import styles from "../styles/Register.module.css";
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ function validate(input) {
     const regexName = /^([a-zA-Z ]+)$/i;
     // const regexPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/
     // const regexNumber = /^[0-9]*$/i;
-    const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+    const regexEmail = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     if (input.name && !regexName.test(input.name)) {
       errors.name = "can't include special characters or numbers";
@@ -67,13 +67,14 @@ function validate(input) {
 
 export const Register = () => {
     let users = useSelector((state) => state.emails.data || [])
-    console.log(users);
+    //console.log(users);
     let emails = users.map(e => e.email)
     // console.log(emails);
     const navigate = useNavigate();
     const regexName = /^([a-zA-Z ]+)$/i;
     const regexPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/
-    const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+    const regexEmail = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
+
     const dispatch = useDispatch();
     const [errors, setErrors] = useState({})
     const [input, setInput] = useState({
