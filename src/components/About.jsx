@@ -6,7 +6,7 @@ export default function About () {
     const integrantes = [
             {
             name:"Eduardo Carlos Toledo",
-            image:<img src={Edu} className='profile_image'/>,
+            image:<img src={Edu} alt="screen" className='profile_image'/>,
             instagram:"https://www.instagram.com/elgatonegropremium/"},
         ]
 

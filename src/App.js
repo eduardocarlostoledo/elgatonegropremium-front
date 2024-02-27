@@ -10,13 +10,12 @@ import { Register } from "./components/Register";
 import Profile from "./components/Profile";
 import { Login } from "./components/Login";
 import { CreateProducts } from "./components/CreateProduct";
-import { GetFiltersForEmail, UserActive } from "./redux/actions/UsersActions";
+import { GetFiltersForEmail } from "./redux/actions/UsersActions";
 import { useEffect } from "react";
 import Cart from "./components/Cart";
 import { AdminProducts } from "./components/AdminProducts";
 import { AdminUsers } from "./components/AdminUsers";
 import { AdminOrder } from "./components/AdminOrder";
-import { useNavigate } from "react-router-dom";
 import About from "./components/About";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import ChangePass from "./components/Changepass";
@@ -26,7 +25,6 @@ axios.defaults.baseURL = `${process.env.REACT_APP_BACK}`
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
   const userActive = JSON.parse(localStorage.getItem("USUARIO")) || {};
 
   // useEffect(()=>{
