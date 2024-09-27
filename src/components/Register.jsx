@@ -67,7 +67,7 @@ function validate(input) {
 
 export const Register = () => {
     let users = useSelector((state) => state.emails.data || [])
-    //console.log(users);
+//    console.log(users);
     let emails = users.map(e => e.email)
     // console.log(emails);
     const navigate = useNavigate();

@@ -1,3 +1,22 @@
+
+
+
+
+  .cart-grid {
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    gap: 15px;
+    justify-content: center
+  }
+  
+  
+  .cart-card:hover {
+    transform: translateY(-5px);
+  }
+
 .botones_de_pago div.BotonCheckout {
     display: flex;
     flex-direction: column;
@@ -10,7 +29,7 @@
     margin-top: 20px;
 }
 
-.ButtonCart {
+.ButtonCart, .buttonIrTienda {
     background-color: #009ee3;    
     color: white;
     border: none;
@@ -34,19 +53,6 @@
     display: block; 
 }
 
-
- body.cart{
-    background-color: #009ee3;
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-}
-
-.ContainerCart{
-    margin-top: 70px;
-    border-radius: 20px;
-}
-
 .EmptyP{
     font-size: 40px;
     margin-top: 200px;
@@ -60,7 +66,7 @@
     line-height: 1.2;
     margin: 0;
     padding: 20px 0 0 0;
-    color: #fff;
+    color: #080000;
     margin-bottom: 20px;
     margin: 20px auto;
 }

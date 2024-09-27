@@ -1,5 +1,5 @@
 .containerPaginado{
-    background-color: #9b2727;
+    background-color: #000000;
     color: aliceblue;
     text-align: center;
     padding-top: 10px;  
@@ -16,9 +16,12 @@
 
 .paginado li{
     display: inline;
+    
 }
 
 .paginado li a{
+    border-radius: 10px;
+
     color: white;
     float: left;
     padding: 8px 10px;  

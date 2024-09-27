@@ -15,7 +15,7 @@
 
 .Products {
     margin-top: 50px;
-}
+} */
 
 .DivCardsFilters {
     background-color: #9b2727;
@@ -23,8 +23,9 @@
 }
 
 .DivFilter {
-    margin-top: 85px;
-    align-content: center;
+    box-shadow: 0 4px 8px rgba(245, 243, 243, 0.2);  /* Sombra sutil alrededor del elemento */
+    /* margin-top: 85px; */
+    
     flex-direction: row;
     display: flex;
     justify-content: center;
@@ -35,7 +36,17 @@
     justify-content: space-around;
     margin: 1px;
     gap: 7px;
+} */
+
+.ContainerFilters {        
+    flex-direction: column;
+    justify-content: center; /* Alinea los elementos en el centro verticalmente */
+    align-items: center; /* Alinea los elementos horizontalmente en el centro */
+    margin: 0; /* Ajusta según sea necesario */
+    gap: 1px; /* Espacio entre elementos */
 }
+
+
 
 .Filter {
     width: 250px;
@@ -54,8 +65,16 @@
     color: white;
 }
 
-.SearchButton {
+.ContainerFilters {
+    margin: 5px;
     display: flex;
+    flex-direction: row;
+
+}
+
+.SearchButton, Filter {    
+    display: flex;
+    margin: 5px;
 }
 
 .swal-overlay--show-modal {
@@ -75,8 +94,7 @@
     height: 35px;
     border-radius: 7px;
     border: solid 1px #8a8a8a;
-    text-align: center;
-    margin-left: 7px;
+    text-align: center;    
 }
 
 .SubmitBuscar {

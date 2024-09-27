@@ -1,17 +1,95 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Table, Tag } from "antd";
+import { getAllUsers, PutUser, getAllUsersName} from "../redux/actions/UsersActions";
+//import { AiFillSetting } from "react-icons/ai";
+import { FaBan } from "react-icons/fa"
+import { GrUserAdmin } from "react-icons/gr"
+import swal from "sweetalert"
+import { FaUserCheck } from "react-icons/fa"
+import { MdOutlineVerifiedUser } from "react-icons/md"
 import { getAllUsers, PutUser, getAllUsersName } from "../redux/actions/UsersActions";
 import { FaBan, FaUserCheck } from "react-icons/fa";
 import { GrUserAdmin } from "react-icons/gr";
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import swal from "sweetalert";
 import styles from "../styles/AdminUsers.module.css";
+//import axios from "axios"
 import { NavAdmin } from "./navAdmin";
 
+// const InfoUser = ({email, name, image, lastname, status, country}) => {
+//   return (
+//     <div className={styles.Contenedor}>
+//         <div className={styles.ContenedorImg}>
+//             <img src={image ? image : "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"} alt={name} />
+//         </div>
+//         <div className={styles.ContenedorData}>
+//               <h4>{name} {lastname} {status ? <span className={styles.verde}>User Active</span> : <span className={styles.rojo}>User Banned</span> }</h4>
+//               <div className={styles.centrado}><h5>Ordenes</h5>
+//                 {
+//                   country?.map((e, index) => {
+//                     if(e.buyer_email === email ) {
+//                        return (<h6 key={index}>{e.product_name} {e.product_unit_price} $ <span style={{color: "green", fontSize: "11px", border: "0.01rem solid green", padding: "2px", borderRadius: "6px"}}>{e.statusId}</span></h6>)
+//                     }
+//                   })
+//                 }
+              
+//               </div>
+//         </div>
+//     </div>
+//   )
+// }
+
+const InfoUser = ({ email, name, image, lastname, status, country }) => {
 const InfoUser = ({ email, name, image, lastname, status, country }) => {
   return (
     <div className={styles.Contenedor}>
+      <div className={styles.ContenedorImg}>
+        <img
+          src={
+            image
+              ? image
+              : "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
+          }
+          alt={name || "User Image"} // Manejo de nombre opcional
+        />
+      </div>
+      <div className={styles.ContenedorData}>
+        <h4>
+          {name} {lastname}{" "}
+          {status ? (
+            <span className={styles.verde}>User Active</span>
+          ) : (
+            <span className={styles.rojo}>User Banned</span>
+          )}
+        </h4>
+        <div className={styles.centrado}>
+          <h5>Ordenes</h5>
+          {Array.isArray(country) && country.length > 0 ? ( // Verificar si country es un arreglo
+            country
+              .filter((e) => e.buyer_email === email) // Filtrar primero
+              .map((e, index) => (
+                <h6 key={index}>
+                  {e.product_name} {e.product_unit_price} ${" "}
+                  <span
+                    style={{
+                      color: "green",
+                      fontSize: "11px",
+                      border: "0.01rem solid green",
+                      padding: "2px",
+                      borderRadius: "6px",
+                    }}
+                  >
+                    {e.statusId}
+                  </span>
+                </h6>
+              ))
+          ) : (
+            <p>No orders found</p> // Mensaje por si no hay órdenes
+          )}
+        </div>
+      </div>
       <div className={styles.ContenedorImg}>
         <img src={image || "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"} alt={name} />
       </div>
@@ -51,7 +129,12 @@ const InfoUser = ({ email, name, image, lastname, status, country }) => {
   );
 };
 
+  );
+};
+
 export const AdminUsers = () => {
+
+  const [country, setCountrie] = useState({})
   const [country, setCountrie] = useState({});
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
@@ -64,6 +147,11 @@ export const AdminUsers = () => {
       })
       .catch((error) => console.log(error));
     return () => setCountrie({});
+  }
+    , []);
+  
+  const [reload, setReload] = useState(false)
+  const dispatch = useDispatch();
   }, []);
 
   useEffect(() => {
@@ -190,7 +278,7 @@ export const AdminUsers = () => {
         {value.status ? <button className={styles.btnIcons}  onClick={() => setStatus(value)} >
             <FaBan className={styles.banned}/>
           </button>
-          : <button  button  className={styles.btnIcons} onClick={() => setStatus(value)} >
+          : <button className={styles.btnIcons} onClick={() => setStatus(value)} >
           <FaUserCheck className={styles.Desbanned}/>
         </button>
           }
@@ -198,7 +286,7 @@ export const AdminUsers = () => {
           {value.admin ? <button  className={styles.btnIcons} onClick={() => setAdmin(value)}>
             <GrUserAdmin className={styles.DesAdmin}/>
           </button>
-        : <button button  className={styles.btnIcons} onClick={() => setAdmin(value)}>
+        : <button className={styles.btnIcons} onClick={() => setAdmin(value)}>
          <MdOutlineVerifiedUser className={styles.Setadmin} /> 
       </button>}
         </div>

@@ -1,15 +1,126 @@
-.hydrated {background-color: black;}
-
-HomeContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
+.home-container {
+  font-family: 'Arial', sans-serif;
+  color: #ffffff;
+  background-color: #000000;
+    padding: 10px 0;
 }
 
-@media screen and (max-width: 330px) {
-  .HomeContainer {
-    margin-top: 80px;
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #ffffff;
+  background-color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.about-section, .features-section, .testimonials-section, .contact-section {
+  margin-bottom: 20px;
+}
+
+.text-container {
+  padding: 20px;
+}
+
+.image-container img {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature {
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  color: #ffffff;
+  background-color: #000000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+}
+
+.testimonial-col {
+  margin-bottom: 20px;
+}
+
+.testimonial-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-button {
+  margin-top: 20px;
+  padding: 10px 30px;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contact-button:hover {
+  background-color: #212529;
+  color: #ffffff;
+}
+
+/* Pantallas de hasta 350px */
+@media screen and (max-width: 350px) {
+
+  .container {
+    width: 350px;
+  };
+
+  .image-fluid{
+    max-width: 50%;
+  }
+  .section-title {
+    font-size: 1.5rem; /* Tamaño de fuente más pequeño para pantallas pequeñas */
+  }
+
+  .text-container {
+    padding: 10px; /* Reducir padding en pantallas pequeñas */
+  }
+
+  .feature {
+    padding: 10px; /* Reducir padding en las tarjetas de características */
+  }
+
+  .contact-button {
+    padding: 8px 20px; /* Reducir padding del botón en pantallas pequeñas */
+    font-size: 1rem; /* Reducir tamaño de fuente del botón */
+  }
+
+  .testimonial-img {
+    width: 80px; /* Reducir tamaño de la imagen del testimonio */
+    height: 80px; /* Reducir tamaño de la imagen del testimonio */
+  }
+}
+
+/* Pantallas de hasta 650px */
+@media screen and (max-width: 650px) {
+  .section-title {
+    font-size: 2rem; /* Ajustar tamaño de fuente para pantallas medianas */
+  }
+
+  .text-container {
+    padding: 15px; /* Ajustar padding en pantallas medianas */
+  }
+
+  .feature {
+    padding: 12px; /* Ajustar padding en las tarjetas de características */
+  }
+
+  .contact-button {
+    padding: 10px 25px; /* Ajustar padding del botón en pantallas medianas */
+    font-size: 1.1rem; /* Ajustar tamaño de fuente del botón */
+  }
+
+  .testimonial-img {
+    width: 90px; /* Ajustar tamaño de la imagen del testimonio */
+    height: 90px; /* Ajustar tamaño de la imagen del testimonio */
   }
 }

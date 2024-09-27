@@ -1,6 +1,8 @@
+
+
 import "./App.css";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Home } from "./components/Home";
 import { Products } from "./components/Products";
 import { Detail } from "./components/Detail";
@@ -10,8 +12,8 @@ import { Register } from "./components/Register";
 import Profile from "./components/Profile";
 import { Login } from "./components/Login";
 import { CreateProducts } from "./components/CreateProduct";
-import { GetFiltersForEmail } from "./redux/actions/UsersActions";
-import { useEffect } from "react";
+import { GetFiltersForEmail, UserActive } from "./redux/actions/UsersActions";
+import { useEffect, useState } from "react";
 import Cart from "./components/Cart";
 import { AdminProducts } from "./components/AdminProducts";
 import { AdminUsers } from "./components/AdminUsers";
@@ -20,24 +22,16 @@ import About from "./components/About";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import ChangePass from "./components/Changepass";
 import axios from "axios";
+import { verifyUser } from "./herramientas/verificaUsuario";
 axios.defaults.baseURL = `${process.env.REACT_APP_BACK}`
+
 
 function App() {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const userActive = JSON.parse(localStorage.getItem("USUARIO")) || {};
-
-  // useEffect(()=>{
-  //   const isAuthenticated = localStorage.getItem('isAuthenticated');
-  //   dispatch(GetFiltersForEmail())
-
-  //   if (isAuthenticated === "afuera" && location.pathname.substring(0, 6) === "/admin") {
-  //     navigate('/login');
-  //   }
-  //   if (isAuthenticated === "On" && location.pathname.substring(0, 6) === "/admin" && !userActive.admin) {
-  //     navigate('/Profile');
-  //   }
-  // },[dispatch])
+  const location = useLocation();  
+  const usuarioConectado = useSelector((state) => state.userActive);
+//console.log (usuarioConectado)
+//const usuarioConectado = JSON.parse(localStorage.getItem("USUARIO")) || {}
 
   useEffect(() => {
     dispatch(GetFiltersForEmail());
@@ -67,7 +61,7 @@ function App() {
           element={
             <ProtectedRoute
               redirecTo={"/Profile"}
-              isAllowed={!userActive.status}
+              isAllowed={!usuarioConectado.status}
             />
           }
         >
@@ -81,7 +75,7 @@ function App() {
         <Route
           path="/Profile"
           element={
-            <ProtectedRoute isAllowed={userActive.status} redirecTo={"/Login"}>
+            <ProtectedRoute isAllowed={usuarioConectado.status} redirecTo={"/Login"}>
               <Profile />
             </ProtectedRoute>
           }
@@ -93,7 +87,7 @@ function App() {
           element={
             <ProtectedRoute
               redirecTo={"/Profile"}
-              isAllowed={userActive.admin}
+              isAllowed={usuarioConectado.admin}
             />
           }
         >

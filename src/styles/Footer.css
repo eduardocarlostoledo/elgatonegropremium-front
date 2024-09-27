@@ -1,8 +1,38 @@
-.ContainerFooter {
-  bottom: 0;  
+.container-footer {
   background-color: #000;
-    position: absolute;
-    color: #fff;    
-    text-align: center;
-    width: 100%;    
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  padding: 10px 0; /* Ajusta el padding según sea necesario */
+  position: relative; /* Cambiado de absolute a relative para evitar problemas de solapamiento */
+  bottom: 0;  
+}
+
+.footer-text {
+  margin: 0;
+  font-size: 1rem; /* Ajusta el tamaño del texto según sea necesario */
+  font-weight: bold;
+}
+
+.logo-container {
+  margin-top: 10px; /* Espacio entre el texto y el logo */
+}
+
+.logo {
+  width: 50px; /* Ajusta el tamaño del logo según sea necesario */
+  height: auto; /* Mantiene la proporción del logo */
+}
+
+@media (max-width: 350px) {
+  .footer-text {
+    font-size: 0.8rem; /* Tamaño de texto más pequeño en pantallas pequeñas */
   }
+  
+  .logo {
+    width: 40px; /* Tamaño del logo ajustado para pantallas pequeñas */
+  }
+  
+  .container-footer {
+    padding: 8px 0; /* Reducción del padding en pantallas pequeñas */
+  }
+}

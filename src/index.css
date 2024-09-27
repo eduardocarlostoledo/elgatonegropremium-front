@@ -2,11 +2,11 @@
 
 body {
   margin: 0;
-  font-family: 'Didact Gothic';
-  background-color: rgb(255, 255, 255);
-  
+  font-family: 'Didact Gothic';  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #000000;    
+
 }
 
 code {
@@ -17,5 +17,7 @@ code {
 
 :root {
   --color-page: purple
+  background-color: #000000;    
+
 }
 

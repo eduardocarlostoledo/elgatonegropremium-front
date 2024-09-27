@@ -12,7 +12,7 @@ export default function AddToCart(item) {
     const handleSubmit = (e) => {
         e.preventDefault();
         const newItem = { name: item.name, image: item.image, price: item.price };
-        // console.log("NEW ITEM", newItem); // Puedes descomentar si es necesario
+        // //console.log("NEW ITEM", newItem); // Puedes descomentar si es necesario
 
         fetch(`${process.env.REACT_APP_BACK}/cart`, {
             method: 'POST',

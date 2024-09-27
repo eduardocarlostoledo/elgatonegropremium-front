@@ -12,7 +12,7 @@ import {
   banOrUnbanProd,
 } from "../redux/actions/ProductActions";
 import { update } from "../redux/actions/CartActions";
-import { AiFillSetting, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import ".././styles/AdminProducts.css";
 import swal from "sweetalert";
@@ -319,6 +319,7 @@ export const AdminProducts = () => {
   };
 
   let products = useSelector((state) => state.products || []);
+  
   const newProducts = products.map((product) => ({
     ...product,
     key: product.id,

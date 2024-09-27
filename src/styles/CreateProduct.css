@@ -8,16 +8,16 @@ body {
 }
 
 .container{ 
-    background-color: rgb(255, 255, 255);
+    
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    align-content: flex-start;
-    width: 800px;
-    margin-top: 80px;
-    padding-left: 50px;
+    /* align-content: flex-start; */
+    /* width: 800px; */
+    margin-top: 60px;    
+    /* padding-left: 50px; */
     border-radius: 15px;
     margin-bottom: 160px;
 }

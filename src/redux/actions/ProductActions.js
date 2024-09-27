@@ -1,6 +1,7 @@
 import axios from "axios";
+
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
-export const GET_ALL_PRODUCTS_NAME="GET_ALL_PRODUCTS_NAME"
+export const GET_ALL_PRODUCTS_NAME = "GET_ALL_PRODUCTS_NAME";
 export const GET_PRODUCT_DETAIL = "GET_PRODUCT_DETAIL";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const UPDATE_PRODUCT='UPDATE_PRODUCT';
@@ -25,11 +26,18 @@ export const getAllProducts = () => async (dispatch) => {
 //`${process.env.REACT_APP_BACK}/`
 
 export const getAdminProducts = () => async (dispatch) => {
+    const usuario = {
+userID : localStorage.getItem('userID'),
+email : localStorage.getItem('email')
+    }
+    console.log("GET getAdminProducts ", dispatch, usuario )   
+
     try {
         return await axios(`${process.env.REACT_APP_BACK}/products/ForAdmin`).then(r=>
             dispatch({type: GET_ALL_PRODUCTS, payload:r.data}))
     } catch (error) {
-            console.log(error)
+        console.error('Error fetching admin products:', error);
+        // Puedes despachar una acción de error si lo deseas
     }
 }
 
@@ -153,17 +161,20 @@ export const getPage = (page, brand, type, price) => async (dispatch) => {
 };
 
 
-export const filterByBrands = (payload) => {
-  return { type: FILTER_BY_BRAND, payload}
-}
+export const filterByBrands = (payload) => ({
+    type: FILTER_BY_BRAND,
+    payload
+});
 
-export const filterByType = (payload) => {
-  return { type: FILTER_BY_TYPE, payload}
-}
+export const filterByType = (payload) => ({
+    type: FILTER_BY_TYPE,
+    payload
+});
 
-export const filterByPrice = (payload) => {
-  return { type: FILTER_PRECIO, payload}
-}
+export const filterByPrice = (payload) => ({
+    type: FILTER_PRECIO,
+    payload
+});
 
 export const addReview=(id,payload) =>async(dispatch) => {
   return await axios.put(`${process.env.REACT_APP_BACK}/products/review/${id}`,payload).then(r=>

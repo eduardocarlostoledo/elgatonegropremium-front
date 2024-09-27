@@ -4,16 +4,11 @@ import logo from '../img/logoinvertido.png';
 
 export const Footer = () => {
     return (
-        <footer className='ContainerFooter'>
-            <p className='Computer'>elgatonegropremium</p>
-            <div className='ContainerLogo'>
-                <div className='Logo'>                    
-                    <img width="60px" src={logo} alt="" />
-                    {/* logos */}
-                </div>
-               
+        <footer className='container-footer'>
+            <p className='footer-text'>elgatonegropremium</p>
+            <div className='logo-container'>
+                <img className='logo' src={logo} alt="Logo El Gato Negro Premium" />
             </div>
         </footer>
-    
-    )
-}
+    );
+};
