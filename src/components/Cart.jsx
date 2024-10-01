@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState, useEffect, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import mercadopago from "./mercadopago";
 import "../styles/Cart.css";
 import swal from "sweetalert";
 import ItemCart from "./ItemCart";
 import { useDispatch, useSelector } from "react-redux";
 import { update } from "../redux/actions/CartActions";
-import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const up = useSelector((state) => state.update);
-  console.log("CART UP", up)
   const [cartItems, setCartItems] = useState([]);
-  const [isButtonVisible, setIsButtonVisible] = useState(true) //busco controlar el boton finalizar pedido para que desaparezca
+  const [isButtonVisible, setIsButtonVisible] = useState(true); // Para controlar la visibilidad del botón
   const dispatch = useDispatch();
   const userActive = localStorage.getItem("USUARIO")
     ? JSON.parse(localStorage.getItem("USUARIO"))
@@ -26,7 +23,7 @@ export default function Cart() {
       .then((response) => response.json())
       .then((data) => setCartItems([...data]))
       .catch(() => swal("Cart is empty", "Cart is empty", "error"));
-  }, [setCartItems]);
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -67,31 +64,20 @@ export default function Cart() {
       navigate("/login");
     } else {
       setIsButtonVisible(false); // Ocultar el botón cuando se hace clic
+
       fetch(`${process.env.REACT_APP_BACK}/pay/preference`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(preferencia.reverse()),
-      });
-
-      fetch(`${process.env.REACT_APP_BACK}/pay/create_preference`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(orderData),
       })
-        .then(function (response) {
-//          console.log("RESPONSE", response);
-          return response.json();
-        })
-
-        .then(function (preference) {
+        .then((response) => response.json())
+        .then((preference) => {
           createCheckoutButton(preference.id);
         })
-        .catch(function () {
-          alert("Unexpected error");
+        .catch(() => {
+          swal("Unexpected error", "Error creating payment preference", "error");
         });
     }
   };
@@ -115,71 +101,14 @@ export default function Cart() {
       });
       setCartItems([]);
       dispatch(update(true));
-      swal("Cart is empty", "Cart is empty", "error");
+      swal("Cart is empty", "Cart is empty", "success");
     } catch (error) {
       console.error("Error deleting cart:", error);
       swal("Error", "No se pudo eliminar el carrito", "error");
     }
   };
 
-//   return (
-//     <div className="ContainerCart">
-//       <div className="botones_de_pago">
-//         <div className="BotonCheckout">
-//             <h2 className="h2">Detalle de tu Compra: ${total}</h2>
-            
-//             {isButtonVisible && cartItems.length !== 0 && ( // Mostrar el botón solo si isButtonVisible es true
-//             <button className="ButtonCart" onClick={handleCheckout}>
-//               Finalizar Pedido
-//             </button>
-//           )}
-
-//           <div id="button-checkout"></div>
-//         </div>
-//       </div>
-
-//       <div className="NavCart">
-//   {cartItems.length === 0 ? (
-    
-//     <div>
-//     <p className="EmptyP">Carrito Vacío</p>
-//     <Link to="/Products">
-//       <button className="buttonIrTienda">Ir a la Tienda</button>
-//     </Link>
-//   </div>
-
-//   ) : (
-//     <>
-//       {cartItems.map((item) => (
-//         <div key={item.id}> {/* Asigna la key aquí */}
-//           <ItemCart
-//             name={item.name}
-//             price={item.price}
-//             amount={item?.amount}
-//             image={item.image}
-//             prodId={item.prodId}
-//             product={products.find((prod) => prod.name === item.name)}
-//             handleDeleteAllCart={handleDeleteAllCart}
-//           />
-//         </div>
-//       ))}
-//       <button className='ButtonDeleteAll' onClick={handleDeleteAllCart}>
-//         Vaciar Carrito
-//       </button>
-//     </>
-//   )}
-// </div>
-
-//       <div>
-      
-//       </div>
-//     </div>
-//   );
-
-return (
-  <div className="carritoCompras">
-    
-
+  return (
     <div className="carritoCompras">
       {cartItems.length === 0 ? (
         <div>
@@ -199,39 +128,25 @@ return (
                 image={item.image}
                 prodId={item.prodId}
                 product={products.find((prod) => prod.name === item.name)}
-                handleDeleteAllCart={handleDeleteAllCart}
               />
             </div>
           ))}
-
-            
-
-
-         
         </div>
       )}
+      <div className="botones_de_pago">
+        <div className="BotonCheckout">
+          <h2 className="h2">Total: ${total}</h2>
+          {isButtonVisible && cartItems.length !== 0 && (
+            <button className="ButtonCart" onClick={handleCheckout}>
+              Finalizar Pedido
+            </button>
+          )}
+          <div id="button-checkout"></div>
+        </div>
+      </div>
+      <button className="ButtonDeleteAll" onClick={handleDeleteAllCart}>
+        Vaciar Carrito
+      </button>
     </div>
-
-    
-    <div className="botones_de_pago">
-              <div className="BotonCheckout">
-                <h2 className="h2">Total: ${total}</h2>
-                {isButtonVisible && cartItems.length !== 0 && (
-                  <button className="ButtonCart" onClick={handleCheckout}>
-                    Finalizar Pedido
-                  </button>
-                )}
-                <div id="button-checkout"></div>
-              </div>
-            </div>
-
-            <button className='ButtonDeleteAll' onClick={handleDeleteAllCart}>
-            Vaciar Carrito
-          </button>
-          
-
-  </div>
-);
-
-
+  );
 }

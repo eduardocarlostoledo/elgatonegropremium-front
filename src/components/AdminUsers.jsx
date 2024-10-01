@@ -1,58 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useDispatch, useSelector } from "react-redux";
 import { Table, Tag } from "antd";
-import { getAllUsers, PutUser, getAllUsersName} from "../redux/actions/UsersActions";
-//import { AiFillSetting } from "react-icons/ai";
-import { FaBan } from "react-icons/fa"
-import { GrUserAdmin } from "react-icons/gr"
-import swal from "sweetalert"
-import { FaUserCheck } from "react-icons/fa"
-import { MdOutlineVerifiedUser } from "react-icons/md"
-import { getAllUsers, PutUser, getAllUsersName } from "../redux/actions/UsersActions";
-import { FaBan, FaUserCheck } from "react-icons/fa";
 import { GrUserAdmin } from "react-icons/gr";
-import { MdOutlineVerifiedUser } from "react-icons/md";
 import swal from "sweetalert";
+import { FaUserCheck, FaBan } from "react-icons/fa";
+import { MdOutlineVerifiedUser } from "react-icons/md";
+import { getAllUsers, PutUser, getAllUsersName } from "../redux/actions/UsersActions";
 import styles from "../styles/AdminUsers.module.css";
-//import axios from "axios"
 import { NavAdmin } from "./navAdmin";
 
-// const InfoUser = ({email, name, image, lastname, status, country}) => {
-//   return (
-//     <div className={styles.Contenedor}>
-//         <div className={styles.ContenedorImg}>
-//             <img src={image ? image : "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"} alt={name} />
-//         </div>
-//         <div className={styles.ContenedorData}>
-//               <h4>{name} {lastname} {status ? <span className={styles.verde}>User Active</span> : <span className={styles.rojo}>User Banned</span> }</h4>
-//               <div className={styles.centrado}><h5>Ordenes</h5>
-//                 {
-//                   country?.map((e, index) => {
-//                     if(e.buyer_email === email ) {
-//                        return (<h6 key={index}>{e.product_name} {e.product_unit_price} $ <span style={{color: "green", fontSize: "11px", border: "0.01rem solid green", padding: "2px", borderRadius: "6px"}}>{e.statusId}</span></h6>)
-//                     }
-//                   })
-//                 }
-              
-//               </div>
-//         </div>
-//     </div>
-//   )
-// }
-
-const InfoUser = ({ email, name, image, lastname, status, country }) => {
 const InfoUser = ({ email, name, image, lastname, status, country }) => {
   return (
     <div className={styles.Contenedor}>
       <div className={styles.ContenedorImg}>
         <img
-          src={
-            image
-              ? image
-              : "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
-          }
-          alt={name || "User Image"} // Manejo de nombre opcional
+          src={image || "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"}
+          alt={name || "User Image"}
         />
       </div>
       <div className={styles.ContenedorData}>
@@ -66,9 +29,9 @@ const InfoUser = ({ email, name, image, lastname, status, country }) => {
         </h4>
         <div className={styles.centrado}>
           <h5>Ordenes</h5>
-          {Array.isArray(country) && country.length > 0 ? ( // Verificar si country es un arreglo
+          {Array.isArray(country) && country.length > 0 ? (
             country
-              .filter((e) => e.buyer_email === email) // Filtrar primero
+              .filter((e) => e.buyer_email === email)
               .map((e, index) => (
                 <h6 key={index}>
                   {e.product_name} {e.product_unit_price} ${" "}
@@ -86,56 +49,16 @@ const InfoUser = ({ email, name, image, lastname, status, country }) => {
                 </h6>
               ))
           ) : (
-            <p>No orders found</p> // Mensaje por si no hay órdenes
+            <p>No orders found</p>
           )}
-        </div>
-      </div>
-      <div className={styles.ContenedorImg}>
-        <img src={image || "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"} alt={name} />
-      </div>
-      <div className={styles.ContenedorData}>
-        <h4>
-          {name} {lastname} {status ? <span className={styles.verde}>User Active</span> : <span className={styles.rojo}>User Banned</span>}
-        </h4>
-        <div className={styles.centrado}>
-          <h5>Ordenes</h5>
-          {/* {country?.map((e, index) => {
-            if (e.buyer_email === email) {
-              return (
-                <h6 key={index}>
-                  {e.product_name} {e.product_unit_price} $ <span style={{ color: "green", fontSize: "11px", border: "0.01rem solid green", padding: "2px", borderRadius: "6px" }}>{e.statusId}</span>
-                </h6>
-              );
-            }
-          })} */}
-
-{country?.map((e, index) => {
-  if (e.buyer_email === email) {
-    return (
-      <h6 key={index}>
-        {e.product_name} {e.product_unit_price} $ <span style={{ color: "green", fontSize: "11px", border: "0.01rem solid green", padding: "2px", borderRadius: "6px" }}>{e.statusId}</span>
-      </h6>
-    );
-  }
-  // Agrega un valor predeterminado para evitar la advertencia
-  return null;
-})}
-
-
-
         </div>
       </div>
     </div>
   );
 };
 
-  );
-};
-
 export const AdminUsers = () => {
-
-  const [country, setCountrie] = useState({})
-  const [country, setCountrie] = useState({});
+  const [country, setCountry] = useState({});
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
 
@@ -143,15 +66,10 @@ export const AdminUsers = () => {
     fetch(`${process.env.REACT_APP_BACK}/order`)
       .then((res) => res.json())
       .then((data) => {
-        setCountrie(data);
+        setCountry(data);
       })
       .catch((error) => console.log(error));
-    return () => setCountrie({});
-  }
-    , []);
-  
-  const [reload, setReload] = useState(false)
-  const dispatch = useDispatch();
+    return () => setCountry({});
   }, []);
 
   useEffect(() => {
@@ -180,7 +98,6 @@ export const AdminUsers = () => {
 
   const setAdmin = (value) => {
     const { password, ...values } = value;
-
     const action = value.admin ? "Quitar ADMIN" : "Sera ADMIN";
 
     swal({
@@ -197,11 +114,11 @@ export const AdminUsers = () => {
   };
 
   const setStatus = (value) => {
-    const action = value.status ? "Bann" : "Desbanear";
+    const action = value.status ? "Banear" : "Desbanear";
 
     swal({
       title: `Estas seguro que deseas ${action} a ${value.name}`,
-      text: value.status ? "Bann" : "Desbanear",
+      text: value.status ? "Banear" : "Desbanear",
       icon: "warning",
       buttons: ["No", "Si"],
     }).then((respuesta) => {
@@ -217,35 +134,24 @@ export const AdminUsers = () => {
       dataIndex: "id",
       sorter: (a, b) => a.id - b.id,
       defaultSortOrder: "ascend",
-      render: (text) => <p>{text}</p>,
     },
     {
       title: "Nombre",
       dataIndex: "name",
-      render: (text) => <p>{text}</p>,
     },
     {
       title: "Email",
       dataIndex: "email",
-      render: (text) => <p>{text}</p>,
     },
     {
       title: "Admin",
       dataIndex: "admin",
       render: (value) => (
-        <Tag color={value === true ? "green" : "red"}>
-          {value === true ? "admin" : "No Admin"}
-        </Tag>
+        <Tag color={value ? "green" : "red"}>{value ? "Admin" : "No Admin"}</Tag>
       ),
       filters: [
-        {
-          text: "admin",
-          value: true,
-        },
-        {
-          text: "noAdmin",
-          value: false,
-        },
+        { text: "Admin", value: true },
+        { text: "No Admin", value: false },
       ],
       onFilter: (value, record) => record.admin === value,
     },
@@ -253,55 +159,57 @@ export const AdminUsers = () => {
       title: "Status",
       dataIndex: "status",
       render: (value) => (
-        <Tag color={value === true ? "green" : "red"}>
-          {value === true ? "Active" : "Banned"}
-        </Tag>
+        <Tag color={value ? "green" : "red"}>{value ? "Active" : "Banned"}</Tag>
       ),
       filters: [
-        {
-          text: "Active",
-          value: true,
-        },
-        {
-          text: "Banned",
-          value: false,
-        },
+        { text: "Active", value: true },
+        { text: "Banned", value: false },
       ],
       onFilter: (value, record) => record.status === value,
     },
     {
       title: "Actions",
-      dataIndex: "",
       render: (value) => (
         <div>
+          <button className={styles.btnIcons} onClick={() => setStatus(value)}>
+            {value.status ? <FaBan className={styles.banned} /> : <FaUserCheck className={styles.desbanned} />}
+          </button>
 
-        {value.status ? <button className={styles.btnIcons}  onClick={() => setStatus(value)} >
-            <FaBan className={styles.banned}/>
+          <button className={styles.btnIcons} onClick={() => setAdmin(value)}>
+            {value.admin ? <GrUserAdmin className={styles.desAdmin} /> : <MdOutlineVerifiedUser className={styles.setAdmin} />}
           </button>
-          : <button className={styles.btnIcons} onClick={() => setStatus(value)} >
-          <FaUserCheck className={styles.Desbanned}/>
-        </button>
-          }
-    
-          {value.admin ? <button  className={styles.btnIcons} onClick={() => setAdmin(value)}>
-            <GrUserAdmin className={styles.DesAdmin}/>
-          </button>
-        : <button className={styles.btnIcons} onClick={() => setAdmin(value)}>
-         <MdOutlineVerifiedUser className={styles.Setadmin} /> 
-      </button>}
         </div>
       ),
     },
-    Table.EXPAND_COLUMN,
   ];
 
   return (
     <div>
-      <NavAdmin name={name} handleInputChange={handleInputChange} handleSubmit={handleSubmit} handleClick={handleClick} />
+      <NavAdmin
+        name={name}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+        handleClick={handleClick}
+      />
       <div style={{ marginTop: "80px", padding: "20px" }}>
-        <Table style={{ backgroundColor: "rgb(245, 245, 235)" }} columns={columns} dataSource={newUsers} expandable={{ expandedRowRender: (record) => <InfoUser email={record.email} country={country} name={record.name} lastname={record.lastname} image={record.image} status={record.status} /> }} />
+        <Table
+          style={{ backgroundColor: "rgb(245, 245, 235)" }}
+          columns={columns}
+          dataSource={newUsers}
+          expandable={{
+            expandedRowRender: (record) => (
+              <InfoUser
+                email={record.email}
+                country={country}
+                name={record.name}
+                lastname={record.lastname}
+                image={record.image}
+                status={record.status}
+              />
+            ),
+          }}
+        />
       </div>
     </div>
-  
   );
 };

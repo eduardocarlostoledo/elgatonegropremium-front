@@ -47,7 +47,7 @@ export const userRegister = (payload) => async (dispatch) => {
 export const userLogin = (payload) => async (dispatch) => {
   try {
     const response = await axios.post("/users/login/", payload);
-    console.log(response.data);
+    //console.log(response.data);
     return response;
   } catch (error) {
     console.error("Error en la solicitud:", error.message);
@@ -66,11 +66,11 @@ export const GetFiltersForEmail = () => async (dispatch) => {
   }
 };
 
-export const UserActive = (payload) => (dispatch) => {
-  console.log(payload, "paylo");
+export const userActive = (payload) => (dispatch) => {
+  
   dispatch({
     type: USER_ACTIVE,
-    payload: payload.data,
+    payload: payload,
   });
 };
 

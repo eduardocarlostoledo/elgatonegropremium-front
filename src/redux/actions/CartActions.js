@@ -22,11 +22,12 @@ export const addToCart = (payload) => async (dispatch) => {
     try {
         const response = await axios.post('/cart', payload);
         dispatch({ type: ADD_TO_CART, payload: response.data });
+        dispatch(getCart());  // Actualiza el carrito inmediatamente después
     } catch (error) {
         console.error('Error adding to cart:', error);
-        // Puedes despachar una acción de error si lo deseas
     }
 };
+
 
 export const deleteOneCart = (prodId) => async (dispatch) => {
     try {
@@ -63,5 +64,7 @@ export const getUpdate = () => (dispatch) => {
 };
 
 export const update = (update) => (dispatch) => {
+
     dispatch({ type: UPDATE, payload: update });
+
 };

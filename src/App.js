@@ -2,7 +2,6 @@
 
 import "./App.css";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { Home } from "./components/Home";
 import { Products } from "./components/Products";
 import { Detail } from "./components/Detail";
@@ -12,7 +11,7 @@ import { Register } from "./components/Register";
 import Profile from "./components/Profile";
 import { Login } from "./components/Login";
 import { CreateProducts } from "./components/CreateProduct";
-import { GetFiltersForEmail, UserActive } from "./redux/actions/UsersActions";
+import { GetFiltersForEmail, userActive } from "./redux/actions/UsersActions";
 import { useEffect, useState } from "react";
 import Cart from "./components/Cart";
 import { AdminProducts } from "./components/AdminProducts";
@@ -23,6 +22,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import ChangePass from "./components/Changepass";
 import axios from "axios";
 import { verifyUser } from "./herramientas/verificaUsuario";
+import { useDispatch, useSelector } from "react-redux";
 axios.defaults.baseURL = `${process.env.REACT_APP_BACK}`
 
 

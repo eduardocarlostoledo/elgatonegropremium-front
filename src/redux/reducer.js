@@ -1,4 +1,4 @@
-import { GET_CART, GET_UPDATE, UPDATE} from './actions/CartActions';
+import { GET_CART, ADD_TO_CART, DELETE_ALL_FROM_CART, DELETE_ONE_CART, POST_CART,  GET_UPDATE, UPDATE} from './actions/CartActions';
 import { ADD_ALL_ORDERS, GET_ALL_SHOPPING } from './actions/OrderActions';
 
 import {
@@ -157,23 +157,38 @@ import {
                     ...state,
                     ChangeNav: true,
                 };
-    
+            //carrito
             case GET_CART:
                 return {
                     ...state,
-                    cart: action.payload,
+                    cart: action.payload, // Cargar los ítems del carrito
                 };
-    
+            case ADD_TO_CART:
+                return {
+                    ...state,
+                    cart: [...state.cart, action.payload], // Agregar ítem al carrito
+                };
+            case DELETE_ONE_CART:
+                return {
+                    ...state,
+                    cart: state.cart.filter((item) => item.id !== action.payload.id), // Eliminar ítem del carrito
+                };
+            case DELETE_ALL_FROM_CART:
+                return {
+                    ...state,
+                    cart: [], // Vaciar el carrito
+                };
+
             case GET_UPDATE:
                 // Implement if needed
                 return state;
-    
+
             case UPDATE:
                 return {
                     ...state,
                     update: action.payload,
                 };
-    
+    //ordenes
             case ADD_ALL_ORDERS:
                 return {
                     ...state,

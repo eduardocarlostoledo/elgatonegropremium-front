@@ -8,6 +8,31 @@ import { getCart } from "../redux/actions/CartActions";
 import { deleteUserLocalStorage, ChangeNav } from "../redux/actions/UsersActions"; // Asegúrate de tener esta acción
 import { deleteAllFromCart } from "../redux/actions/CartActions"; // Si deseas limpiar el carrito al cerrar sesión
 
+export const CartIndicator = () => {
+  const dispatch = useDispatch();
+
+  // Seleccionar el carrito del estado global
+  const cartItems = useSelector((state) => state.cart);
+
+  // Cargar el carrito en el montaje del componente
+  useEffect(() => {
+    dispatch(getCart());
+  }, [dispatch]);
+
+  // Calcular la cantidad total de ítems en el carrito
+  const totalItems = cartItems.reduce((acc, item) => acc + item.amount, 0);
+console.log(cartItems)
+const total = cartItems.reduce((acc, item) => acc + item.price * item.amount, 0);
+console.log(total);
+
+  return (
+    <div>
+      <p> {totalItems} ${total}</p>
+    </div>
+  );
+};
+
+
 export const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,8 +42,8 @@ export const NavBar = () => {
   const user = useSelector((state) => state.userActive); // Asumimos que "user" contiene la información del usuario logueado
   const usuarioConectado = useSelector((state)=> state.ChangeNav);
 
-console.log("estado de usuario navbar", user )
-console.log("estado de ChangeNav usuario conectado", usuarioConectado )
+// console.log("estado de usuario navbar", user )
+// console.log("estado de ChangeNav usuario conectado", usuarioConectado )
 
 //   console.log('Cart Items:', carts); // Verifica que `carts` contenga los datos esperados
 
@@ -83,7 +108,8 @@ console.log("estado de ChangeNav usuario conectado", usuarioConectado )
 <Link to="/Cart">
             <button className="CartContainer">
               <FaOpencart className="Cart" />
-              {itemQuantity}
+              
+              {<CartIndicator/>}
             </button>
           </Link>
 

@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import swal from 'sweetalert';
 import jwt_decode from "jwt-decode";
-import { userLogin, UserActive, ChangeNav, postUsersGoogle, loginGoogle } from '../redux/actions/UsersActions';
+import { userLogin, userActive, ChangeNav, postUsersGoogle, loginGoogle } from '../redux/actions/UsersActions';
 import styles from "../styles/Login.module.css";
 
 function validate(input) {
@@ -67,7 +67,7 @@ export const Login = () => {
         if (userResponse.success) {
             const userData = userResponse.data;
             if (userData.status) {
-                dispatch(UserActive(userResponse));
+                dispatch(userActive(userResponse));
                 dispatch(ChangeNav());
                 localStorage.setItem('isAuthenticated', "On");
                 navigate(userData.admin ? "/admin/users" : "/Profile");
@@ -120,7 +120,7 @@ export const Login = () => {
         if (response.data.success) {
             const userData = response.data.user;
             if (userData.status) {
-                dispatch(UserActive(userData));
+                dispatch(userActive(userData));
                 dispatch(ChangeNav());
                 localStorage.setItem('isAuthenticated', "On");
                 navigate(userData.admin ? "/admin/users" : "/Profile");
