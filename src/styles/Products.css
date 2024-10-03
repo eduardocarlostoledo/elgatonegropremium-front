@@ -1,0 +1,183 @@
+/* Estilos generales */
+.CardContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    gap: 15px;
+    justify-content: center;
+}
+
+.contenedor_card {
+    margin-top: 0%;
+}
+
+.Products {
+    margin-top: 50px;
+} */
+
+.DivCardsFilters {
+    background-color: #9b2727;
+    flex-direction: row;
+}
+
+.DivFilter {
+    box-shadow: 0 4px 8px rgba(245, 243, 243, 0.2);  /* Sombra sutil alrededor del elemento */
+    /* margin-top: 85px; */
+    
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+}
+
+.ContainerFilters {
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 1px;
+    gap: 7px;
+} */
+
+.ContainerFilters {        
+    flex-direction: column;
+    justify-content: center; /* Alinea los elementos en el centro verticalmente */
+    align-items: center; /* Alinea los elementos horizontalmente en el centro */
+    margin: 0; /* Ajusta según sea necesario */
+    gap: 1px; /* Espacio entre elementos */
+}
+
+
+
+.Filter {
+    width: 250px;
+    height: 35px;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.Filter option {
+    background-color: white;
+    color: #252425;
+}
+
+.Filter:hover {
+    background-color: #8a8a8a;
+    color: white;
+}
+
+.ContainerFilters {
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.SearchButton, Filter {    
+    display: flex;
+    margin: 5px;
+}
+
+.swal-overlay--show-modal {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.SubmitBuscar {
+    width: 60px;
+    height: 35px;
+    border-radius: 7px;
+    border: none;
+    margin-left: 10px;
+}
+
+.InputB {
+    height: 35px;
+    border-radius: 7px;
+    border: solid 1px #8a8a8a;
+    text-align: center;    
+}
+
+.SubmitBuscar {
+    width: 40px;
+    height: 40px;
+    padding-top: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 7px;
+    background-color: rgb(26, 160, 194);
+    color: white;
+    user-select: none;
+}
+
+.SubmitB {
+    width: 35px;
+    height: 35px;
+    border-radius: 7px;
+    gap: 1px;
+}
+
+.SubmitB:hover {
+    background-color: #8a8a8a;
+    color: white;
+}
+
+.icon {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.Todos {
+    height: 35px;
+    border-radius: 7px;
+}
+
+.Todos:hover {
+    background-color: #8a8a8a;
+    color: white;
+}
+
+/* Estilos para pantallas medianas (650px) */
+@media screen and (max-width: 650px) {
+    .DivFilter {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .SearchButton {
+        justify-content: center;
+    }
+
+    .ContainerFilters {
+        display: flex;
+        margin-top: 20px;
+        align-items: center; /* Centra ContainerFilters horizontalmente */
+    }
+
+    .Filter {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* Estilos para pantallas pequeñas (350px) */
+@media screen and (max-width: 330px) {
+    .DivFilter {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .SearchButton {
+        justify-content: center;
+    }
+
+    .ContainerFilters {
+        display: flex;
+        margin-top: 20px;
+        align-items: center; /* Centra ContainerFilters horizontalmente */
+    }
+
+    .Filter {
+        display: flex;
+        justify-content: center;
+    }
+}

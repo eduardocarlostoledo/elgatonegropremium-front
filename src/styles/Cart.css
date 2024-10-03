@@ -1,0 +1,134 @@
+
+
+
+
+  .cart-grid {
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    gap: 15px;
+    justify-content: center
+  }
+  
+  
+  .cart-card:hover {
+    transform: translateY(-5px);
+  }
+
+.botones_de_pago div.BotonCheckout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 60px;
+    margin-top: 20px;
+}
+
+.ButtonCart, .buttonIrTienda {
+    background-color: #009ee3;    
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 20px auto; 
+    display: block; 
+}
+
+.ButtonDeleteAll {
+    background-color: #009ee3;    
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 20px auto; 
+    display: block; 
+}
+
+.EmptyP{
+    font-size: 40px;
+    margin-top: 200px;
+    margin-bottom: 250px;
+    transform: scale(3);
+}
+
+.h2 {
+    font-size: 3em;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0;
+    padding: 20px 0 0 0;
+    color: #080000;
+    margin-bottom: 20px;
+    margin: 20px auto;
+}
+
+.NavCart{
+    display: flex;
+    flex-direction: grid;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 350px){
+    .ContainerCart{
+        margin-top: 180px;
+    }
+    
+    .h2{
+        padding: 5px;
+        padding-right: 0;
+        width: 250px;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+    }    
+    .NavCart{
+        margin-bottom: 0;
+        justify-content: space-around;
+        margin-top: auto;
+        
+    }
+    .NavCart div{
+        margin-bottom: 40px;
+        
+    }
+    .EmptyP{
+        font-size: 20px;
+        margin-top: 100px;
+        margin-bottom: 120px;
+        transform: scale(2);
+    }
+    .ContainerSumRest{
+        transform: scale(.7);
+        margin: 0;
+        gap: 80px;
+    }
+   
+    .ContainerSumRest p {
+        position: absolute;
+        padding-left: 50px;
+        padding-top: 17px;
+        transform: scale(1.5);
+    }
+    .ContainerSumRest button {
+       width: 50px;
+    }
+    
+    .ButtonDeleteAll{
+        width: 130px;
+        justify-content: flex-start;
+
+    }
+}
