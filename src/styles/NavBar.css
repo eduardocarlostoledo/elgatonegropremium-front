@@ -1,0 +1,208 @@
+.botonwhatsapp {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px !important;
+    height: 60px !important;
+    bottom: 15px !important;
+    right: 15px !important;    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 0 10px 0 #555;
+    z-index: 100;
+    cursor: pointer;
+    transition: all .3s ease;
+    background-color: #129809;
+    border-radius: 100% !important;
+  }
+
+  .NavDiv {    
+    /* display: flex;
+    position: fixed; */
+    justify-content: space-between;
+    background-color: black;
+    width: 100%;
+    height: 100px;
+    align-items: center;    
+    z-index: 999;
+    /* padding: 40px; */
+    top: 0;
+}
+
+
+.NotResponsive {
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    width: 100%;    
+    align-items: center;        
+    
+}
+
+.Responsive {
+    display: none;
+}
+
+.logo {
+    width: 150px;
+    height: 60px;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.ContainerImg { /* aca estan seteados los logos de usuario y carrito */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ContainerInfo {
+    display: flex;
+    justify-content: space-between;
+    
+    margin-right: 80px;
+}
+
+
+
+.buttonNav {
+    width: 80px;
+    height: 40px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color:black;
+    color: white;
+    user-select: none;
+}
+
+/* .logOutNavBar {
+display: flex;
+} */
+
+.BuildAndProducts button {
+
+    justify-content: space-evenly;
+
+    width: 120px;
+    height: 40px;
+    margin: 5px;
+    border: none;
+    font-size: 18px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    user-select: none;
+    border-bottom: 0.1em solid white;
+} 
+
+
+.BuildAndProducts button:hover {
+    color: #8a8a8a;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.BtnLogSing {
+    
+    width: 80px;
+    height: 40px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    background-color:black;
+    color: white;
+    user-select: none;
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+.BtnLogSing:hover {
+    color: #8a8a8a;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.BtnUser {
+    
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    user-select: none;
+    transform: translateY(-2px);
+    margin-top: 5px;
+    margin-right: -4px;
+}
+
+.BtnUser:hover {
+    color: #8a8a8a;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.UserLogo {
+    margin-left: 18px;
+    margin-top: 2px;
+    font-size: 28px;
+    color: white;
+}
+
+.UserLogo2 { 
+    
+    margin-left: 12px;
+    margin-top: 1px;
+    font-size: 29px;
+    color: white;
+}
+
+
+.UserLogo:hover {
+    color: #8a8a8a;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 650px) {
+    .NotResponsive {
+        display: none;
+    }
+
+    .Responsive {
+        display: flex;
+        justify-content: space-between;
+        background-color: black;
+        width: 100%;
+        height: 60px;
+        align-items: center;
+        position: fixed;
+        z-index: 999;
+        padding: 35px;
+        padding-left: 10px;
+        top: 0;
+    }
+    .ContainerInfo {
+        align-items: center;
+    }
+    .CartContainer {
+        margin: 0;
+        margin-right: -22px;
+        margin-left: 9px;
+    }
+    .UserRegister{
+        width: 50px;
+    }
+}
+@media screen and (max-width: 350) {
+    .Responsive{
+        width: 100%;
+    }
+    
+}

@@ -1,0 +1,134 @@
+.home-container {
+  font-family: 'Arial', sans-serif;
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+}
+
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a1a1a;
+  padding: 50px 20px;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.hero-section:hover {
+  background-color: #333;
+}
+
+.hero-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  padding: 10px 20px;
+  background-color: #e76f51;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #f4a261;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+}
+
+.about-section {
+  background-color: #333;
+  padding: 40px 20px;
+  margin-bottom: 50px;
+  border-radius: 10px;
+}
+
+.features-section {
+  padding: 50px 20px;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  margin-bottom: 50px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.feature {
+  background-color: #222;
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-10px);
+}
+
+.testimonials-section {
+  padding: 50px 20px;
+  background-color: #333;
+  border-radius: 10px;
+  margin-bottom: 50px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.testimonial img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.contact-section {
+  padding: 40px 20px;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.contact-button {
+  padding: 10px 30px;
+  font-size: 1.2rem;
+  background-color: #e76f51;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-button:hover {
+  background-color: #f4a261;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .features-grid, .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+}
