@@ -8,6 +8,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 export default function AddToCart({ item }) {
   const usuarioConectado = useSelector((state) => state.users.userActive);
   const [message, setMessage] = useState('');
+  
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
@@ -27,7 +28,7 @@ export default function AddToCart({ item }) {
 
     try {
       // Añadir el producto al carrito con la estructura correcta
-      await dispatch(addToCart({ product: newItem, user: usuarioConectado }));
+      dispatch(addToCart({ product: newItem, user: usuarioConectado, amount : 1 }));
       dispatch(update(true)); // Actualizar el estado del carrito
 
       swal('Éxito', 'Producto añadido al carrito', 'success');

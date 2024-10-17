@@ -14,12 +14,13 @@ import { getCart, deleteAllFromCart } from "../redux/slices/cartSlice.js"; // Si
 export const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const carts = useSelector((state) => state.cart.items);
+  const carts = useSelector((state) => state.cart.items) || [];
+  //console.log("carts ", carts)
   const user = useSelector((state) => state.users.userActive); // Asumimos que "user" contiene la información del usuario logueado
   const usuarioConectado = useSelector((state) => state.users.userActive);
   const itemQuantity = carts.reduce((acc, item) => acc + item.amount, 0);
 
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state) => state.cart.items) || [];
   const totalItems = cartItems.reduce((acc, item) => acc + item.amount, 0);
   const total = cartItems.reduce(
     (acc, item) => acc + item.price * item.amount,
