@@ -2,15 +2,21 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosClient from '../../herramientas/clienteAxios';
 
 // Async thunks for handling asynchronous logic
-export const getCart = createAsyncThunk('cart/getCart', async () => {
-    const response = await axiosClient('/cart');
-    //console.log("retornando datos de carrito", response)
-    return response.data;
+
+export const getCart = createAsyncThunk('cart/getCart', async (userId) => {
+    try {
+        const response = await axiosClient(`/cart/getcartclient/${userId}`);
+        console.log("slice retornando datos de carrito", response.data.data[0])
+        return response.data.data[0];    
+    } catch (error) {
+        throw Error("no se ha podido completar la operacion",error)
+    }
+    
 });
 
-export const addToCart = createAsyncThunk('cart/addToCart', async ({ product, user }) => {
+export const addToCart = createAsyncThunk('cart/addToCart', async ({ product, user, amount }) => {
     console.log("addTocart slice", product, user)
-    const payload = { ...product, user }; // Incluye el usuario en el payload
+    const payload = { ...product, user, amount }; // Incluye el usuario en el payload
     const response = await axiosClient.post('/cart', payload);
     console.log(response)
     return response.data;
@@ -54,6 +60,7 @@ const cartSlice = createSlice({
                 state.items = action.payload;
             })
             .addCase(addToCart.fulfilled, (state, action) => {
+                console.log("extrareducers", state, action)
                 state.items.push(action.payload);
             })
             .addCase(deleteOneCart.fulfilled, (state, action) => {

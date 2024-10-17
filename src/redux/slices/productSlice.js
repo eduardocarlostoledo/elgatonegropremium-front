@@ -18,7 +18,7 @@ export const getAllProductsName = createAsyncThunk('products/getAllByName', asyn
 });
 
 export const getProductDetail = createAsyncThunk('products/getDetail', async (name) => {
-    console.log(name)
+    //console.log(name)
     const response = await axiosClient.get(`/products/${name}`);
     console.log(response)
     return response.data.data[0]; // Asegúrate de devolver el objeto correcto
@@ -54,10 +54,18 @@ export const getPage = createAsyncThunk('products/getPage', async ({ page, brand
     return response.data;
 });
 
-export const addReview = createAsyncThunk('products/addReview', async ({ id, payload }) => {
-    const response = await axiosClient.put(`/products/review/${id}`, payload);
-    return response.data; // Asegúrate de devolver los datos de la reseña si es necesario
-});
+// Acción asincrónica para agregar una reseña
+export const addReview = createAsyncThunk(
+    'products/addReview',
+    async ({ id, payload }, { rejectWithValue }) => {
+      try {
+        const response = await axiosClient.put(`${import.meta.env.VITE_APP_BACK}/products/review/${id}`, payload);
+        return response.data;  // Retorna los datos si es exitoso
+      } catch (error) {
+        return rejectWithValue(error.response.data);  // Maneja el error
+      }
+    }
+  );
 
 // Define the slice
 const productsSlice = createSlice({
@@ -68,7 +76,9 @@ const productsSlice = createSlice({
         brands: [],
         types: [],
         update: false,
-        filteredProducts: [],
+        filteredProducts: [],        
+        isLoading: false,
+        error: null,
     },
     reducers: {
         filterByBrands(state, action) {
@@ -130,10 +140,30 @@ const productsSlice = createSlice({
             .addCase(getPage.fulfilled, (state, action) => {
                 state.filteredProducts = action.payload; // Actualiza los productos filtrados con la página obtenida
             })
-            .addCase(addReview.fulfilled, (state, action) => {
-                // Aquí puedes manejar la lógica para agregar la reseña
-                // Por ejemplo, puedes agregarla al producto correspondiente
-            });
+            //revisiones de usuarios
+            .addCase(addReview.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;  // Limpiar errores previos
+              })
+              .addCase(addReview.fulfilled, (state, action) => {
+                state.isLoading = false;
+                // Encuentra el producto que corresponde y actualiza su reseña
+                const product = state.allProducts.find(product => product.id === action.meta.arg.id);
+                if (product) {
+                  // Si ya hay reseñas, las añadimos
+                  if (product.reviews) {
+                    product.reviews.push(action.payload);
+                  } else {
+                    // Si no hay reseñas, las inicializamos
+                    product.reviews = [action.payload];
+                  }
+                }
+              })
+              .addCase(addReview.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;  // Guardar el error en caso de que falle
+              });
+          
     },
 });
 

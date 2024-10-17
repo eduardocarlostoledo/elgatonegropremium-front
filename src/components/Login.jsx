@@ -5,7 +5,7 @@ import swal from 'sweetalert';
 //import jwt_decode from "jwt-decode";
 //import { decode as jwt_decode } from "jwt-decode";
 import * as jwt_decode from "jwt-decode";
-import { userLogin, userActive, changeNav, postUsersGoogle, loginGoogle } from '../redux/slices/userSlice.js';
+import { loginUser, userActive, changeNav, postUsersGoogle, loginGoogle } from '../redux/slices/userSlice.js';
 import styles from "../styles/Login.module.css";
 import axiosClient from "../herramientas/clienteAxios";
 
@@ -69,7 +69,7 @@ export const Login = () => {
             const userData = userResponse.data;
             if (userData.status) {
                 dispatch(userActive(userResponse));
-                dispatch(ChangeNav());
+                dispatch(changeNav());
                 localStorage.setItem('isAuthenticated', "On");
                 navigate(userData.admin ? "/admin/users" : "/Profile");
             } else {
@@ -117,17 +117,19 @@ export const Login = () => {
             return swal("Invalid", "Missing required fields!", "error");
         }
 
-        const response = await axiosClient.post("/users/login", input);
-        //console.log("response login", response.status)
-        if (response.status === 200 && response.data.user.status === true ) {
-            //console.log("condiciones aceptadas")
-            const userData = response.data.user;
-            if (userData.status) {
+        // const response = await axiosClient.post("/users/login", input);
+        const response = await dispatch(loginUser(input))
+        //console.log("response login", response)
+        if (response.payload.success && response.payload.msg === "Login successful" ) {
+            //console.log("condiciones aceptadas")            
+            if (response.payload.user.status) {
+                console.log("user data", response.payload.user.token)
 
-                dispatch(userActive(userData));
+                dispatch(userActive(response.payload.user));
                 dispatch(changeNav());
                 localStorage.setItem('isAuthenticated', "On");
-                navigate(userData.admin ? "/admin/users" : "/Profile");
+                localStorage.setItem('token', response.payload.user.token);
+                navigate(response.payload.user.admin ? "/admin/users" : "/Profile");
 
             } else {
                 swal("User Banned", "Your account has been suspended", "error");

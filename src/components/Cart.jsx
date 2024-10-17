@@ -3,37 +3,46 @@ import { Link, useNavigate } from "react-router-dom";
 import mercadopago from "../components/mercadopago/mercadopago.js";
 import "../styles/Cart.css";
 import swal from "sweetalert";
-import ItemCart from "./ItemCart";
+import ItemCart from "./ItemCart.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { update } from "../redux/actions/CartActions";
+import { getCart } from "../redux/slices/cartSlice.js";
 
 export default function Cart() {
-  const up = useSelector((state) => state.update);
-  const [cartItems, setCartItems] = useState([]);
+  const up = useSelector((state) => state.cart.update);  
+  console.log("UP", up)  
+  
   const [isButtonVisible, setIsButtonVisible] = useState(true); // Para controlar la visibilidad del botón
-  const dispatch = useDispatch();
-  const userActive = localStorage.getItem("USUARIO")
-    ? JSON.parse(localStorage.getItem("USUARIO"))
-    : null;
+  const dispatch = useDispatch();  
   const navigate = useNavigate();
-  const products = useSelector((state) => state.allProducts);
+  const products = useSelector((state) => state.products.allProducts);
+  const userActive = useSelector((state) => state.users.userActive);
+const fetchData = useSelector((state)=> state.cart.items)
 
-  const fetchData = useCallback(() => {
-    fetch(`${import.meta.env.VITE_APP_BACK}/cart`)
-      .then((response) => response.json())
-      .then((data) => setCartItems([...data]))
-      .catch(() => swal("Cart is empty", "Cart is empty", "error"));
-  }, []);
+//filtrar la info del modelo carritos
+// const carritoDeCompras = fetchData.map(cart => {
+// const productosEnElCarrito = cart.cartProducts.map((producto)=> (
+//   {
+//     prodId: producto.prodId,
+//     name: producto.name,
+//     amount: producto.amount,
+//     price: producto.price,
+//     image: producto.image.public_id,
+//   }
+// ))  
+// })
+console.log("FETCHDATA", fetchData)
 
-  useEffect(() => {
-    fetchData();
-  }, [up, fetchData]);
+  // const fetchData = useCallback(() => {
+  //   fetch(`${import.meta.env.VITE_APP_BACK}/cart`)
+  //     .then((response) => response.json())
+  //     .then((data) => setfetchData([...data]))
+  //     .catch(() => swal("Cart is empty", "Cart is empty", "error"));
+  // }, []);
 
-  const total = cartItems
-    .reduce((acc, item) => acc + item.price * item.amount, 0)
+  const total = fetchData[0].cartProducts.reduce((acc, item) => acc + item.price * item.amount, 0)
     .toFixed(1);
 
-  const preferencia = cartItems.map((item) => ({
+  const preferencia = fetchData[0].cartProducts.map((item) => ({
     product_description: item.name,
     product_name: item.name,
     product_image: item.image,
@@ -41,7 +50,9 @@ export default function Cart() {
     product_unit_price: item.price,
     prodId: item.prodId,
   }));
-  const description = cartItems.map((item) => item.name);
+  
+  const description = fetchData[0].cartProducts.map((item) => item.name);
+
   const total_order_price = total;
   const buyer_email = userActive?.email;
   preferencia.push({
@@ -57,7 +68,7 @@ export default function Cart() {
 
   const handleCheckout = (e) => {
     e.preventDefault();
-    if (!cartItems.length) {
+    if (!fetchData.length) {
       swal("Cart is empty", "Cart is empty", "error");
     } else if (userActive === null) {
       swal("You must log in to buy!", "You must log in to buy!", "error");
@@ -99,7 +110,7 @@ export default function Cart() {
       await fetch(`${import.meta.env.VITE_APP_BACK}/cart`, {
         method: "DELETE",
       });
-      setCartItems([]);
+      setfetchData([]);
       dispatch(update(true));
       swal("Cart is empty", "Cart is empty", "success");
     } catch (error) {
@@ -110,7 +121,7 @@ export default function Cart() {
 
   return (
     <div className="carritoCompras">
-      {cartItems.length === 0 ? (
+      {fetchData.length === 0 ? (
         <div>
           <p className="EmptyP">Carrito Vacío</p>
           <Link to="/Products">
@@ -119,13 +130,13 @@ export default function Cart() {
         </div>
       ) : (
         <div className="cart-grid"> {/* Contenedor de las tarjetas */}
-          {cartItems.map((item) => (
+          {fetchData[0].cartProducts.map((item) => (
             <div key={item.id} className="cart-card"> {/* Clase para las tarjetas */}
               <ItemCart
                 name={item.name}
                 price={item.price}
                 amount={item?.amount}
-                image={item.image}
+                image={item.image.secure_url}
                 prodId={item.prodId}
                 product={products.find((prod) => prod.name === item.name)}
               />
@@ -136,7 +147,7 @@ export default function Cart() {
       <div className="botones_de_pago">
         <div className="BotonCheckout">
           <h2 className="h2">Total: ${total}</h2>
-          {isButtonVisible && cartItems.length !== 0 && (
+          {isButtonVisible && fetchData.length !== 0 && (
             <button className="ButtonCart" onClick={handleCheckout}>
               Finalizar Pedido
             </button>
