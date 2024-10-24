@@ -14,6 +14,7 @@ import { getCart, deleteAllFromCart } from "../redux/slices/cartSlice.js"; // Si
 export const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const carts = useSelector((state) => state.cart.items) || [];
   //console.log("carts ", carts)
   const user = useSelector((state) => state.users.userActive); // Asumimos que "user" contiene la información del usuario logueado

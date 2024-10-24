@@ -39,7 +39,7 @@ export const loginUser = createAsyncThunk(
       try {
         //console.log("logueando", userCredentials)
         const response = await axiosClient.post('/users/login', userCredentials);
-        console.log("rta del backend", response)
+        //console.log("rta del backend", response)
         return response.data; // Solo devolver los datos necesarios
       } catch (error) {
         return rejectWithValue(error.response);
