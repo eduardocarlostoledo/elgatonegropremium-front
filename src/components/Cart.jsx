@@ -16,20 +16,8 @@ export default function Cart() {
   const navigate = useNavigate();
   const products = useSelector((state) => state.products.allProducts);
   const userActive = useSelector((state) => state.users.userActive);
-const fetchData = useSelector((state)=> state.cart.items)
+const fetchData = useSelector((state)=> state.cart.items) 
 
-//filtrar la info del modelo carritos
-// const carritoDeCompras = fetchData.map(cart => {
-// const productosEnElCarrito = cart.cartProducts.map((producto)=> (
-//   {
-//     prodId: producto.prodId,
-//     name: producto.name,
-//     amount: producto.amount,
-//     price: producto.price,
-//     image: producto.image.public_id,
-//   }
-// ))  
-// })
 console.log("FETCHDATA", fetchData)
 
   // const fetchData = useCallback(() => {
@@ -39,10 +27,10 @@ console.log("FETCHDATA", fetchData)
   //     .catch(() => swal("Cart is empty", "Cart is empty", "error"));
   // }, []);
 
-  const total = fetchData[0].cartProducts.reduce((acc, item) => acc + item.price * item.amount, 0)
-    .toFixed(1);
+  const total = fetchData.reduce((acc, item) => acc + item.price * item.amount, 0)
+    .toFixed(1) || null ;
 
-  const preferencia = fetchData[0].cartProducts.map((item) => ({
+  const preferencia = fetchData.map((item) => ({
     product_description: item.name,
     product_name: item.name,
     product_image: item.image,
@@ -51,7 +39,7 @@ console.log("FETCHDATA", fetchData)
     prodId: item.prodId,
   }));
   
-  const description = fetchData[0].cartProducts.map((item) => item.name);
+  const description = fetchData.map((item) => item.name) || null;
 
   const total_order_price = total;
   const buyer_email = userActive?.email;
