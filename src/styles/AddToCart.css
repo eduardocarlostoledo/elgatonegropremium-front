@@ -1,32 +1,77 @@
-.addToCartDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.card {
+  /* Estilos generales para la tarjeta */
+  display: flex;
+  flex-direction: column; /* Para apilar elementos verticalmente */
+  align-items: center; /* Centrar contenido horizontalmente */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin: 10px; /* Espaciado alrededor de la tarjeta */
+}
+
+.addToCart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 7px;  
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 10px; /* Baja el botón 10 píxeles */
+}
+
+.addToCart:hover {
+  background-color: #45a049;
+}
+
+.iconCarrito {
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ButtonMessage {
+  margin-top: 10px;
+  color: #4CAF50;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Vista para pantallas de 600px */
+@media (max-width: 600px) {
+  .card {
+    padding: 15px; /* Ajustar el padding para pantallas más pequeñas */
   }
-  
+
   .addToCart {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px; /* Ajustar el tamaño de fuente */
+    width: 100%; /* Hacer que el botón ocupe el ancho completo de la tarjeta */
   }
-  
-  .addToCart:hover {
-    background-color: #45a049;
-  }
-  
+
   .iconCarrito {
-    font-size: 24px;
+    font-size: 24px; /* Hacer que el ícono sea un poco más pequeño */
   }
-  
+}
+
+/* Vista para pantallas de 360px */
+@media (max-width: 360px) {
+  .card {
+    padding: 10px; /* Ajustar el padding para pantallas muy pequeñas */
+  }
+
+  .addToCart {
+    font-size: 14px; /* Disminuir aún más el tamaño de fuente */
+    width: 100%; /* Mantener el ancho completo */
+  }
+
+  .iconCarrito {
+    font-size: 20px; /* Hacer que el ícono sea aún más pequeño */
+  }
+
   .ButtonMessage {
-    margin-top: 10px;
-    color: #4CAF50;
-    font-size: 14px;
-    text-align: center;
+    font-size: 12px; /* Ajustar tamaño de fuente del mensaje */
   }
-  
+}

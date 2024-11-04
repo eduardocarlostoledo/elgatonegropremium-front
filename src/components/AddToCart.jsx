@@ -32,7 +32,7 @@ export default function AddToCart({ item }) {
       dispatch(update(true)); // Actualizar el estado del carrito
 
       swal('Éxito', 'Producto añadido al carrito', 'success');
-      setMessage('Producto añadido exitosamente');
+      setMessage('Exito!');
     } catch (error) {
       console.error('Error al añadir al carrito:', error);
       setMessage('Ocurrió un error al añadir al carrito');
@@ -42,9 +42,9 @@ export default function AddToCart({ item }) {
   return (
     <div className="addToCartDiv">
       <form onClick={handleSubmit}>
-        <button className="addToCart" type="submit" disabled={!usuarioConectado}>
+        <div className="addToCart" type="submit" disabled={!usuarioConectado}>
           <AiOutlineShoppingCart className="iconCarrito" />
-        </button>
+        </div>
         {message && <p className="ButtonMessage">{message}</p>}
       </form>
     </div>

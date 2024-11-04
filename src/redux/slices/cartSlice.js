@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosClient from '../../herramientas/clienteAxios';
+import { userActive } from './userSlice';
 
 // Async thunks for handling asynchronous logic
 
@@ -28,7 +29,8 @@ export const deleteOneCart = createAsyncThunk('cart/deleteOne', async (prodId) =
 });
 
 export const deleteAllFromCart = createAsyncThunk('cart/deleteAll', async () => {
-    const response = await axiosClient.delete('/cart/');
+    const response = await axiosClient.delete('/deletecart/', payload);
+    console.log("eliminando carrito CartSlice", response)
     return response.data;
 });
 
@@ -53,6 +55,20 @@ const cartSlice = createSlice({
             // Puedes manejar el estado de actualización aquí si es necesario
             state.update = action.payload;
         },
+        //cambios carrito 1-11
+        addToCart: (state, action) => {
+            const { product } = action.payload;
+            const existingItem = state.items.find(item => item.prodId === product.prodId);
+         
+            if (existingItem) {
+               // Si el producto ya existe, aumenta la cantidad
+               existingItem.amount += product.amount;
+            } else {
+               // Si el producto no existe, agrégalo al carrito
+               state.items.push({ ...product, amount: product.amount });
+            }
+         },
+         //cambios carrito 1-11
     },
     extraReducers: (builder) => {
         builder

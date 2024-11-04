@@ -123,7 +123,7 @@ export const Login = () => {
         if (response.payload.success && response.payload.msg === "Login successful" ) {
             //console.log("condiciones aceptadas")            
             if (response.payload.user.status) {
-                console.log("user data", response.payload.user.token)
+                //console.log("user data", response.payload.user.token)
 
                 dispatch(userActive(response.payload.user));
                 dispatch(changeNav());

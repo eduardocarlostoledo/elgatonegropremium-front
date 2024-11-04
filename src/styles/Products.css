@@ -4,7 +4,7 @@
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 5px;
     gap: 15px;
     justify-content: center;
 }
@@ -24,8 +24,6 @@
 
 .DivFilter {
     box-shadow: 0 4px 8px rgba(245, 243, 243, 0.2);  /* Sombra sutil alrededor del elemento */
-    /* margin-top: 85px; */
-    
     flex-direction: row;
     display: flex;
     justify-content: center;
@@ -48,9 +46,8 @@
 
 
 
-.Filter {
-    width: 250px;
-    height: 35px;
+.Filter {    
+    height: 30px;
     border-radius: 7px;
     text-align: center;
 }
@@ -91,40 +88,30 @@
 }
 
 .InputB {
-    height: 35px;
+    height: 30px;
     border-radius: 7px;
     border: solid 1px #8a8a8a;
     text-align: center;    
 }
 
-.SubmitBuscar {
-    width: 40px;
-    height: 40px;
-    padding-top: 10px;
-    margin: 5px;
-    border: none;
-    border-radius: 7px;
-    background-color: rgb(26, 160, 194);
-    color: white;
-    user-select: none;
-}
 
-.SubmitB {
+.SubmitButton {
+margin: 3px;
+    font-size: 30px;
+    color: #ffffff;
     width: 35px;
-    height: 35px;
+    height: 30px;
     border-radius: 7px;
+    border: #ffffff;
     gap: 1px;
+    text-align: center;    
 }
 
-.SubmitB:hover {
+.SubmitButton:hover {
     background-color: #8a8a8a;
     color: white;
 }
 
-.icon {
-    font-size: 25px;
-    margin-bottom: 5px;
-}
 
 .Todos {
     height: 35px;
@@ -149,7 +136,7 @@
 
     .ContainerFilters {
         display: flex;
-        margin-top: 20px;
+        
         align-items: center; /* Centra ContainerFilters horizontalmente */
     }
 
@@ -181,3 +168,19 @@
         justify-content: center;
     }
 }
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

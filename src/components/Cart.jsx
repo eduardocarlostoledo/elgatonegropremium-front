@@ -5,7 +5,7 @@ import "../styles/Cart.css";
 import swal from "sweetalert";
 import ItemCart from "./ItemCart.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart } from "../redux/slices/cartSlice.js";
+import { getCart, deleteAllFromCart } from "../redux/slices/cartSlice.js";
 
 export default function Cart() {
   const up = useSelector((state) => state.cart.update);  
@@ -27,8 +27,10 @@ console.log("FETCHDATA", fetchData)
   //     .catch(() => swal("Cart is empty", "Cart is empty", "error"));
   // }, []);
 
-  const total = fetchData.reduce((acc, item) => acc + item.price * item.amount, 0)
-    .toFixed(1) || null ;
+  const total = fetchData.flatMap(data => data.cartProducts)
+   .reduce((acc, item) => acc + item.price * item.amount, 0)
+   .toFixed(1) || null;
+
 
   const preferencia = fetchData.map((item) => ({
     product_description: item.name,
@@ -95,11 +97,9 @@ console.log("FETCHDATA", fetchData)
 
   const handleDeleteAllCart = async () => {
     try {
-      await fetch(`${import.meta.env.VITE_APP_BACK}/cart`, {
-        method: "DELETE",
-      });
-      setfetchData([]);
-      dispatch(update(true));
+      console.log(userActive.id)
+      dispatch(deleteAllFromCart(userActive.id))
+      //dispatch(update(true));
       swal("Cart is empty", "Cart is empty", "success");
     } catch (error) {
       console.error("Error deleting cart:", error);
@@ -118,7 +118,9 @@ console.log("FETCHDATA", fetchData)
         </div>
       ) : (
         <div className="cart-grid"> {/* Contenedor de las tarjetas */}
-          {fetchData[0].cartProducts.map((item) => (
+         
+          {fetchData.flatMap(data => data.cartProducts).map((item) => (
+
             <div key={item.id} className="cart-card"> {/* Clase para las tarjetas */}
               <ItemCart
                 name={item.name}
@@ -134,7 +136,7 @@ console.log("FETCHDATA", fetchData)
       )}
       <div className="botones_de_pago">
         <div className="BotonCheckout">
-          <h2 className="h2">Total: ${total}</h2>
+          {/* <h2 className="h2">Total: ${total}</h2> */}
           {isButtonVisible && fetchData.length !== 0 && (
             <button className="ButtonCart" onClick={handleCheckout}>
               Finalizar Pedido
