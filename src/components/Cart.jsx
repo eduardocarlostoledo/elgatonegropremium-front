@@ -119,19 +119,20 @@ console.log("FETCHDATA", fetchData)
       ) : (
         <div className="cart-grid"> {/* Contenedor de las tarjetas */}
          
-          {fetchData.flatMap(data => data.cartProducts).map((item) => (
+         {fetchData.flatMap(data => data.cartProducts).map((item, index) => (
+  <div key={index} className="cart-card">
+    <ItemCart
+      name={item.name}
+      price={item.price}
+      amount={item?.amount}
+      image={item.image.secure_url}
+      prodId={item.prodId}
+      product={products.find((prod) => prod.name === item.name)}
+    />
+  </div>
+))}
 
-            <div key={item.id} className="cart-card"> {/* Clase para las tarjetas */}
-              <ItemCart
-                name={item.name}
-                price={item.price}
-                amount={item?.amount}
-                image={item.image.secure_url}
-                prodId={item.prodId}
-                product={products.find((prod) => prod.name === item.name)}
-              />
-            </div>
-          ))}
+
         </div>
       )}
       <div className="botones_de_pago">

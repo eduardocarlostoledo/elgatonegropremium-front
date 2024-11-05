@@ -88,8 +88,8 @@ button:hover {
 /* Features Section */
 .features-section {
   background-color: #131313;
-  border-radius: 8px;
-  margin: 8px;
+  border-radius: 20px;
+  margin: 20px;
 }
 
 .features-grid {
@@ -97,6 +97,7 @@ button:hover {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  margin:20px;
 }
 
 .feature {
@@ -104,8 +105,8 @@ button:hover {
   background-color: #222;
   padding: 20px;
   width: 280px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -122,9 +123,9 @@ button:hover {
 
 /* Testimonials Section */
 .testimonials-section {
-  background-color: #333;
-  border-radius: 8px;
-  margin: 8px;
+  background-color: rgb(14, 15, 16);
+  border-radius: 20px;
+    margin: 20px;
 }
 
 .testimonials-grid {
@@ -132,6 +133,7 @@ button:hover {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  margin:20px;
 }
 
 .testimonial {
@@ -139,9 +141,10 @@ button:hover {
   background-color: #222;
   padding: 20px;
   width: 280px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(214, 211, 211, 0.1);
   text-align: center;
+  transition: transform 0.3s ease;
 }
 
 .testimonial img {
@@ -157,15 +160,20 @@ button:hover {
   font-style: italic;
 }
 
+.testimonial:hover {
+  transform: translateY(-5px);
+}
+
 /* Contact Section */
 .contact-section {
   background-color: #1a1a1a;
-  border-radius: 8px;
-  margin: 8px;
+  border-radius: 20px;
+    margin: 8px;
   display: contents;
 }
 
 .contact-button {
+  background-color: rgb(26, 28, 29);
   margin: 8px;
   padding: 10px 30px;
   font-size: 1.2rem;
@@ -183,3 +191,31 @@ button:hover {
     font-size: 2rem;
   }
 }
+
+@media (max-width: 360px) {
+  .features-grid,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+.home-container {
+  padding: 60px;
+}
+  
+.features-section  {
+  background-color: #131313;
+  border-radius: 20px;
+  margin: 20px;
+  width: 100%;
+}
+.testimonials-section {
+  background-color: #131313;
+  border-radius: 20px;
+  margin: 20px;
+  width: 100%;
+}
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+}
+

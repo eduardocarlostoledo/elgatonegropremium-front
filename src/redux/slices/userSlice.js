@@ -71,9 +71,11 @@ export const putUser = createAsyncThunk('users/update', async (payload) => {
 });
 
 export const putUserProfile = createAsyncThunk('users/updateProfile', async ({ payload, id }) => {
+    console.log("putuserprofile", payload, id )
     const user = await axiosClient.put(`/users/${id}`, payload);
     const cacho = await axiosClient.get(`/users/${id}`);
     localStorage.setItem('USUARIO', JSON.stringify(cacho.data.data));
+    console.log("se metio un cacho al localhost")
     return user;
 });
 
@@ -81,6 +83,14 @@ export const postUsersGoogle = createAsyncThunk('users/postGoogle', async (paylo
     const response = await axiosClient.post('/users/google/', payload);
     return response;
 });
+
+export const postGoogle = createAsyncThunk('/users/auth/google', async (payload) => {
+    console.log("auth/google", payload)
+    const response = await axiosClient.get('/users/auth/google', payload);
+    console.log("auth/google response", response);
+    return response;
+});
+
 
 export const loginGoogle = createAsyncThunk('users/loginGoogle', async (payload) => {
     const response = await axiosClient.post('/users/loginGoogle', payload);
