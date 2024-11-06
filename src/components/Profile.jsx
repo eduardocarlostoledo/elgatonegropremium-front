@@ -21,7 +21,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   //const up = useSelector(state => state.cart.items) || {} ;
   const usuarioConectado = useSelector((state) => state.users.userActive) || {};
-  //console.log("usuarioConectado", usuarioConectado.id)
+  console.log("usuarioConectado profile", usuarioConectado.id)
   const isAuthenticated = useSelector((state) => state.users.userActive) || {};
   //console.log(isAuthenticated.status)
   const navigate = useNavigate();
@@ -68,8 +68,14 @@ export default function Profile() {
   function CerrarSes(e) {
     e.preventDefault();
     dispatch(deleteUserLocalStorage());
+    localStorage.removeItem("userActive")
+    localStorage.clear();
+    
+    
+    
+    navigate("/");
     localStorage.setItem("isAuthenticated", "afuera");
-    navigate("/Login");
+    console.log("logout")
   }
 
   function Cancel(e) {

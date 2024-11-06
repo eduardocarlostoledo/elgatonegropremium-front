@@ -57,7 +57,7 @@ function App() {
           element={
             <ProtectedRoute
               redirecTo={"/Profile"}
-              isAllowed={!usuarioConectado.status}
+              isAllowed={!usuarioConectado?.status}
             />
           }
         >
@@ -83,7 +83,7 @@ function App() {
           element={
             <ProtectedRoute
               redirecTo={"/Profile"}
-              isAllowed={usuarioConectado.admin}
+              isAllowed={usuarioConectado?.admin}
             />
           }
         >

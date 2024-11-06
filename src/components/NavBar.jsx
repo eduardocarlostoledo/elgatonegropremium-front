@@ -8,31 +8,42 @@ import {
   deleteUserLocalStorage,
   changeNav,
   userActive,
-} from "../redux/slices/userSlice.js"; 
-import { getCart, deleteAllFromCart } from "../redux/slices/cartSlice.js"; 
+} from "../redux/slices/userSlice.js";
+import { getCart, deleteAllFromCart } from "../redux/slices/cartSlice.js";
 
 export const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const carts = useSelector((state) => state.cart.items) || [];
-  const user = useSelector((state) => state.users.userActive); 
+  const user = useSelector((state) => state.users.userActive);
   const itemQuantity = carts.reduce((acc, item) => acc + item.amount, 0);
 
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
 
-  const CerrarSes = (e) => {
+  function CerrarSes(e) {
     e.preventDefault();
-    setTimeout(() => {
-      dispatch(deleteUserLocalStorage());
-      dispatch(changeNav(true));
-      dispatch(deleteAllFromCart());
-      localStorage.setItem("isAuthenticated", "afuera");
-      navigate("/Login");
-    }, 1300);
-  };
+    dispatch(deleteUserLocalStorage());
+    localStorage.removeItem("userActive");
+    localStorage.clear();
+
+    navigate("/");
+    localStorage.setItem("isAuthenticated", "afuera");
+    console.log("logout");
+  }
+
+  // const CerrarSes = (e) => {
+  //   e.preventDefault();
+  //   setTimeout(() => {
+  //     dispatch(deleteUserLocalStorage());
+  //     dispatch(changeNav(true));
+  //     dispatch(deleteAllFromCart());
+  //     localStorage.setItem("isAuthenticated", "afuera");
+  //     navigate("/Login");
+  //   }, 1300);
+  // };
 
   return (
     <div className="NavDiv">
@@ -50,7 +61,11 @@ export const NavBar = () => {
             <FaOpencart className="Cart" />
           </button>
         </Link>
-        <a className="botonwhatsapp" href="https://wa.me/5493764331313" title="El Gato">
+        <a
+          className="botonwhatsapp"
+          href="https://wa.me/5493764331313"
+          title="El Gato"
+        >
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/800px-WhatsApp.svg.png"
             alt="WhatsApp El Gato"

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import swal from 'sweetalert';
 import { jwtDecode } from "jwt-decode";
@@ -43,7 +43,8 @@ export const Login = () => {
         name: "",
         image: "",
     });
-
+    const usuarioConectado = useSelector((state) => state.users.userActive) || {};
+    console.log(usuarioConectado, "estoy en login")
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

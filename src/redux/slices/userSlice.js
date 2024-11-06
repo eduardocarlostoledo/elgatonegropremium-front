@@ -102,6 +102,8 @@ export const getAllUsersName = createAsyncThunk('users/getAllByName', async (nam
     return response.data.data;
 });
 
+
+
 // Define the slice
 const usersSlice = createSlice({
     name: 'users',
@@ -112,12 +114,22 @@ const usersSlice = createSlice({
         status: null,
         error: null,
         userActive: {},
+        isLoggedIn: !!localStorage.getItem('userActive'),
         ChangeNav: JSON.parse(localStorage.getItem('Navbar')) || false,
     },
     reducers: {
         deleteUserLocalStorage(state) {
-            state.ChangeNav = true; // Cambia el estado según la lógica que necesites
-            localStorage.setItem('Navbar', JSON.stringify(true));
+            state.ChangeNav = true;
+    state.userActive = null;
+    state.isLoggedIn = false;
+    localStorage.setItem('Navbar', JSON.stringify(true));
+    localStorage.removeItem("userActive");
+        },
+        logoutUser(state) {
+            state.userActive = null;
+            state.isLoggedIn = false;            
+            localStorage.removeItem("userActive")
+            localStorage.clear();
         },
     },
     extraReducers: (builder) => {
@@ -157,6 +169,7 @@ const usersSlice = createSlice({
               state.status = 'success';
               state.userActive = action.payload.user; // Solo guardas los datos necesarios en el estado
               state.isLoggedIn = true;
+              localStorage.setItem('userActive', JSON.stringify(action.payload.user));
             })
             .addCase(loginUser.rejected, (state, action) => {
               state.status = 'failed';
