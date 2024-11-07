@@ -10,6 +10,7 @@ import {
   userActive,
 } from "../redux/slices/userSlice.js";
 import { getCart, deleteAllFromCart } from "../redux/slices/cartSlice.js";
+import logoinvertido from "../img/logoinvertido.png"
 
 export const NavBar = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,29 @@ export const NavBar = () => {
 
   return (
     <div className="NavDiv">
+
+      
+<a className="FixedLogo" title="El Gato Invertido">
+          <img src={logoinvertido} alt="Logo"  
+          width="120"
+          height="120" 
+          />
+        </a>
+
+        <a
+          className="botonwhatsapp"
+          href="https://wa.me/5493764331313"
+          title="El Gato"
+        >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/800px-WhatsApp.svg.png"
+            alt="WhatsApp El Gato"
+            width="40"
+            height="40"
+          />
+        </a>
+
+        
       <div className="BuildAndProducts">
         <Link to="/">
           <button>
@@ -61,18 +85,7 @@ export const NavBar = () => {
             <FaOpencart className="Cart" />
           </button>
         </Link>
-        <a
-          className="botonwhatsapp"
-          href="https://wa.me/5493764331313"
-          title="El Gato"
-        >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/800px-WhatsApp.svg.png"
-            alt="WhatsApp El Gato"
-            width="40"
-            height="40"
-          />
-        </a>
+
 
         {/* Muestra todos los botones sin condicionales */}
         <Link to="/Login">

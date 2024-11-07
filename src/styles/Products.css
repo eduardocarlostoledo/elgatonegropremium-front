@@ -1,4 +1,13 @@
 /* Estilos generales */
+/* 
+.DivProducts {
+    width: 950px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+
 .CardContainer {
     display: flex;
     flex-direction: row;
@@ -6,8 +15,34 @@
     flex-wrap: wrap;
     margin-top: 5px;
     gap: 15px;
+    justify-content: center;    
+} */
+
+/* Contenedor principal de productos */
+.DivProducts {
+    max-width: 950px;
+    display: flex;
     justify-content: center;
+    padding: 10px;
+    margin: 0 auto; /* Centrado en la página */
 }
+
+/* Contenedor de tarjetas */
+.CardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+/* Estilo para las tarjetas, con limitación a 3 columnas */
+.CardContainer > .Card {
+    flex: 1 1 30%; /* Ocupa el 30% del ancho del contenedor, máximo 3 columnas */
+    max-width: 30%; /* Limita el ancho para mantener solo 3 columnas */
+    box-sizing: border-box;
+}
+  
 
 .contenedor_card {
     margin-top: 0%;
@@ -15,10 +50,11 @@
 
 .Products {
     margin-top: 50px;
-} */
+} 
 
 .DivCardsFilters {
-    background-color: #9b2727;
+    border-radius: 20px;
+    /* background-color: #202324; */
     flex-direction: row;
 }
 
@@ -125,6 +161,12 @@ margin: 3px;
 
 /* Estilos para pantallas medianas (650px) */
 @media screen and (max-width: 650px) {
+
+    
+.Products {
+    margin-top: 90px;
+} 
+
     .DivFilter {
         flex-direction: column;
         align-items: center;

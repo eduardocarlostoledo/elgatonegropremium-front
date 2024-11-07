@@ -3,17 +3,32 @@
 height: 0px;
 }
 
+.detalleProducto {
+    max-width: 950px;
+    
+    justify-content: center;
+    padding: 10px;
+    margin: 0 auto; /* Centrado en la página */
+    margin-top: 30px;
+    
+}
+
 .ContainerR {
     display: flex;
     flex-direction: column;
     color: #ffffff;
-    background-color: #9b2727;
+    background-color: #202324;
+    border-radius: 20px;
+    margin: 20px
 }
 
 .DetailC {
     display: flex;
     background-color: #ffffff;
     justify-content: center;
+    border-radius: 20px;
+    margin: 20px
+
 }
 
 .DataDiv {
@@ -36,11 +51,31 @@ height: 0px;
     align-items: center;
  
 }
-
+.addToCart {
+    margin:20px;
+}
 .starsCalification {
     color: #9b2727;
     font-size: 10px;
     margin-right: 10px;
+}
+
+.ReviewListo {
+    border-radius: 20px;
+    margin: 20px
+}
+
+.inputReview {
+    border-radius: 20px;
+    margin: 20px
+}
+
+.ButtonReview {
+    border-radius: 20px;
+    margin: 20px;    
+    text-align: center;    
+    align-content: center;
+    
 }
 
 .bi-house {
@@ -67,26 +102,25 @@ height: 0px;
 /* Estilos para pantallas medianas (650px) */
 @media screen and (max-width: 650px) {
 
-    /* .ImageDetail {
-        border-radius: 7px;
-        margin: 20px;
-     size: auto;    
-    } */
 
+    .detalleProducto {
+        margin-top: 80px;     
+        
+        
+    }    
+.DataDiv{
+    margin: 20px;
+    border-radius: 20px;
+}
     .DetailC {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: column;        
+        align-items: baseline;
     }
 
     .ContainerR {
-        margin: auto;
-        margin-bottom: 0;
-        margin-top: 60px;
-        height: auto;
-        width: 400px;
-        background-color: #ffffff;
+        margin: 20px;
         border-radius: 20px;
-        margin-bottom: 60px;
+        
     }
 
     .DetailC img {
@@ -94,57 +128,25 @@ height: 0px;
     }
 
     .ReviewListo {
-        width: 500px;
-        transform: translateX(-60px);
+        margin: 20px;
+        border-radius: 20px;
     }
 
 }
 
-/* Estilos para pantallas pequeñas (550px) */
-@media screen and (max-width: 550px) {
-    .DetailC {
-        width: 480px;
-        margin-left: 40px;
-    }
 
-    .ReviewListo {
-        width: 480px;
-        transform: translateX(-80px);
-    }
-
-    .starR {
-        margin-right: 20px;
-    }
-
-}
-
-/* Estilos para pantallas más pequeñas (450px) */
-@media screen and (max-width: 450px) {
-    .DetailC {
-        margin-left: 50px;
-        width: 350px;
-    }
-
-    .DetailC img {
-        width: 250px;
-    }
-
-
-    .ReviewListo {
-        width: 300px;
-        transform: translateX(-60px);
-    }
-
-    .starR {
-        margin-right: 40px;
-    }
-}
 
 /* Estilos para pantallas aún más pequeñas (361px) */
 @media screen and (max-width: 361px) {
     .DetailC {
-        width: 300px;
-        transform: translateX(-1rem);
+        display: flex;
+        justify-content: center; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+    }
+
+    .ButtonDetail {
+        height: 50px;
+    width: 200px;
     }
 
     .ReviewListo {
@@ -156,10 +158,7 @@ height: 0px;
     }
 
     .Detalle, .TypeBrandDiv {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 50px;
+        margin: 20px;
+        border-radius: 20px;
       }
 }

@@ -49,7 +49,7 @@ const Review = ({ productId, nameUser, lastnameUser, setUpdateReviews }) => {
                 <StarsCalification setCalif={setCalification} key={key} />
             </div>
             <div className='DivReview'>
-                <label className='NameReview'>What did you think of the product?</label>
+                <label className='NameReview'>Qué Opinás acerca del Producto?</label>
                 <textarea 
                     className='inputReview' 
                     type="text" 
