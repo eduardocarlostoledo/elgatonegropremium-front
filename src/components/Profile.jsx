@@ -234,7 +234,7 @@ export default function Profile() {
           ) : (
             <div className="modificar">
               <form onSubmit={handleSubmit}>
-                <table>
+                <table className="tablaUsuario">
                   <tbody>
                     <tr>
                       <td>Email:</td>
@@ -266,8 +266,8 @@ export default function Profile() {
                     </tr>
                     <tr>
                       <td>City:</td>
-                      <td>
-                        <select name="city" onChange={handleChange}>
+                      <td className="city" >
+                        <select name="city" style={{ width: "160px" }} onChange={handleChange}>
                           <option>
                             {usuarioConectado.city || "Select City"}
                           </option>

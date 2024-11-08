@@ -111,13 +111,13 @@ left: 15px;
 }
 
 /* Responsive Adjustments */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
 
   .FixedLogo {
     transform: scale(0.4); /* Escala el elemento al 30% de su tamaño original */
 left: -25px;
   }
-  
+
   .Responsive {
     display: flex;
     align-items: center;

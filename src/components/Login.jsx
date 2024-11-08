@@ -4,9 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import swal from 'sweetalert';
 import { jwtDecode } from "jwt-decode";
 import { loginUser, userActive, changeNav, postUsersGoogle, postGoogle, loginGoogle } from '../redux/slices/userSlice.js';
-import styles from "../styles/Login.module.css";
 import axiosClient from "../herramientas/clienteAxios";
-
+import "./login.css"
 function validate(input) {
     let errors = {};
     const regexEmail = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -44,7 +43,6 @@ export const Login = () => {
         image: "",
     });
     const usuarioConectado = useSelector((state) => state.users.userActive) || {};
-    console.log(usuarioConectado, "estoy en login")
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -65,9 +63,6 @@ export const Login = () => {
             const email = { email: infoGoogle.email };
             const userResponse = await dispatch(loginGoogle(email));
     
-            console.log("Google User Response:", googleUser);
-            console.log("Login User Response:", userResponse);
-    
             if (userResponse.success) {
                 const userData = userResponse.data;
                 if (userData.status) {
@@ -84,7 +79,6 @@ export const Login = () => {
             swal("Error", "Something went wrong!", "error");
         }
     }
-    
 
     function handleGoogleResponse(response) {
         const userObject = jwtDecode(response.credential);
@@ -103,13 +97,12 @@ export const Login = () => {
         }).then(response => {
             if (response) {
                 setExample(true);
-                viewAlert(); // Llama a viewAlert() aquí para continuar con el flujo
+                viewAlert(); 
             }
         });
     }
 
     useEffect(() => {
-        /* global google */
         google.accounts.id.initialize({
             client_id: `${import.meta.env.VITE_APP_YOUR_CLIENT_ID_LOGIN}`,
             callback: handleGoogleResponse
@@ -126,20 +119,14 @@ export const Login = () => {
             return swal("Invalid", "Missing required fields!", "error");
         }
 
-        // const response = await axiosClient.post("/users/login", input);
         const response = await dispatch(loginUser(input))
-        //console.log("response login", response)
         if (response.payload.success && response.payload.msg === "Login successful" ) {
-            //console.log("condiciones aceptadas")            
             if (response.payload.user.status) {
-                //console.log("user data", response.payload.user.token)
-
                 dispatch(userActive(response.payload.user));
                 dispatch(changeNav());
                 localStorage.setItem('isAuthenticated', "On");
                 localStorage.setItem('token', response.payload.user.token);
                 navigate(response.payload.user.admin ? "/admin/users" : "/Profile");
-
             } else {
                 swal("User Banned", "Your account has been suspended", "error");
             }
@@ -150,44 +137,44 @@ export const Login = () => {
     }
 
     return (
-        <div className={styles.ContainerAllForm}>
-            <form className={styles.ContainerAll} onSubmit={handleSubmit}>
-                <div className={styles.register}>
+        <div className="container-all-form">
+            <form className="container-all" onSubmit={handleSubmit}>
+                <div className="register">
                     <h2>Login</h2>
                 </div>
-                <div className={styles.pack}>
+                <div className="pack">
                     <label>Email address</label>
                     <input
                         name="email"
                         value={input.email}
                         onChange={handleChange}
-                        className={styles.inputs}
+                        className="inputs"
                         type="email"
                         placeholder="Enter email"
                     />
                 </div>
-                <div className={styles.pack}>
+                <div className="pack">
                     <label>Password</label>
                     <input
                         name="password"
                         value={input.password}
                         onChange={handleChange}
-                        className={styles.inputs}
+                        className="inputs"
                         type="password"
                         placeholder="Password"
                     />
                 </div>
-                {errormsg && <small className={styles.msgerr}>Invalid email or password</small>}
-                <div className={styles.containerBtn}>
-                    <button className={styles.btnR} type="submit">Login</button>
+                {errormsg && <small className="msgerr">Invalid email or password</small>}
+                <div className="container-btn">
+                    <button className="btnR" type="submit">Login</button>
                 </div>
-                <div style={{ marginLeft: "150px", color: "rgb(0, 96, 151)", cursor: "pointer" }}>
+                <div className="forgot-password">
                     <Link to="/changePass">I forgot my password</Link>
                 </div>
-                <div className={styles.down}>
-                    <h5>Don't have an account? <Link to="/Register"><button className={styles.here}>Register</button></Link></h5>
+                <div className="down">
+                    <h5>Don't have an account? <Link to="/Register"><button className="here">Register</button></Link></h5>
                 </div>
-                <div className={styles.containerBtn}>
+                <div className="container-btn">
                     {!infoGoogle.email && <div id="signInDiv"></div>}
                     {example && infoGoogle.email && <div onClick={viewAlert}><strong>Logging in...</strong></div>}
                 </div>

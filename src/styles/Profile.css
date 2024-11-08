@@ -1,6 +1,6 @@
 
 .contenedor_profile{
-  margin-top: 5%;
+  margin-top: 90px;
   width: 100%;
   height: auto; 
   display: flex;
@@ -44,12 +44,11 @@
 }
 
 .InfoUser {
-    padding-left: 3rem;
-    text-size-adjust: auto;
+    text-align: center;
 }
 
 .InfoUser-Name {
-   padding-left: 65px;
+ text-align: center;
 }
 
 .InfoUser-Name h3 {
@@ -68,9 +67,13 @@
 }
 
 .modificar { 
-    background-color: rgb(247, 247, 247);
+    background-color: rgb(247, 247, 247);    
     width: 70%;
-    height: 100%;
+    min-height: 370px;
+    border-right: 0.001em solid rgb(185, 179, 179);
+    text-align: justify;
+    border-radius: 0 20px 20px 0px;  /* border-radios: 0 20 20 0 deja bordes cuadrados y redondos */    
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.411);
     padding-left: 50px;
     padding-top: 20px;
 }
@@ -92,15 +95,15 @@
     justify-content: space-between;
 }
 .hola {
-    margin-top: -50px;
+    
     background: none;
     border: none;
     font-size: 22px;
     color: rgb(35, 113, 202);
 }
 
-.hola:hover { 
-    color:   rgb(6, 55, 110);
+.hola:hover {     
+    color:rgb(126, 96, 96);
 }
 
 
@@ -114,9 +117,9 @@
 }
 
 .sopapa {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 50px;
+
+    text-align: center;    
+    
 }
 .inputs {
     
@@ -127,61 +130,61 @@
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
-.cancel {
-   margin-left: 8px;
-   color: white;
-   font-size: 23px;
-   background-color: gray;
-   width: 80px;
-   height: 35px;
-   margin-top: 15px;
-   border: none;
-   border-radius: 7px;
-}
-.modifi {
-    margin-right: -15px;
-    color: white;
-    font-size: 23px;
-    background-color: gray;
-    width: 80px;
-    height: 35px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 7px;
-}
-
-.modifi:hover { 
-    background-color: rgb(0, 0, 0);
-}
-
-.cancel:hover { 
-    background-color: rgb(0, 0, 0);
-}
 .logout { 
     border: 0.5px solid rgba(0, 0, 0, 0.141);
     background-color: rgb(247, 247, 247);
     border-radius: 20px;
     color:  rgb(35, 102, 179);
     font-size: 19px;
-    margin-top: 2rem;
-    padding: 0.6rem;
-    position: absolute;
+    margin-top: 3rem;    
 }
 
 .logout:hover { 
-    background-color:black;
+    background-color:rgb(126, 96, 96);
     border: none;
     color: white;
     font-size: 19px;
 }
-
+.cancel { 
+    border: 0.5px solid rgba(0, 0, 0, 0.141);
+    background-color: rgb(247, 247, 247);
+    border-radius: 20px;
+    color:  rgb(35, 102, 179);
+    font-size: 19px;
+    margin-top: 3rem;    
+}
+.modifi{ 
+    border: 0.5px solid rgba(0, 0, 0, 0.141);
+    background-color: rgb(247, 247, 247);
+    border-radius: 20px;
+    color:  rgb(35, 102, 179);
+    font-size: 19px;
+    margin-top: 8rem;    
+}
+.cancel:hover { 
+    background-color:rgb(126, 96, 96);
+    border: none;
+    color: white;
+    font-size: 19px;
+}
+.modifi:hover { 
+    background-color:rgb(126, 96, 96);
+    border: none;
+    color: white;
+    font-size: 19px;
+}
 .dashboard { 
     border-radius: 5px;
     border: 1px solid green;
     color: green;
 }
 
-@media screen and (max-width: 450px){
+@media screen and (max-width: 650px){
+    
+    .tablaUsuario{
+        margin-left: 35px;
+        margin-top: 35px;
+    }
     .contenedor_profile{
         height: 50%;
         margin-top: 100px;
@@ -197,22 +200,18 @@
     .derecha {
         padding-left: 10px;
     }
-    .InfoUser-Name{
-        padding: 0
-    }
-    .InfoUser{
-        padding-left: 2px;
-    }
+    
     .logout{
-        padding: 5px;
-        margin-top: 40px;
+        margin-top: 6.3rem;
+     text-align: center;
     }
-    .modificar{
-        padding-left: 10px;
-        padding-right: 15px;
-        width: 60%;
-        height: 37.5rem;
+        
+     
+    .InfoUser{
+        text-align: center;
     }
+
+   
     .prueba{
         display: flex;
         flex-direction: column;
@@ -221,3 +220,60 @@
         margin-right: 2px;
     }
 }
+
+@media screen and (max-width: 360px){
+    .Container{
+        height: 25rem;
+        width: 90%;
+    }
+    .logout{
+        margin-top: 5rem;
+        font-size: 13px;
+    }
+    .logout:hover{
+        background-color:rgb(126, 96, 96);
+        border: none;
+        color: white;
+        font-size: 13px;
+    }
+    .modifi{
+        font-size: 13px;
+        margin-top: 6.3rem;
+    }
+    .cancel{
+        font-size: 13px;
+        margin-top: 6.3rem;
+    }
+    .cancel:hover{
+        background-color:rgb(126, 96, 96);
+        border: none;
+        color: white;
+        font-size: 13px;
+    }
+    .modifi:hover{
+        background-color:rgb(126, 96, 96);
+        border: none;
+        color: white;
+        font-size: 13px;
+    }
+    .InfoUser{
+        font-size: 12px;
+    }
+    .modificar{
+        width: 56%;        
+    }
+    .tablaUsuario{
+        margin-left: -45px;
+        display: block;
+scale: 0.9;    }
+    
+    .city{
+        width: 30px;
+    }
+    .containerImg{
+        scale: 0.5;
+    }
+
+    
+}
+
