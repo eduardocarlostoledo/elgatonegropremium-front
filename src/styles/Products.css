@@ -29,6 +29,7 @@
 
 /* Contenedor de tarjetas */
 .CardContainer {
+    color: white;
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
