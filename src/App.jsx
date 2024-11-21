@@ -22,6 +22,8 @@ import axiosClient from "../src/herramientas/clienteAxios.js"
 import { verifyUser } from "./herramientas/verificaUsuario.js";
 import { useDispatch, useSelector } from "react-redux";
 
+console.log(import.meta.env.VITE_APP_BACK)
+console.log(import.meta.env.VITE_APP_YOUR_CLIENT_ID_LOGIN)
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();  

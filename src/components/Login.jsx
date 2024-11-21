@@ -42,9 +42,22 @@ export const Login = () => {
         name: "",
         image: "",
     });
+    const [usuarioGoogle, setUsuarioGoogle] = useState ("")
     const usuarioConectado = useSelector((state) => state.users.userActive) || {};
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        google.accounts.id.initialize({
+            client_id: import.meta.env.VITE_APP_YOUR_CLIENT_ID_LOGIN,
+            callback: handleGoogleResponse
+        });
+        google.accounts.id.renderButton(
+            document.getElementById("signInDiv"),
+            { theme: "outline", size: "large" }
+        );
+
+    }, []);
 
     function handleChange(e) {
         setInput({
@@ -56,62 +69,88 @@ export const Login = () => {
             [e.target.name]: e.target.value
         }));
     }
+   
+
+    async function handleGoogleResponse (response) {        
+        const userObject = jwtDecode(response.credential);            
+        const respuestaInicioSesion = await dispatch(loginGoogle(userObject))        
+         console.log(respuestaInicioSesion)
+        if (respuestaInicioSesion.payload.success && respuestaInicioSesion.payload.token ) {
+            if (respuestaInicioSesion.payload.user.status) {
+                dispatch(userActive(respuestaInicioSesion.payload.user));
+                dispatch(changeNav());
+                localStorage.setItem('isAuthenticated', "On");
+                localStorage.setItem('token', respuestaInicioSesion.payload.user.token);
+                navigate(respuestaInicioSesion.payload.user.admin ? "/admin/users" : "/Profile");
+            } else {
+                swal("User Banned", "Your account has been suspended", "error");
+            }
+        } else {
+            setErrormsg(true);
+            setTimeout(() => setErrormsg(false), 5000);
+        }
+
+        setExample(true);
+        
+                
+    }
+
+   
 
     const viewAlert = async () => {
         try {
-            const googleUser = await dispatch(postGoogle(infoGoogle));
-            const email = { email: infoGoogle.email };
-            const userResponse = await dispatch(loginGoogle(email));
+            // Realiza la primera solicitud para registrar al usuario
+            const registerResponse = await fetch("http://localhost:3001/users/google", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: infoGoogle.email }) // Envía el email como objeto
+            });
+    console.log (registerResponse, infoGoogle.email)
+            if (!registerResponse.ok) {
+                throw new Error("Error al registrar el usuario");
+            }
     
+            // Realiza la segunda solicitud para iniciar sesión
+            const loginResponse = await fetch("http://localhost:3001/user/loginGoogle", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: infoGoogle.email }) // Envía el email como objeto
+            });
+    console.log(loginResponse, infoGoogle.email)
+            if (!loginResponse.ok) {
+                throw new Error("Error al iniciar sesión");
+            }
+    
+            const userResponse = await loginResponse.json();     
+            console.log(userResponse)       
+    
+            // Valida la respuesta del login
             if (userResponse.success) {
-                const userData = userResponse.data;
+                const userData = userResponse.user;    
                 if (userData.status) {
                     dispatch(userActive(userResponse));
                     dispatch(changeNav());
-                    localStorage.setItem('isAuthenticated', "On");
+                    localStorage.setItem("token", userResponse.token);
+                    localStorage.setItem("isAuthenticated", "On");
+    
+                    // Redirige según el rol del usuario
                     navigate(userData.admin ? "/admin/users" : "/Profile");
                 } else {
                     swal("User Banned", "Your account has been suspended", "error");
                 }
+            } else {
+                throw new Error(userResponse.message || "Login failed");
             }
         } catch (error) {
             console.error("Error in viewAlert:", error);
             swal("Error", "Something went wrong!", "error");
         }
-    }
-
-    function handleGoogleResponse(response) {
-        const userObject = jwtDecode(response.credential);
-        setInfoGoogle({
-            email: userObject.email,
-            lastname: userObject.family_name,
-            name: userObject.given_name,
-            image: userObject.picture
-        });
-
-        swal({
-            title: "Login with Google?",
-            text: "By logging in, you allow access to your profile data (name, email, picture)",
-            icon: "warning",
-            buttons: ["No", "Yes"]
-        }).then(response => {
-            if (response) {
-                setExample(true);
-                viewAlert(); 
-            }
-        });
-    }
-
-    useEffect(() => {
-        google.accounts.id.initialize({
-            client_id: `${import.meta.env.VITE_APP_YOUR_CLIENT_ID_LOGIN}`,
-            callback: handleGoogleResponse
-        });
-        google.accounts.id.renderButton(
-            document.getElementById("signInDiv"),
-            { theme: "outline", size: "large" }
-        );
-    }, []);
+    };
+    
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -175,10 +214,20 @@ export const Login = () => {
                     <h5>Don't have an account? <Link to="/Register"><button className="here">Register</button></Link></h5>
                 </div>
                 <div className="container-btn">
-                    {!infoGoogle.email && <div id="signInDiv"></div>}
-                    {example && infoGoogle.email && <div onClick={viewAlert}><strong>Logging in...</strong></div>}
+                {!infoGoogle.name && !infoGoogle.email && !infoGoogle.lastname && (
+            <div id="signInDiv"></div>
+          )}
+          {example &&
+            infoGoogle.name &&
+            infoGoogle.email &&
+            infoGoogle.lastname && (
+              <div onClick={viewAlert}>
+                <strong>Ingresando...</strong>
+              </div>
+            )}
                 </div>
             </form>
+
         </div>
     );
 }

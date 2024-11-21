@@ -15,13 +15,20 @@ export const getCart = createAsyncThunk('cart/getCart', async (userId) => {
     
 });
 
-export const addToCart = createAsyncThunk('cart/addToCart', async ({ product, user, amount }) => {
-    console.log("addTocart slice", product, user)
-    const payload = { ...product, user, amount }; // Incluye el usuario en el payload
-    const response = await axiosClient.post('/cart', payload);
-    console.log(response)
-    return response.data;
-});
+export const addToCart = createAsyncThunk(
+    'cart/addToCart',
+    async ({ product, user, amount }, { rejectWithValue }) => {
+      try {
+        console.log("addToCart slice", product, user);
+        const payload = { ...product, user, amount };
+        const response = await axiosClient.post('/cart', payload);
+        return response.data;
+      } catch (error) {
+        console.error(error);
+        return rejectWithValue(error.response.data);
+      }
+    }
+  );
 
 export const deleteOneCart = createAsyncThunk('cart/deleteOne', async (prodId) => {
     const response = await axiosClient.delete(`/cart/${prodId}`);
@@ -29,7 +36,7 @@ export const deleteOneCart = createAsyncThunk('cart/deleteOne', async (prodId) =
 });
 
 export const deleteAllFromCart = createAsyncThunk('cart/deleteAll', async () => {
-    const response = await axiosClient.delete('/deletecart/', payload);
+    const response = await axiosClient.delete('/deletecart', payload);
     console.log("eliminando carrito CartSlice", response)
     return response.data;
 });
@@ -44,6 +51,8 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         items: [],
+        status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+        error: null,
         preferenceId: null,
         update: false,
     },
@@ -75,10 +84,18 @@ const cartSlice = createSlice({
             .addCase(getCart.fulfilled, (state, action) => {
                 state.items = action.payload;
             })
-            .addCase(addToCart.fulfilled, (state, action) => {
-                console.log("extrareducers", state, action)
-                state.items.push(action.payload);
-            })
+            .addCase(addToCart.pending, (state) => {
+                state.status = 'loading';
+                state.error = null;
+              })
+              .addCase(addToCart.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.items.push(action.payload); // Agrega el producto al estado local
+              })
+              .addCase(addToCart.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload || 'No se pudo agregar al carrito';
+              })
             .addCase(deleteOneCart.fulfilled, (state, action) => {
                 state.items = state.items.filter(item => item.id !== action.payload.id);
             })

@@ -26,13 +26,6 @@ export const userRegister = createAsyncThunk(
     }
 );
 
-// export const userLogin = createAsyncThunk('users/login', async (payload) => {
-//     console.log("logueando", payload)
-//     const response = await axiosClient.post('/users/login/', payload);
-//     console.log("rta del backend", response)
-//     return response;
-// });
-
 export const loginUser = createAsyncThunk(
     'users/login',
     async (userCredentials, { rejectWithValue }) => {
@@ -79,21 +72,24 @@ export const putUserProfile = createAsyncThunk('users/updateProfile', async ({ p
     return user;
 });
 
-export const postUsersGoogle = createAsyncThunk('users/postGoogle', async (payload) => {
-    const response = await axiosClient.post('/users/google/', payload);
-    return response;
-});
-
-export const postGoogle = createAsyncThunk('/users/auth/google', async (payload) => {
+export const postGoogle = createAsyncThunk('/users/google', async (payload) => {
     console.log("auth/google", payload)
-    const response = await axiosClient.get('/users/auth/google', payload);
+    const response = await axiosClient.get('/users/google', payload);
     console.log("auth/google response", response);
     return response;
 });
 
+export const postUsersGoogle = createAsyncThunk('users/postGoogle', async (payload) => {
+    const response = await axiosClient.post('/users/google/', payload);
+    console.log("POST USER GOOGLE", payload, response)
+    return response.data;
+});
 
 export const loginGoogle = createAsyncThunk('users/loginGoogle', async (payload) => {
-    const response = await axiosClient.post('/users/loginGoogle', payload);
+    
+    const response = await axiosClient.post('/users/loginGoogle', payload );
+    console.log(response.data, "aca en redux logingoogle")
+
     return response.data;
 });
 
