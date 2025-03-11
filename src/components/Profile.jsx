@@ -16,14 +16,15 @@ import {
   userActive,
 } from "../redux/slices/userSlice.js";
 import { getUpdate, update, getCart } from "../redux/slices/cartSlice.js";
+import { orderByUser } from "../redux/slices/orderSlice.js";
+import { Orders } from "./Orders.jsx";
 
 export default function Profile() {
   const dispatch = useDispatch();
   //const up = useSelector(state => state.cart.items) || {} ;
-  const usuarioConectado = useSelector((state) => state.users.userActive) || {};
-  console.log("usuarioConectado profile", usuarioConectado.id)
-  const isAuthenticated = useSelector((state) => state.users.userActive) || {};
-  //console.log(isAuthenticated.status)
+  const usuarioConectado = useSelector((state) => state.users.userActive) || {};  
+  const isAuthenticated = useSelector((state) => state.users.userActive) || {};  
+  const orders = useSelector((state) => state.orders.ordersByUser) || [];
   const navigate = useNavigate();
   const [country, setCountrie] = useState({});
   const [Panel, setPanel] = useState(true);
@@ -202,32 +203,19 @@ export default function Profile() {
               ) : (
                 <div style={{ marginTop: "15px" }}>
                   <h3>
-                    <strong>My orders</strong>
+                    
                   </h3>
-                  {Array.isArray(country) && country.length > 0 ? (
-                    country
-                      .filter((e) => e.buyer_email === usuarioConectado.email)
-                      .map((e) => (
-                        <h6 key={e.id}>
-                          Products: {e.product_description} <br />
-                          Total price {e.total_order_price} $
-                          <span
-                            style={{
-                              color: "green",
-                              fontSize: "11px",
-                              border: "0.01rem solid green",
-                              padding: "2px",
-                              borderRadius: "6px",
-                            }}
-                          >
-                            {e.statusId}
-                          </span>
-                          <hr />
-                        </h6>
-                      ))
-                  ) : (
+                  <button 
+    onClick={() => navigate("/mis-ordenes")}
+    className="dashboard"
+  >
+    Ver mis órdenes
+  </button>
+
+                  { <Orders/> ? <Orders/>
+                  : 
                     <p>No orders found</p>
-                  )}
+                 }
                 </div>
               )}
             </div>

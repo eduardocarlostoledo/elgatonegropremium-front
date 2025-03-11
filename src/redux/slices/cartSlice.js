@@ -4,11 +4,12 @@ import { userActive } from './userSlice';
 
 // Async thunks for handling asynchronous logic
 
-export const getCart = createAsyncThunk('cart/getCart', async (userId) => {
+export const getCart = createAsyncThunk('cart/getcartclient', async (userId) => {
+    //console.log("slice getCart", userId)
     try {
         const response = await axiosClient(`/cart/getcartclient/${userId}`);
-        console.log("slice retornando datos de carrito", response.data.data[0])
-        return response.data.data[0];    
+        //console.log("slice retornando datos de carrito", response.data.cartProducts)
+        return response.data.cartProducts;    
     } catch (error) {
         throw Error("no se ha podido completar la operacion",error)
     }
@@ -17,11 +18,11 @@ export const getCart = createAsyncThunk('cart/getCart', async (userId) => {
 
 export const addToCart = createAsyncThunk(
     'cart/addToCart',
-    async ({ product, user, amount }, { rejectWithValue }) => {
+    async ({ product, user }, { rejectWithValue }) => {
       try {
-        console.log("addToCart slice", product, user);
-        const payload = { ...product, user, amount };
-        const response = await axiosClient.post('/cart', payload);
+        //console.log("addToCart slice", product, user);
+        const response = await axiosClient.post('/cart', { product, user });
+        //console.log("Respuesta del backend:", response.data);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -35,11 +36,22 @@ export const deleteOneCart = createAsyncThunk('cart/deleteOne', async (prodId) =
     return response.data;
 });
 
-export const deleteAllFromCart = createAsyncThunk('cart/deleteAll', async () => {
-    const response = await axiosClient.delete('/deletecart', payload);
-    console.log("eliminando carrito CartSlice", response)
-    return response.data;
-});
+export const deleteAllFromCart = createAsyncThunk(
+    'cart/deleteAllFromCart',
+    async (userId, { rejectWithValue }) => {
+      try {
+        const response = await axiosClient.delete(`/cart/deletecart`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          data: { userId }, // Enviar el userId en el cuerpo de la solicitud
+        });
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response.data);
+      }
+    }
+  );
 
 export const postCart = createAsyncThunk('cart/postCart', async ({ payload, preferenceId }) => {
     const response = await axiosClient.post('/cart', payload);
@@ -50,64 +62,83 @@ export const postCart = createAsyncThunk('cart/postCart', async ({ payload, pref
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        items: [],
-        status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-        error: null,
-        preferenceId: null,
-        update: false,
+      items: [],
+      status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+      error: null,
+      preferenceId: null,
+      update: false,
     },
     reducers: {
-        getUpdate(state) {
-            state.update = true;
-        },
-        update(state, action) {
-            // Puedes manejar el estado de actualización aquí si es necesario
-            state.update = action.payload;
-        },
-        //cambios carrito 1-11
-        addToCart: (state, action) => {
-            const { product } = action.payload;
-            const existingItem = state.items.find(item => item.prodId === product.prodId);
-         
-            if (existingItem) {
-               // Si el producto ya existe, aumenta la cantidad
-               existingItem.amount += product.amount;
-            } else {
-               // Si el producto no existe, agrégalo al carrito
-               state.items.push({ ...product, amount: product.amount });
-            }
-         },
-         //cambios carrito 1-11
+      getUpdate(state) {
+        state.update = true;
+      },
+      update(state, action) {
+        state.update = action.payload;
+      },
     },
     extraReducers: (builder) => {
-        builder
-            .addCase(getCart.fulfilled, (state, action) => {
-                state.items = action.payload;
-            })
-            .addCase(addToCart.pending, (state) => {
-                state.status = 'loading';
-                state.error = null;
-              })
-              .addCase(addToCart.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                state.items.push(action.payload); // Agrega el producto al estado local
-              })
-              .addCase(addToCart.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.payload || 'No se pudo agregar al carrito';
-              })
-            .addCase(deleteOneCart.fulfilled, (state, action) => {
-                state.items = state.items.filter(item => item.id !== action.payload.id);
-            })
-            .addCase(deleteAllFromCart.fulfilled, (state) => {
-                state.items = [];
-            })
-            .addCase(postCart.fulfilled, (state, action) => {
-                state.preferenceId = action.payload.preferenceId;
-                // Puedes agregar lógica adicional para manejar el carrito aquí
-            });
+      builder
+      .addCase(addToCart.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(addToCart.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.items = [...state.items, ...action.payload.cartProducts];
+
+      })
+      .addCase(addToCart.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload || 'No se pudo agregar al carrito';
+      })
+        .addCase(getCart.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(getCart.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+          state.items = action.payload; // Verifica que esto realmente devuelve la lista completa
+
+
+        })
+        .addCase(getCart.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message;
+        })
+        
+        .addCase(deleteOneCart.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(deleteOneCart.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+          state.items = state.items.filter(item => item.id !== action.payload.id);
+        })
+        .addCase(deleteOneCart.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message;
+        })
+        .addCase(deleteAllFromCart.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(deleteAllFromCart.fulfilled, (state) => {
+          state.status = 'succeeded';
+          state.items = [];
+        })
+        .addCase(deleteAllFromCart.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message;
+        })
+        .addCase(postCart.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(postCart.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+          state.preferenceId = action.payload.preferenceId;
+        })
+        .addCase(postCart.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message;
+        });
     },
-});
+  });
 
 // Export actions and reducer
 export const { getUpdate, update } = cartSlice.actions;

@@ -5,7 +5,11 @@ import { GrUserAdmin } from "react-icons/gr";
 import swal from "sweetalert";
 import { FaUserCheck, FaBan } from "react-icons/fa";
 import { MdOutlineVerifiedUser } from "react-icons/md";
-import { getAllUsers, PutUser, getAllUsersName } from "../redux/actions/UsersActions";
+import {
+  getAllUsers,
+  putUser,
+  getAllUsersName,
+} from "../redux/slices/userSlice";
 import styles from "../styles/AdminUsers.module.css";
 import { NavAdmin } from "./navAdmin";
 
@@ -14,7 +18,9 @@ const InfoUser = ({ email, name, image, lastname, status, country }) => {
     <div className={styles.Contenedor}>
       <div className={styles.ContenedorImg}>
         <img
-          src={image || "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"}
+          src={
+            image || "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
+          }
           alt={name || "User Image"}
         />
       </div>
@@ -81,9 +87,10 @@ export const AdminUsers = () => {
     dispatch(getAllUsers());
   };
 
-  const users = useSelector((state) => state.users || []);
-  const newUsers = users.map((user) => ({ ...user, key: user.id }));
-
+  const users = useSelector((state) => state.users.users || []);
+  //console.log(users, "users");
+  const newUsers = users?.map((user) => ({ ...user, key: user.id }));
+  //console.log(newUsers, "newUsers");
   const [name, setName] = useState("");
 
   const handleInputChange = (e) => {
@@ -147,7 +154,9 @@ export const AdminUsers = () => {
       title: "Admin",
       dataIndex: "admin",
       render: (value) => (
-        <Tag color={value ? "green" : "red"}>{value ? "Admin" : "No Admin"}</Tag>
+        <Tag color={value ? "green" : "red"}>
+          {value ? "Admin" : "No Admin"}
+        </Tag>
       ),
       filters: [
         { text: "Admin", value: true },
@@ -172,11 +181,19 @@ export const AdminUsers = () => {
       render: (value) => (
         <div>
           <button className={styles.btnIcons} onClick={() => setStatus(value)}>
-            {value.status ? <FaBan className={styles.banned} /> : <FaUserCheck className={styles.desbanned} />}
+            {value.status ? (
+              <FaBan className={styles.banned} />
+            ) : (
+              <FaUserCheck className={styles.desbanned} />
+            )}
           </button>
 
           <button className={styles.btnIcons} onClick={() => setAdmin(value)}>
-            {value.admin ? <GrUserAdmin className={styles.desAdmin} /> : <MdOutlineVerifiedUser className={styles.setAdmin} />}
+            {value.admin ? (
+              <GrUserAdmin className={styles.desAdmin} />
+            ) : (
+              <MdOutlineVerifiedUser className={styles.setAdmin} />
+            )}
           </button>
         </div>
       ),

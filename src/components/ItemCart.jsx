@@ -51,7 +51,7 @@ export default function ItemCart({
           </div>
         </Link>
         <p className="card_p_nombre">{name}</p>
-        <strong className="card_strong_precio"> $ {price}</strong>
+        <strong className="card_strong_precio" style={{ display: "block" }} > $ {price}</strong>
         <div className="ContainerSumRest">
           <button className="Restar" onClick={() => handleDelete()}>
             <svg

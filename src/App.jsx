@@ -9,7 +9,7 @@ import { Register } from "./components/Register.jsx";
 import Profile from "./components/Profile.jsx";
 import { Login } from "./components/Login.jsx";
 import { CreateProducts } from "./components/CreateProduct.jsx";
-import {getFiltersForEmail, userActive} from "./redux/slices/userSlice.js"
+import { getFiltersForEmail, userActive } from "./redux/slices/userSlice.js";
 import { useEffect, useState } from "react";
 import Cart from "./components/Cart.jsx";
 import { AdminProducts } from "./components/AdminProducts.jsx";
@@ -18,18 +18,27 @@ import { AdminOrder } from "./components/AdminOrder.jsx";
 import About from "./components/About.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import ChangePass from "./components/Changepass.jsx";
-import axiosClient from "../src/herramientas/clienteAxios.js"
+import axiosClient from "../src/herramientas/clienteAxios.js";
 import { verifyUser } from "./herramientas/verificaUsuario.js";
 import { useDispatch, useSelector } from "react-redux";
+import PoliticaPrivacidad from "./components/PoliticaPrivacidad.jsx";
+import CondicionesServicio from "./components/CondicionesServicio.jsx";
+import SuccessPage from "./components/SuccessPage.jsx";
+import { Orders } from "./components/Orders.jsx";
+import { checkAuth } from "./redux/slices/userSlice";
+// console.log(import.meta.env.VITE_APP_BACK)
+// console.log(import.meta.env.VITE_APP_YOUR_CLIENT_ID_LOGIN)
 
-console.log(import.meta.env.VITE_APP_BACK)
-console.log(import.meta.env.VITE_APP_YOUR_CLIENT_ID_LOGIN)
 function App() {
   const dispatch = useDispatch();
-  const location = useLocation();  
-  const usuarioConectado =  useSelector((state) => state.users.userActive);
-//console.log (usuarioConectado.status)
-//const usuarioConectado = JSON.parse(localStorage.getItem("USUARIO")) || {}
+  const location = useLocation();
+  const usuarioConectado = useSelector((state) => state.users.userActive);
+  //console.log (usuarioConectado.status)
+  //const usuarioConectado = JSON.parse(localStorage.getItem("USUARIO")) || {}
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
 
   // useEffect(() => {
   //   dispatch(getFiltersForEmail());
@@ -53,7 +62,11 @@ function App() {
         <Route path="/about" element={<About />} />
 
         <Route path="/detail/:Name" element={<Detail />} />
-        
+
+        <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
+        <Route path="/condiciones-servicio" element={<CondicionesServicio />} />
+        <Route path="/success" element={<SuccessPage />} />
+        <Route path="/mis-ordenes" element={<Orders />} />
 
         <Route
           element={
@@ -73,7 +86,10 @@ function App() {
         <Route
           path="/Profile"
           element={
-            <ProtectedRoute isAllowed={usuarioConectado?.status} redirecTo={"/Login"}>
+            <ProtectedRoute
+              isAllowed={usuarioConectado?.status}
+              redirecTo={"/Login"}
+            >
               <Profile />
             </ProtectedRoute>
           }

@@ -24,7 +24,7 @@ margin-left: 235px;
 }
 
 .Imagen{
-    border-radius: 20px;
+    border-radius: 30px;
     height: 150px;
     width: 150px;
     object-fit: contain;
@@ -42,6 +42,7 @@ margin-left: 235px;
 
 .contenedor_card  img{
     
+    border-radius: 15px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -49,6 +50,7 @@ margin-left: 235px;
 }
 
 .LinkImage {
+    border-radius: 15px;
     /* display: flex; */
     justify-content: center;
     width: 80%;

@@ -13,7 +13,7 @@ export default function Card({name, image, price, descrition, calification,  isF
             className="Imagen" 
             src={image} 
             width="100px" 
-            alt=""/>
+            alt="sabores el gato negro premium e-liquids"/>
             <hr />
           </div>
           </Link>

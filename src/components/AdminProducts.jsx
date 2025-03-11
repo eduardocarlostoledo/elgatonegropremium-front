@@ -10,8 +10,8 @@ import {
   getAllTypes,
   updateProduct,
   banOrUnbanProd,
-} from "../redux/actions/ProductActions";
-import { update } from "../redux/actions/CartActions";
+} from "../redux/slices/productSlice";
+import { update } from "../redux/slices/cartSlice";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import ".././styles/AdminProducts.css";
@@ -43,8 +43,8 @@ const ProductExpanded = ({
     info_adicional,
   });
 
-  const brands = useSelector((state) => state.brands);
-  const types = useSelector((state) => state.types);
+  const brands = useSelector((state) => state.products.brands);
+  const types = useSelector((state) => state.products.types);
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -318,7 +318,7 @@ export const AdminProducts = () => {
     }
   };
 
-  let products = useSelector((state) => state.products || []);
+  let products = useSelector((state) => state.products.allProducts || []);
   
   const newProducts = products.map((product) => ({
     ...product,

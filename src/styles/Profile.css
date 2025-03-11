@@ -57,9 +57,9 @@
 .derecha {
     background-color:  rgb(247, 247, 247);
     height: auto;
-    width: 70%;
+    width: 100%;
     min-height: 370px;
-    padding-left: 50px;
+    padding-left: 10px;
     padding-top: 20px;
     border-radius: 0 20px 20px 0;
     box-shadow: 2rem 2rem 2rem rgba(0, 0, 0, 0.2);
