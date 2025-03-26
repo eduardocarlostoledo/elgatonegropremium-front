@@ -11,6 +11,7 @@ import cushman from "../images/cushman.jpg"
 import heisenberg from "../images/heisenberg.jpg"
 import gatogafas from "../images/gato.jpg"
 import { FaHandsHelping, FaShoppingBag, FaLeaf } from "react-icons/fa";
+import ChatBot from "./ChatBot";
 
 export const Home = () => {
   const handleClick = () => {
@@ -128,6 +129,17 @@ export const Home = () => {
             <img src={raul} alt="Raul" className="testimonial-img" />
             <p>"Los sabores son impresionantes, especialmente los que imitan el tabaco. ¡Un gran hallazgo!"</p>
             <h4>Raúl S.</h4>
+          </div>
+        </div>
+      </section>
+
+      <section className="testimonials-section">
+        <h3>Habla con Un Asesor</h3>
+        <div className="testimonials-grid">
+          
+          
+          <div className="testimonial">
+            <ChatBot />
           </div>
         </div>
       </section>

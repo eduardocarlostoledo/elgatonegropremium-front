@@ -86,16 +86,20 @@ export const putUser = createAsyncThunk("users/update", async (payload) => {
 });
 
 export const putUserProfile = createAsyncThunk(
-  "users/updateProfile",
-  async ({ payload, id }) => {
-    console.log("putuserprofile", payload, id);
-    const user = await axiosClient.put(`/users/${id}`, payload);
-    const cacho = await axiosClient.get(`/users/${id}`);
-    localStorage.setItem("USUARIO", JSON.stringify(cacho.data.data));
-    console.log("se metio un cacho al localhost");
-    return user;
-  }
-);
+    "user/putUserProfile",
+    async ({ data, userId }, { rejectWithValue }) => {
+      try {
+        const response = await axios.put(`/users/${userId}`, data, {
+          headers: {
+            "Content-Type": "multipart/form-data", // Importante para FormData
+          },
+        });
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response.data);
+      }
+    }
+  );
 
 export const postGoogle = createAsyncThunk("/users/google", async (payload) => {
   console.log("auth/google", payload);

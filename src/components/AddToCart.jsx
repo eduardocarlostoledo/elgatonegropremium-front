@@ -23,7 +23,7 @@ export default function AddToCart({ item }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    if (!usuarioConectado.id) {
+    if (!usuarioConectado) {
       swal({
         title: 'Error',
         text: 'Debes iniciar sesión para añadir productos al carrito.',

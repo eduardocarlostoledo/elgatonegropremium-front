@@ -36,7 +36,7 @@ export const getProductDetail = createAsyncThunk(
   async (name) => {
     //console.log(name)
     const response = await axiosClient.get(`/products/${name}`);
-    console.log(response);
+    //console.log(response);
     return response.data.data[0]; // Asegúrate de devolver el objeto correcto
   }
 );

@@ -30,7 +30,7 @@ export const getAdminProducts = () => async (dispatch) => {
 userID : localStorage.getItem('userID'),
 email : localStorage.getItem('email')
     }
-    console.log("GET getAdminProducts ", dispatch, usuario )   
+    //console.log("GET getAdminProducts ", dispatch, usuario )   
 
     try {
         return await axiosClient(`${import.meta.env.VITE_APP_BACK}/products/ForAdmin`).then(r=>

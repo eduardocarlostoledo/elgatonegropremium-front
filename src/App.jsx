@@ -26,6 +26,7 @@ import CondicionesServicio from "./components/CondicionesServicio.jsx";
 import SuccessPage from "./components/SuccessPage.jsx";
 import { Orders } from "./components/Orders.jsx";
 import { checkAuth } from "./redux/slices/userSlice";
+import { ChatBot } from "./components/ChatBot.jsx";
 // console.log(import.meta.env.VITE_APP_BACK)
 // console.log(import.meta.env.VITE_APP_YOUR_CLIENT_ID_LOGIN)
 
@@ -67,6 +68,7 @@ function App() {
         <Route path="/condiciones-servicio" element={<CondicionesServicio />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/mis-ordenes" element={<Orders />} />
+        <Route path="/chatbot" element={<ChatBot />} />
 
         <Route
           element={
