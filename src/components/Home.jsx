@@ -11,7 +11,7 @@ import cushman from "../images/cushman.jpg"
 import heisenberg from "../images/heisenberg.jpg"
 import gatogafas from "../images/gato.jpg"
 import { FaHandsHelping, FaShoppingBag, FaLeaf } from "react-icons/fa";
-import ChatBot from "./ChatBot";
+import {ChatBot} from "./ChatBot";
 
 export const Home = () => {
   const handleClick = () => {
