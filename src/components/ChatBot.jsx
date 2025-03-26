@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "../styles/ChatBot.css"; // Importamos los estilos CSS
 
-const ChatBot = () => {
+export const ChatBot = () => {
   const [messages, setMessages] = useState([
     { text: "Hola! Soy el asistente de El Gato Negro Premium. ¿En qué puedo ayudarte?", sender: "bot" },
   ]);
@@ -70,4 +70,3 @@ const ChatBot = () => {
   );
 };
 
-export default ChatBot;
