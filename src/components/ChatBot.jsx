@@ -21,8 +21,12 @@ export const ChatBot = () => {
     setInput("");
     setIsTyping(true);
 
+
+    
+
+
     try {
-      const response = await fetch("http://localhost:3001/chat/chatpost", {
+      const response = await fetch(`${import.meta.env.VITE_APP_BACK}/chat/chatpost`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),

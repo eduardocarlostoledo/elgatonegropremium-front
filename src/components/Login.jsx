@@ -100,7 +100,7 @@ export const Login = () => {
     const viewAlert = async () => {
         try {
             // Realiza la primera solicitud para registrar al usuario
-            const registerResponse = await fetch("http://localhost:3001/users/google", {
+            const registerResponse = await fetch(`${import.meta.env.VITE_APP_BACK}/users/google`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -113,7 +113,7 @@ export const Login = () => {
             }
     
             // Realiza la segunda solicitud para iniciar sesión
-            const loginResponse = await fetch("http://localhost:3001/user/loginGoogle", {
+            const loginResponse = await fetch(`${import.meta.env.VITE_APP_BACK}/users/logingoogle`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
