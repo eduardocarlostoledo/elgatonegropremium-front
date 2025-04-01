@@ -18,7 +18,7 @@ export const addAllOrders = () => async (dispatch) => {
 
 export const getAllShopping = () => async (dispatch) => {
     try {
-        const response = await axiosClient.get('/order/pays');
+        const response = await axiosClient.get('/orders/pays');
         dispatch({ type: GET_ALL_SHOPPING, payload: response.data });
     } catch (error) {
         console.error('Error fetching all shopping data:', error);
@@ -28,7 +28,7 @@ export const getAllShopping = () => async (dispatch) => {
 
 export const orderById = (id) => async (dispatch) => {
     try {
-        const response = await axiosClient.get(`/order/${id}`);
+        const response = await axiosClient.get(`/orders/${id}`);
         dispatch({ type: ORDER_BY_ID, payload: response.data });
     } catch (error) {
         console.error(`Error fetching order by id (${id}):`, error);
@@ -38,7 +38,7 @@ export const orderById = (id) => async (dispatch) => {
 
 export const orderByUser = (cartUserId) => async (dispatch) => {
     try {
-        const response = await axiosClient.get(`/order/${cartUserId}`);
+        const response = await axiosClient.get(`/orders/${cartUserId}`);
         dispatch({ type: ORDER_BY_USER, payload: response.data });
     } catch (error) {
         console.error(`Error fetching orders by user (${cartUserId}):`, error);
@@ -48,7 +48,7 @@ export const orderByUser = (cartUserId) => async (dispatch) => {
 
 export const orderByEmail = (email) => async (dispatch) => {
     try {
-        const response = await axiosClient.get(`/order/${email}`);
+        const response = await axiosClient.get(`/orders/${email}`);
         dispatch({ type: ORDER_BY_EMAIL, payload: response.data });
     } catch (error) {
         console.error(`Error fetching orders by email (${email}):`, error);
