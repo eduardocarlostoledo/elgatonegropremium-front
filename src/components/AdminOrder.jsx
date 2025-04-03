@@ -1,9 +1,20 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Table, Tag, Space, Button, Select, Form, Modal, Descriptions } from "antd";
+import {
+  Table,
+  Tag,
+  Button,
+  Select,
+  Form,
+  Modal,
+  Descriptions,
+  Input,
+  message,
+  Space
+} from "antd";
 import { AiFillEdit } from "react-icons/ai";
 import { addAllOrders, updateOrderStatus } from "../redux/slices/orderSlice";
-import { NavAdmin } from './navAdmin';
+import { NavAdmin } from "./navAdmin";
 
 const { Option } = Select;
 
@@ -12,6 +23,7 @@ export const AdminOrder = () => {
   const [form] = Form.useForm();
   const [editingOrder, setEditingOrder] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     dispatch(addAllOrders());
@@ -19,48 +31,102 @@ export const AdminOrder = () => {
 
   const orders = useSelector((state) => state.orders.AllOrders || []);
 
-  const handleStatusChange = async (orderId, field, value) => {
-
-    const body = {
-      field : value,
-    };
-
-    console.log({ orderId, body })
-
-    await dispatch(updateOrderStatus({ orderId, body }));
+  const handleStatusChange = async (orderId, updatedFields) => {
+    try {
+      await dispatch(updateOrderStatus({ orderId, body: updatedFields }));
+      return true;
+    } catch (error) {
+      console.error("Error updating order:", error);
+      return false;
+    }
   };
 
   const showEditModal = (record) => {
     setEditingOrder(record);
+    
+    const buyerAddress = typeof record.buyer_address === 'string' 
+      ? JSON.parse(record.buyer_address) 
+      : record.buyer_address || {};
+    
+    form.setFieldsValue({
+      status: record.status,
+      estadoEnvio: record.estadoEnvio,
+      payment_type: record.payment_type,
+      buyer_state: buyerAddress.state || "",
+      buyer_address: buyerAddress.address || "",
+      buyer_country: buyerAddress.country || "",
+      buyer_city: buyerAddress.city || "",
+      buyer_phone: record.buyer_phone,
+      trackSeguimiento: record.trackSeguimiento,
+      trackUrl: record.trackUrl,
+      trackCarrierName: record.trackCarrierName,
+    });
     setIsModalVisible(true);
   };
 
-  const handleModalOk = () => {
-    form.validateFields().then(values => {
-      handleStatusChange(editingOrder.id, 'status', values.status);
-      handleStatusChange(editingOrder.id, 'estadoEnvio', values.estadoEnvio);
-      setIsModalVisible(false);
-    });
+  const handleModalOk = async () => {
+    try {
+      setIsSubmitting(true);
+      const values = await form.validateFields();
+      
+      const updatedFields = {
+        status: values.status,
+        estadoEnvio: values.estadoEnvio,
+        payment_type: values.payment_type,
+        buyer_address: {
+          state: values.buyer_state,
+          address: values.buyer_address,
+          country: values.buyer_country,
+          city: values.buyer_city,
+        },
+        buyer_phone: values.buyer_phone,
+        trackSeguimiento: values.trackSeguimiento,
+        trackUrl: values.trackUrl,
+        trackCarrierName: values.trackCarrierName,
+      };
+      
+      const success = await handleStatusChange(editingOrder.id, updatedFields);
+      
+      if (success) {
+        message.success('Orden actualizada correctamente');
+        setIsModalVisible(false);
+        form.resetFields();
+      } else {
+        message.error('Error al actualizar la orden');
+      }
+    } catch (error) {
+      console.error("Error al actualizar orden:", error);
+      message.error('Por favor complete todos los campos requeridos');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const columns = [
     {
-      title: 'Cliente',
-      render: (_, record) => (
-        <div>
-          <div><strong>{record.buyer_email}</strong></div>
-          <div>{record.buyer_name} {record.buyer_lastname}</div>
-          <div>{record.buyer_phone || 'Sin teléfono'}</div>
+      title: "Cliente",
+      render: (_, record) => {
+        const buyerAddress = typeof record.buyer_address === "string"
+          ? JSON.parse(record.buyer_address)
+          : record.buyer_address || {};
+
+        return (
           <div>
-            {record.buyer_address 
-              ? `${record.buyer_address.city || 'Sin ciudad'}, ${record.buyer_address.country || 'Sin país'}` 
-              : 'Sin dirección'}
+            <div><strong>{record.buyer_email}</strong></div>
+            <div>{record.buyer_name} {record.buyer_lastname}</div>
+            <div>{record.buyer_phone || "Sin teléfono"}</div>
+            <div>
+              {buyerAddress.address || "Sin dirección"},{" "}
+              {buyerAddress.city || "Sin ciudad"},{" "}
+              {buyerAddress.state || "Sin provincia"},{" "}
+              {buyerAddress.country || "Sin país"}
+            </div>
           </div>
-        </div>
-      ),
+        );
+      },
     },
     {
-      title: 'Productos',
+      title: "Productos",
       render: (_, record) => (
         <div>
           {record.products.slice(0, 2).map((product, index) => (
@@ -68,102 +134,133 @@ export const AdminOrder = () => {
               {product.product_name} (x{product.product_amount})
             </div>
           ))}
-          {record.products.length > 2 && <div>+{record.products.length - 2} más...</div>}
+          {record.products.length > 2 && (
+            <div>+{record.products.length - 2} más...</div>
+          )}
         </div>
       ),
     },
     {
-      title: 'Total',
-      dataIndex: 'total_order_price',
+      title: "Total",
+      dataIndex: "total_order_price",
       render: (price) => `$${price.toLocaleString()}`,
       sorter: (a, b) => a.total_order_price - b.total_order_price,
     },
     {
-      title: 'Estado Pago',
-      dataIndex: 'status',
+      title: "Estado Pago",
+      dataIndex: "status",
       render: (status) => (
-        <Tag color={
-          status === "approved" ? "green" : 
-          status === "rejected" ? "red" : "orange"
-        }>
+        <Tag
+          color={
+            status === "approved" ? "green" :
+            status === "rejected" ? "red" : "orange"
+          }
+        >
           {status.toUpperCase()}
         </Tag>
       ),
       filters: [
-        { text: 'Approved', value: 'approved' },
-        { text: 'Pending', value: 'pending' },
-        { text: 'Rejected', value: 'rejected' },
+        { text: "Approved", value: "approved" },
+        { text: "Pending", value: "pending" },
+        { text: "Rejected", value: "rejected" },
       ],
       onFilter: (value, record) => record.status === value,
     },
     {
-      title: 'Tipo Pago',
-      dataIndex: 'payment_type',
-      render: (type) => type ? type.replace('_', ' ').toUpperCase() : 'N/A',
+      title: "Tipo Pago",
+      dataIndex: "payment_type",
+      render: (type) => (type ? type.replace("_", " ").toUpperCase() : "N/A"),
     },
     {
-      title: 'Envío',
-      dataIndex: 'estadoEnvio',
-      render: (estado) => (
-        <Tag color={
-          estado === "enviado" ? "green" : 
-          estado === "no enviado" ? "red" : "orange"
-        }>
-          {estado.toUpperCase()}
-        </Tag>
-      ),
+      title: "Envío",
+      render: (_, record) => {
+        const estado = record.estadoEnvio || "pendiente";
+        return (
+          <div>
+            <div><strong>{estado}</strong></div>
+            <div>
+              {record.trackSeguimiento || "Sin número"} -{" "}
+              {record.trackCarrierName || "Sin transportista"}
+            </div>
+            {record.trackUrl && <div>{record.trackUrl}</div>}
+            <div>
+              <Tag
+                color={
+                  estado === "enviado" ? "green" :
+                  estado === "cancelado" ? "red" : "orange"
+                }
+              >
+                {estado.toUpperCase()}
+              </Tag>
+            </div>
+          </div>
+        );
+      },
     },
     {
-      title: 'Fecha',
-      dataIndex: 'createdAt',
-      render: (date) => date ? new Date(date).toLocaleString() : 'N/A',
+      title: "Fecha",
+      dataIndex: "createdAt",
+      render: (date) => (date ? new Date(date).toLocaleString() : "N/A"),
       sorter: (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
     },
     {
-      title: 'Acciones',
+      title: "Acciones",
       render: (_, record) => (
         <Button 
           icon={<AiFillEdit />} 
           onClick={() => showEditModal(record)}
+          aria-label="Editar orden"
         />
       ),
     },
   ];
 
   const expandedRowRender = (record) => {
-    const columns = [
+    const productColumns = [
       {
-        title: 'Producto',
-        dataIndex: 'product_name',
-        key: 'name',
+        title: "#",
+        render: (_, __, index) => index + 1,
+        width: 50,
+        align: 'center'
       },
       {
-        title: 'Descripción',
-        dataIndex: 'product_description',
-        key: 'description',
+        title: "Producto",
+        dataIndex: "product_name",
+        key: "name",
       },
       {
-        title: 'Cantidad',
-        dataIndex: 'product_amount',
-        key: 'amount',
+        title: "Descripción",
+        dataIndex: "product_description",
+        key: "description",
       },
       {
-        title: 'Precio Unitario',
-        dataIndex: 'product_unit_price',
+        title: "Cantidad",
+        dataIndex: "product_amount",
+        key: "amount",
+        align: 'center'
+      },
+      {
+        title: "Precio Unitario",
+        dataIndex: "product_unit_price",
         render: (price) => `$${price.toLocaleString()}`,
-        key: 'price',
+        key: "price",
+        align: 'right'
       },
       {
-        title: 'Total',
-        render: (_, product) => `$${(product.product_amount * product.product_unit_price).toLocaleString()}`,
-        key: 'total',
+        title: "Total",
+        render: (_, product) =>
+          `$${(
+            product.product_amount * product.product_unit_price
+          ).toLocaleString()}`,
+        key: "total",
+        align: 'right'
       },
     ];
-
+  
     return (
       <div>
         <Table
-          columns={columns}
+          columns={productColumns}
           dataSource={record.products}
           pagination={false}
           rowKey="prodId"
@@ -181,7 +278,7 @@ export const AdminOrder = () => {
   return (
     <div>
       <NavAdmin />
-      <div style={{ marginTop: "80px", padding: "20px" }}>
+      <div >
         <Table
           style={{ backgroundColor: "rgb(245, 245, 235)" }}
           columns={columns}
@@ -191,32 +288,136 @@ export const AdminOrder = () => {
         />
 
         <Modal
-          title="Editar Estado de Orden"
+          title={`Editando Orden #${editingOrder?.id || ''}`}
           visible={isModalVisible}
           onOk={handleModalOk}
-          onCancel={() => setIsModalVisible(false)}
+          onCancel={() => {
+            form.resetFields();
+            setIsModalVisible(false);
+          }}
+          width={800}
+          okText="Guardar Cambios"
+          cancelText="Cancelar"
+          confirmLoading={isSubmitting}
+          destroyOnClose
         >
-          <Form
-            form={form}
-            initialValues={{
-              status: editingOrder?.status,
-              estadoEnvio: editingOrder?.estadoEnvio
-            }}
-          >
-            <Form.Item name="status" label="Estado de Pago">
-              <Select>
-                <Option value="approved">Approved</Option>
-                <Option value="pending">Pending</Option>
-                <Option value="rejected">Rejected</Option>
-              </Select>
-            </Form.Item>
-            <Form.Item name="estadoEnvio" label="Estado de Envío">
-              <Select>
-                <Option value="pendiente">Pendiente</Option>
-                <Option value="enviada">Enviada</Option>
-                <Option value="cancelada">Cancelada</Option>
-              </Select>
-            </Form.Item>
+          <Form form={form} layout="vertical">
+            <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+              <Form.Item 
+                name="status" 
+                label="Estado del Pago"
+                rules={[{ required: true, message: 'Seleccione el estado del pago' }]}
+              >
+                <Select placeholder="Seleccione estado">
+                  <Option value="approved">Aprobado</Option>
+                  <Option value="pending">Pendiente</Option>
+                  <Option value="rejected">Rechazado</Option>
+                </Select>
+              </Form.Item>
+
+              <Form.Item 
+                name="payment_type" 
+                label="Forma de Pago"
+                rules={[{ required: true, message: 'Seleccione la forma de pago' }]}
+              >
+                <Select placeholder="Seleccione método">
+                  <Option value="credit_card">Tarjeta de Crédito</Option>
+                  <Option value="debit_card">Tarjeta de Débito</Option>
+                  <Option value="bank_transfer">Transferencia Bancaria</Option>
+                  <Option value="cash">Efectivo</Option>
+                  <Option value="paypal">PayPal</Option>
+                  <Option value="mercado_pago">Mercado Pago</Option>
+                  <Option value="crypto">Criptomonedas</Option>
+                  <Option value="gift_card">Tarjeta de Regalo</Option>
+                  <Option value="other">Otro</Option>
+                </Select>
+              </Form.Item>
+
+              <Form.Item 
+                name="estadoEnvio" 
+                label="Estado de Envío"
+                rules={[{ required: true, message: 'Seleccione el estado de envío' }]}
+              >
+                <Select placeholder="Seleccione estado">
+                  <Option value="pendiente">Pendiente</Option>
+                  <Option value="preparando">En preparación</Option>
+                  <Option value="enviado">Enviado</Option>
+                  <Option value="entregado">Entregado</Option>
+                  <Option value="cancelado">Cancelado</Option>
+                  <Option value="devuelto">Devuelto</Option>
+                </Select>
+              </Form.Item>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <Form.Item 
+                  name="trackSeguimiento" 
+                  label="Número de Seguimiento"
+                >
+                  <Input placeholder="Ej: AB123456789" />
+                </Form.Item>
+
+                <Form.Item 
+                  name="trackCarrierName" 
+                  label="Transportista"
+                >
+                  <Input placeholder="Ej: Correo Argentino" />
+                </Form.Item>
+              </div>
+
+              <Form.Item 
+                name="trackUrl" 
+                label="URL de Seguimiento"
+                tooltip="Ingrese la URL completa de seguimiento del transportista"
+              >
+                <Input placeholder="https://..." />
+              </Form.Item>
+
+              <h4>Información de Envío</h4>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <Form.Item 
+                  name="buyer_address" 
+                  label="Dirección"
+                  rules={[{ required: true, message: 'Ingrese la dirección' }]}
+                >
+                  <Input placeholder="Ej: Av. Corrientes 1234" />
+                </Form.Item>
+
+                <Form.Item 
+                  name="buyer_city" 
+                  label="Ciudad"
+                  rules={[{ required: true, message: 'Ingrese la ciudad' }]}
+                >
+                  <Input placeholder="Ej: Buenos Aires" />
+                </Form.Item>
+
+                <Form.Item 
+                  name="buyer_state" 
+                  label="Provincia/Estado"
+                  rules={[{ required: true, message: 'Ingrese la provincia' }]}
+                >
+                  <Input placeholder="Ej: CABA" />
+                </Form.Item>
+
+                <Form.Item 
+                  name="buyer_country" 
+                  label="País"
+                  rules={[{ required: true, message: 'Ingrese el país' }]}
+                >
+                  <Input placeholder="Ej: Argentina" />
+                </Form.Item>
+
+                <Form.Item 
+                  name="buyer_phone" 
+                  label="Teléfono"
+                  rules={[
+                    { required: true, message: 'Ingrese el teléfono' },
+                    { pattern: /^[0-9+\-()\s]+$/, message: 'Teléfono no válido' }
+                  ]}
+                >
+                  <Input placeholder="Ej: +54 11 1234-5678" />
+                </Form.Item>
+              </div>
+            </Space>
           </Form>
         </Modal>
       </div>

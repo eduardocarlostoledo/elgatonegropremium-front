@@ -208,7 +208,7 @@ export const AdminUsers = () => {
         handleSubmit={handleSubmit}
         handleClick={handleClick}
       />
-      <div style={{ marginTop: "80px", padding: "20px" }}>
+      <div >
         <Table
           style={{ backgroundColor: "rgb(245, 245, 235)" }}
           columns={columns}

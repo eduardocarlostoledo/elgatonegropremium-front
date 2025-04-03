@@ -22,17 +22,14 @@ export const updateOrderStatus = createAsyncThunk(
   "orders/updateStatus",
   async ({ orderId, body }, { rejectWithValue, dispatch }) => {
     try {
-      console.log(`Updating order ${orderId}: ${field} to ${value}`);
+      console.log(`Updating order ${orderId}:`, body);
       
-      // Primero hacemos la llamada API para actualizar en el backend
-      const response = await axiosClient.put(`/orders/${orderId}`, {
-        body,
-      });
-      
+      // Llamada API para actualizar en el backend
+      const response = await axiosClient.patch(`/orders/${orderId}`, body);
+
       // Despachamos addAllOrders para refrescar la lista completa
-      // Esto asegura que tengamos los datos más actualizados
       dispatch(addAllOrders());
-      
+
       return response.data;
     } catch (error) {
       console.error("Error updating order status:", error.response?.data);
@@ -40,6 +37,7 @@ export const updateOrderStatus = createAsyncThunk(
     }
   }
 );
+
 
 export const getAllShopping = createAsyncThunk(
   "orders/getAllShopping",

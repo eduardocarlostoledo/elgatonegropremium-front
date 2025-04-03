@@ -4,235 +4,344 @@ import { useDispatch, useSelector } from "react-redux";
 import "../styles/CreateProduct.css";
 import swal from 'sweetalert';
 import { NavAdmin } from "./navAdmin";
-
 import {
   getAllBrands,
   getAllTypes,
   createProduct,
-} from "../redux/actions/ProductActions";
+} from "../redux/slices/productSlice.js";
 import { useNavigate } from "react-router-dom";
 
 function validate(input) {
-    let errors = {};
-    const regexName = /^[A-Za-z0-9\s]+$/g;
-    
-
-    if (input.name && !regexName.test(input.name)) {
-        errors.name = "can't include special characters or numbers";
-    }
-    if (!input.name) {
-        errors.name = "Name is required";
-    }
-    if (input.name.length > 35) {
-        errors.name = "Max 35 characters";
-    }
-    if (input.name.length < 6) {
-        errors.name = "Min 6 characters";
-    }
-    
-    if (!input.description) {
-        errors.description = "Description is required";
-    }
-    
-    if (input.description.length < 10) {
-        errors.description = "Min 10 characters";
-    }
-    if (isNaN(input.stock)) 
-        errors.stock= "Stock has to be a number"
-
-    if(!input.stock) 
-        errors.stock="Stock is required";
-    if(input.stock < 1 || input.stock > 1000) 
-        errors.stock="Stock from 1 to 1000";
+  let errors = {};
+  const regexName = /^[A-Za-z0-9\s]+$/g;
   
-    if (!input.price) {
-        errors.price = "Price is required";
-    }
-    
-    if(!input.type.length){
-        errors.type = 'Place the name of a type and select the same'    
-    }
-    if(!input.brand.length){
-        errors.brand = 'Place the name of a brand and select the same'    
-    }
-    return errors;
+  if (input.name && !regexName.test(input.name)) {
+    errors.name = "No se permiten caracteres especiales";
+  }
+  if (!input.name) {
+    errors.name = "Nombre es requerido";
+  }
+  if (input.name.length > 35) {
+    errors.name = "Máximo 35 caracteres";
+  }
+  if (input.name.length < 6) {
+    errors.name = "Mínimo 6 caracteres";
+  }
+  
+  if (!input.description) {
+    errors.description = "Descripción es requerida";
+  }
+  
+  if (input.description.length < 10) {
+    errors.description = "Mínimo 10 caracteres";
+  }
+  
+  if (isNaN(input.stock)) 
+    errors.stock = "Stock debe ser un número";
+  
+  if(!input.stock) 
+    errors.stock = "Stock es requerido";
+  
+  if(input.stock < 1 || input.stock > 1000) 
+    errors.stock = "Stock entre 1 y 1000";
+  
+  if (!input.price) {
+    errors.price = "Precio es requerido";
+  }
+  
+  if(!input.type.length){
+    errors.type = 'Selecciona o crea un tipo'    
+  }
+  
+  if(!input.brand.length){
+    errors.brand = 'Selecciona o crea una marca'    
+  }
+  
+  return errors;
 }
 
 export const CreateProducts = () => {
-    
-    // const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const brands = useSelector((state) => state.brands);
-    const types = useSelector((state) => state.types);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const brands = useSelector((state) => state.brands);
+  const types = useSelector((state) => state.types);
 
-    useEffect(() => {
-        dispatch(getAllBrands());
-        dispatch(getAllTypes());
-    }, [dispatch]);
+  console.log("estado de brands y types", brands, types);
 
+  useEffect(() => {
+    dispatch(getAllBrands());
+    dispatch(getAllTypes());
+  }, [dispatch]);
 
+  const [errors, setErrors] = useState({});
+  const [input, setInput] = useState({
+    name: "",
+    image: "",
+    price: "",
+    description: "",
+    stock: 1,
+    brand: [],
+    type: [],
+    info_adicional: { "socket": "" }
+  });
 
-    const [errors, setErrors] = useState({});
+  const [typeInput, setTypeInput] = useState('');
+  const [brandInput, setBrandInput] = useState('');
 
-    const [input, setInput] = useState({
-        name: "",
-        image: "",
-        price: "",
-        description: "",
-        stock: 1,
-        brand: [],
-        type: [],
-        info_adicional:{ "socket" : ""}
+  const handleChange = (e) => {
+    setErrors(validate({ ...input, [e.target.name]: e.target.value }));
+    setInput({...input, [e.target.name]: e.target.value});
+  }
+
+  const handleChangeImage = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setInput({ ...input, image: file });
+      
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const preview = document.getElementById('image-preview');
+        preview.src = event.target.result;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Si no se seleccionó archivo, ocultar preview
+      document.getElementById('image-preview').style.display = 'none';
+    }
+  }
+
+  const handleSocketChange = (e) => {
+    setInput({
+      ...input,
+      info_adicional: { "socket": e.target.value }
     });
+  };
+  
+  const handleChangeStock = (e) => {
+    const { name, value } = e.target;
+    setInput({
+      ...input,
+      [name]: name === "stock" ? parseInt(value) : value,
+    });
+  }
 
-    const handleChange = (e) => {
-        
-        setErrors( validate({ ...input, [e.target.name]: e.target.value}));
-        setInput({...input, [e.target.name]: e.target.value});
-        console.log(input)
-    }
-    const handleChangeImage =(e) => {
-        setInput({ ...input, image: e.target.files[0]})
-    }
-
-    const handleSocketChange = (event) => {
-        const { value } = event.target;
-        console.log(value)
-        setInput((input) => ({
-          ...input,
-          "info_adicional": {"socket": value},
-        }));
-        console.log(input, 'ACA ESTA EL INPUT MOTHERBOARD O PROCESS')
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const validationErrors = validate(input);
+    setErrors(validationErrors);
     
-    const navigate = useNavigate()
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if(!input.name || !input.image || !input.price || !input.description || !input.type.length || !input.brand.length) {
-            return swal('Cannot create product', '', 'error')
-        } else {
-            
-            const data = new FormData()
-            data.append("name", input.name)
-            data.append("image", input.image)
-            data.append("price", input.price)
-            data.append("description", input.description)
-            data.append("brand", input.brand)
-            data.append("type", input.type)
-            data.append("stock", input.stock)
-            data.append("info_adicional", input.info_adicional.socket)
-            
-            setErrors(validate(input))
-            dispatch(createProduct(data));
-            console.log(data)
-            swal('Created product', "", 'success');
-            setInput({
-                name: "",
-                image: "",
-                price: "",
-                description: "",
-                stock: 1,
-                brand: [],
-                type: [],
-                info_adicional:{ "socket" : ""}
-            });
-            navigate('/Products')
-        }
+    if (Object.keys(validationErrors).length > 0) {
+      return swal('Error en el formulario', 'Por favor corrige los errores', 'error');
     }
-
-    const [typeInput, setTypeInput] = useState('');
-    const [brandInput, setBrandInput] = useState('');
-    const [selectedType, setSelectedType] = useState('');
-    const [selectedBrand, setSelectedBrand] = useState('');
-
-    const handleChangeStock = (e) => {
-        const { name, value } = e.target;
-        setInput({
-            ...input,
-            [name]: name === "stock" ? parseInt(value) : value,
+    
+    try {
+      const data = new FormData();
+      data.append("name", input.name);
+      data.append("image", input.image);
+      data.append("price", input.price);
+      data.append("description", input.description);
+      data.append("brand", input.brand);
+      data.append("type", input.type);
+      data.append("stock", input.stock);
+      data.append("info_adicional", input.info_adicional.socket);
+      
+      await dispatch(createProduct(data));
+      
+      swal('Producto creado', "", 'success')
+        .then(() => {
+          // Limpiar formulario
+          setInput({
+            name: "",
+            image: "",
+            price: "",
+            description: "",
+            stock: 1,
+            brand: [],
+            type: [],
+            info_adicional: { "socket": "" }
           });
+          document.getElementById('image-preview').style.display = 'none';
+          
+          // Abrir nueva pestaña con los productos
+          window.open('/Products', '_blank');
+        });
+    } catch (error) {
+      swal('Error', 'No se pudo crear el producto', 'error');
     }
+  }
 
+  return (
+    <div className="p-createproduct-container">
+      <NavAdmin />
+      
+      <div className="p-createproduct-main">
+        <div className='p-createproduct-form'>
+          <h1 className='p-createproduct-title'>Crear Producto</h1>
+          
+          <form onSubmit={handleSubmit} className="p-createproduct-form-container">
+            {/* Nombre del Producto */}
+            <div className='p-createproduct-field'>
+              <label className='p-createproduct-label'>Nombre del Producto</label>
+              <input 
+                className={`p-createproduct-input ${errors.name ? 'p-createproduct-input-error' : ''}`} 
+                type='text' 
+                value={input.name} 
+                name='name' 
+                placeholder="Ej: Procesador Intel Core i9" 
+                onChange={handleChange}
+              />                   
+              {errors.name && <span className='p-createproduct-error'>{errors.name}</span>}
+            </div>
 
-    return (
-        <div>
-  <NavAdmin />
-        <div className="container">
-             <NavAdmin />           
-            <div className='containerForm'>
-            <h1 className='title'>Create Product</h1>
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <div className='name'>
-                        <label className='nameLabel'>Name Product</label>
-                        <input className='input' type='text' value={input.name} name='name' placeholder="Name Product" onChange={(e) => handleChange(e)} required={true}></input>                   
-                        {errors.name && (<p className='spanError'>{errors.name}</p>)}
-                    </div>
+            {/* Imagen del Producto */}
+            <div className='p-createproduct-field'>
+  <label className='p-createproduct-label'>Imagen del Producto</label>
+  <div className="p-createproduct-image-upload">
+    <label htmlFor="product-image-upload" className="p-createproduct-file-label">
+      Seleccionar Imagen
+    </label>
+    <input 
+      id="product-image-upload"
+      className='p-createproduct-file-input' 
+      type='file' 
+      name='image' 
+      accept="image/*"
+      onChange={handleChangeImage} 
+    />
+    <img 
+      id="image-preview" 
+      className="p-createproduct-image-preview" 
+      alt="Vista previa" 
+      style={{ display: input.image ? 'block' : 'none' }} 
+    />
+    {input.image && (
+      <span className="p-createproduct-file-name">
+        {input.image.name}
+      </span>
+    )}
+  </div>
+</div>
 
+            {/* Precio y Stock */}
+            <div className="p-createproduct-row">
+              <div className='p-createproduct-field p-createproduct-half'>
+                <label className='p-createproduct-label'>Precio ($)</label>
+                <input 
+                  className={`p-createproduct-input ${errors.price ? 'p-createproduct-input-error' : ''}`} 
+                  type='number' 
+                  value={input.price} 
+                  min="1" 
+                  name='price' 
+                  placeholder="Ej: 299.99" 
+                  onChange={handleChange} 
+                />                  
+                {errors.price && <span className='p-createproduct-error'>{errors.price}</span>}
+              </div>
+              
+              <div className='p-createproduct-field p-createproduct-half'>
+                <label className='p-createproduct-label'>Stock</label>
+                <input 
+                  className={`p-createproduct-input ${errors.stock ? 'p-createproduct-input-error' : ''}`} 
+                  type='number' 
+                  value={input.stock} 
+                  min="1" 
+                  max="1000" 
+                  name='stock' 
+                  onChange={handleChangeStock} 
+                />                  
+                {errors.stock && <span className='p-createproduct-error'>{errors.stock}</span>}
+              </div>
+            </div>
 
-                    <div className='name'>
-                        <label className='nameLabel'><i className="bi bi-image-fill"></i> Image</label>
-                        <input className='input' type='file' name= 'image' placeholder="Image Product" onChange={(e) => handleChangeImage(e)} required={true}></input>                   
-                    </div>
+            {/* Descripción */}
+            <div className='p-createproduct-field'>
+              <label className='p-createproduct-label'>Descripción</label>
+              <textarea 
+                className={`p-createproduct-textarea ${errors.description ? 'p-createproduct-input-error' : ''}`} 
+                name='description' 
+                placeholder="Describe las características del producto..." 
+                onChange={handleChange}
+              ></textarea>                 
+              {errors.description && <span className='p-createproduct-error'>{errors.description}</span>}
+            </div>
 
+            {/* Tipo y Marca */}
+            <div className="p-createproduct-row">
+              <div className='p-createproduct-field p-createproduct-half'>
+                <label className='p-createproduct-label'>Tipo de Producto</label>
+                <div className="p-createproduct-select-container">
+                  <input 
+                    className='p-createproduct-new-input' 
+                    type='text' 
+                    value={typeInput} 
+                    placeholder="Nuevo tipo (opcional)" 
+                    onChange={(e) => setTypeInput(e.target.value)}
+                  /> 
+                  <select 
+                    className={`p-createproduct-select ${errors.type ? 'p-createproduct-input-error' : ''}`} 
+                    name='type' 
+                    onChange={handleChange} 
+                    value={input.type}
+                  >
+                    <option value="">Seleccionar tipo</option>
+                    {types?.map((type, index) => (
+                      <option key={index} value={type.name}>{type.name}</option>
+                    ))}
+                    {typeInput && <option value={typeInput}>{typeInput} (nuevo)</option>}
+                  </select>
+                  {errors.type && <span className='p-createproduct-error'>{errors.type}</span>}
+                </div>
+              </div>
+              
+              <div className='p-createproduct-field p-createproduct-half'>
+                <label className='p-createproduct-label'>Marca</label>
+                <div className="p-createproduct-select-container">
+                  <input 
+                    className='p-createproduct-new-input' 
+                    type='text' 
+                    value={brandInput} 
+                    placeholder="Nueva marca (opcional)" 
+                    onChange={(e) => setBrandInput(e.target.value)}
+                  /> 
+                  <select 
+                    className={`p-createproduct-select ${errors.brand ? 'p-createproduct-input-error' : ''}`} 
+                    name='brand' 
+                    onChange={handleChange} 
+                    value={input.brand}
+                  >
+                    <option value="">Seleccionar marca</option>
+                    {brands?.map((brand, index) => (
+                      <option key={index} value={brand.name}>{brand.name}</option>
+                    ))}
+                    {brandInput && <option value={brandInput}>{brandInput} (nueva)</option>}
+                  </select>
+                  {errors.brand && <span className='p-createproduct-error'>{errors.brand}</span>}
+                </div>
+              </div>
+            </div>
 
-                    <div className='name'>
-                        <label className='nameLabel'>Price</label>
-                        <input className='input' type='number' value={input.price} min="1" name = 'price' placeholder="Price" onChange={(e) => handleChange(e)} required={true}></input>                  
-                        {errors.price && (<p className='spanError'>{errors.price}</p>)}
-                    </div>
-                    <div className='name'>
-                        <label className='nameLabel'>Description</label>
-                        <textarea style={{height: "100px"}} className='input' name='description' placeholder="Description" onChange={(e) => handleChange(e)} required={true}></textarea>                 
-                        {errors.description && (<p className='spanError'>{errors.description}</p>)}
-                    </div>
-
-                    <div className='name'>
-                        <label className='nameLabel'>Stock</label>
-                        <input className='input' type='number' value={input.stock} min="1" max="1000" name = 'stock' placeholder="Stock" onChange={(e) => handleChangeStock(e)} required={true}></input>                  
-                        {errors.stock && (<p className='spanError'>{errors.stock}</p>)}
-                    </div>
-                    <div>
-                        <div className='name'>
-                            <label className='nameLabelMap'>New Type</label>
-                            <div className="ContainerTypeBrand">
-                                <input className='inputNew' type='text' value={typeInput} name='type' placeholder="Type Name" onChange={(e) => setTypeInput(e.target.value)}></input> 
-                                <select className='selectName' name='type' placeholder="Select Type" onChange={e=>handleChange(e)} required={true}defaultValue="">
-                                    <option value="" disabled>Select Type</option>
-                                    {types && types.map((type, index) => (
-                                        <option key={index} value={type.name}>{type.name}</option>
-                                        ))}
-                                    {typeInput && <option value={typeInput}>{typeInput}</option>}
-                                </select>
-                                {errors.type && (<p className='spanSError'>{errors.type}</p>)}
-                            </div>
-                        </div>
-                        <div className='name'>
-                            <label className='nameLabelMap'>New Calidad</label>
-                            <div className="ContainerTypeBrand">
-                                <input className='inputNew' type='text' value={brandInput} name='brand' placeholder="Brand Name" onChange={(e) => setBrandInput(e.target.value)}></input> 
-                                <select className='selectName' name='brand' placeholder="Select Brand" onChange={e=>handleChange(e)} required={true} defaultValue="">
-                                    <option value="" disabled>Select Calidad</option>
-                                    {brands && brands.map((brand, index) => (
-                                        <option key={index} value={brand.name}>{brand.name}</option>
-                                    ))}
-                                    {brandInput && <option value={brandInput}>{brandInput}</option>}
-                                </select>
-                                {errors.brand && (<p className='spanSError'>{errors.brand}</p>)}
-                            </div>
-                        </div>
-                    </div>
-
-                    {(input.type === "Processor" || input.type === "Motherboard") && 
-                        <div className="name">
-                            <label className="nameLabel">Socket</label>
-                            <input  className="input" type="text" name="socket" value={input.info_adicional.socket} onChange={(e) => handleSocketChange(e)} />
-                        </div>
-                    }
-                    
-                    <button className='buttonCrear' type="submit">Publicar</button>                          
-                </form>
-            </div>                  
-        </div>
-                                        </div>
-    );
+            {/* Socket (condicional) */}
+            {(input.type === "Processor" || input.type === "Motherboard") && 
+              <div className="p-createproduct-field">
+                <label className="p-createproduct-label">Socket</label>
+                <input 
+                  className="p-createproduct-input" 
+                  type="text" 
+                  name="socket" 
+                  value={input.info_adicional.socket} 
+                  placeholder="Ej: LGA 1200, AM4"
+                  onChange={handleSocketChange} 
+                />
+              </div>
+            }
+            
+            <button className='p-createproduct-submit' type="submit">
+              Crear Producto
+            </button>                          
+          </form>
+        </div>                  
+      </div>
+    </div>
+  );
 };
