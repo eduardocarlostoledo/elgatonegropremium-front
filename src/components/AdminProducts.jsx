@@ -32,7 +32,7 @@ import {
   banOrUnbanProd,
 } from "../redux/slices/productSlice";
 import { update } from "../redux/slices/cartSlice";
-import "../styles/adminProducts.css";
+import "../styles/AdminProducts.css";
 
 const { Option } = Select;
 const { TextArea } = Input;

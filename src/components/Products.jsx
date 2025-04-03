@@ -13,6 +13,7 @@ import {
 } from "../redux/slices/productSlice.js";
 import Card from "../components/Card";
 import Paginado from "./Paginado";
+import DOMPurify from "dompurify";
 
 export const Products = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export const Products = () => {
   const charactersPerPage = 20;
   const [name, setName] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true); // Estado de carga
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,27 +44,41 @@ export const Products = () => {
 
   const paginado = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleInputChange = (e) => setName(e.target.value);
+  const sanitizeInput = (input) => {
+    return DOMPurify.sanitize(input, {
+      ALLOWED_TAGS: [], // No permitir ningún tag HTML
+      ALLOWED_ATTR: [], // No permitir ningún atributo
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const sanitizedValue = sanitizeInput(e.target.value);
+    setName(sanitizedValue);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getAllProductsName(name));
+    const sanitizedName = sanitizeInput(name);
+    dispatch(getAllProductsName(sanitizedName));
     setCurrentPage(1);
   };
 
   const handleFilterBrands = (e) => {
-    dispatch(filterByBrands(e.target.value));
+    const sanitizedValue = sanitizeInput(e.target.value);
+    dispatch(filterByBrands(sanitizedValue));
     setCurrentPage(1);
   };
 
   const handleFilterTypes = (e) => {
-    dispatch(filterByType(e.target.value));
+    const sanitizedValue = sanitizeInput(e.target.value);
+    dispatch(filterByType(sanitizedValue));
     setCurrentPage(1);
   };
 
   const handleFilterPrice = (e) => {
+    const sanitizedValue = sanitizeInput(e.target.value);
     const sortedProducts = [...products].sort((a, b) => {
-      if (e.target.value === "ASC") return a.price - b.price;
+      if (sanitizedValue === "ASC") return a.price - b.price;
       return b.price - a.price;
     });
     setFilteredProducts(sortedProducts);
@@ -83,34 +98,35 @@ export const Products = () => {
   );
 
   return (
-    <div className="DivProducts">
-      <div className="Products">
+    <div className="products-container">
+      <div className="products-content">
         {loading ? (
-          <div className="loader"></div>
+          <div className="products-loader"></div>
         ) : (
           <>
-            <div className="DivCardsFilters">
-              <div className="DivFilter">
-                <div className="SearchButton" id="InputB">
+            <div className="products-filters-cards">
+              <div className="products-filters-container">
+                <div className="products-search-container">
                   <input
-                    className="InputB"
+                    className="products-search-input"
                     type="text"
                     placeholder="Buscar..."
                     value={name}
                     onChange={handleInputChange}
                   />
-                  <div
-                    className="SubmitButton"
+                  <button
+                    className="products-search-button"
                     type="submit"
                     onClick={handleSubmit}
+                    aria-label="Buscar productos"
                   >
-                    <HiMagnifyingGlass className="icon" />
-                  </div>
+                    <HiMagnifyingGlass className="products-search-icon" />
+                  </button>
                 </div>
-                <div className="ContainerFilters">
+                <div className="products-filters-group">
                   <select
                     id="filterBrandsSelect"
-                    className="Filter"
+                    className="products-filter-select"
                     onChange={handleFilterBrands}
                   >
                     <option value="All">Marcas</option>
@@ -123,7 +139,7 @@ export const Products = () => {
 
                   <select
                     id="filterTypesSelect"
-                    className="Filter"
+                    className="products-filter-select"
                     onChange={handleFilterTypes}
                   >
                     <option value="All">Tipos</option>
@@ -136,7 +152,7 @@ export const Products = () => {
 
                   <select
                     id="filterPriceSelect"
-                    className="Filter"
+                    className="products-filter-select"
                     onChange={handleFilterPrice}
                   >
                     <option value="all">Precio</option>
@@ -146,15 +162,15 @@ export const Products = () => {
                 </div>
               </div>
 
-              <div className="CardContainer">
+              <div className="products-cards-container">
                 {currentProducts.map((p, index) => (
                   <Card
                     key={index}
                     id={p.id}
-                    name={p.name}
+                    name={sanitizeInput(p.name)}
                     price={p.price}
-                    image={p.image}
-                    description={p.description}
+                    image={sanitizeInput(p.image)}
+                    description={sanitizeInput(p.description)}
                     calification={p.calification}
                   />
                 ))}

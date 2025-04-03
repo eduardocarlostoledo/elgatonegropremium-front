@@ -1,139 +1,71 @@
-/* Estilos generales */
-/* 
-.DivProducts {
-    width: 950px;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-}
-
-
-.CardContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 5px;
-    gap: 15px;
-    justify-content: center;    
-} */
-
-/* Contenedor principal de productos */
-.DivProducts {
+/* Contenedor principal */
+.products-container {
     max-width: 950px;
     display: flex;
     justify-content: center;
     padding: 10px;
-    margin: 0 auto; /* Centrado en la página */
+    margin: 100px;
 }
 
-/* Contenedor de tarjetas */
-.CardContainer {
-    color: white;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 5px;
-}
-
-/* Estilo para las tarjetas, con limitación a 3 columnas */
-.CardContainer > .Card {
-    flex: 1 1 30%; /* Ocupa el 30% del ancho del contenedor, máximo 3 columnas */
-    max-width: 30%; /* Limita el ancho para mantener solo 3 columnas */
-    box-sizing: border-box;
-}
-  
-
-.contenedor_card {
-    margin-top: 0%;
-}
-
-.Products {
+/* Contenido de productos */
+.products-content {
     margin-top: 50px;
-} 
-
-.DivCardsFilters {
-    border-radius: 20px;
-    /* background-color: #202324; */
-    flex-direction: row;
 }
 
-.DivFilter {
-    box-shadow: 0 4px 8px rgba(245, 243, 243, 0.2);  /* Sombra sutil alrededor del elemento */
-    flex-direction: row;
+/* Contenedor de filtros y tarjetas */
+.products-filters-cards {
+    border-radius: 20px;
+}
+
+/* Contenedor de filtros */
+.products-filters-container {
+    box-shadow: 0 4px 8px rgba(245, 243, 243, 0.2);
     display: flex;
     justify-content: center;
 }
 
-.ContainerFilters {
-    flex-direction: column;
-    justify-content: space-around;
-    margin: 1px;
-    gap: 7px;
-} */
-
-.ContainerFilters {        
-    flex-direction: column;
-    justify-content: center; /* Alinea los elementos en el centro verticalmente */
-    align-items: center; /* Alinea los elementos horizontalmente en el centro */
-    margin: 0; /* Ajusta según sea necesario */
-    gap: 1px; /* Espacio entre elementos */
+/* Grupo de filtros */
+.products-filters-group {
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
 }
 
-
-
-.Filter {    
+/* Select de filtros */
+.products-filter-select {
     height: 30px;
     border-radius: 7px;
     text-align: center;
 }
 
-.Filter option {
+.products-filter-select option {
     background-color: white;
     color: #252425;
 }
 
-.Filter:hover {
+.products-filter-select:hover {
     background-color: #8a8a8a;
     color: white;
 }
 
-.ContainerFilters {
-    margin: 5px;
-    display: flex;
-    flex-direction: row;
-
-}
-
-.SearchButton, Filter {    
+/* Contenedor de búsqueda */
+.products-search-container {
     display: flex;
     margin: 5px;
 }
 
-.swal-overlay--show-modal {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.SubmitBuscar {
-    width: 60px;
-    height: 35px;
-    border-radius: 7px;
-    border: none;
-    margin-left: 10px;
-}
-
-.InputB {
+/* Input de búsqueda */
+.products-search-input {
     height: 30px;
     border-radius: 7px;
     border: solid 1px #8a8a8a;
-    text-align: center;    
+    text-align: center;
 }
 
-
-.SubmitButton {
-margin: 3px;
+/* Botón de búsqueda */
+.products-search-button {
+    margin: 3px;
     font-size: 30px;
     color: #ffffff;
     width: 35px;
@@ -141,78 +73,36 @@ margin: 3px;
     border-radius: 7px;
     border: #ffffff;
     gap: 1px;
-    text-align: center;    
+    text-align: center;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.SubmitButton:hover {
+.products-search-button:hover {
     background-color: #8a8a8a;
     color: white;
 }
 
-
-.Todos {
-    height: 35px;
-    border-radius: 7px;
+/* Icono de búsqueda */
+.products-search-icon {
+    pointer-events: none;
 }
 
-.Todos:hover {
-    background-color: #8a8a8a;
-    color: white;
+/* Contenedor de tarjetas */
+.products-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 5px;
 }
 
-/* Estilos para pantallas medianas (650px) */
-@media screen and (max-width: 650px) {
-
-    
-.Products {
-    margin-top: 90px;
-} 
-
-    .DivFilter {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .SearchButton {
-        justify-content: center;
-    }
-
-    .ContainerFilters {
-        display: flex;
-        
-        align-items: center; /* Centra ContainerFilters horizontalmente */
-    }
-
-    .Filter {
-        display: flex;
-        justify-content: center;
-    }
-}
-
-/* Estilos para pantallas pequeñas (350px) */
-@media screen and (max-width: 330px) {
-    .DivFilter {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .SearchButton {
-        justify-content: center;
-    }
-
-    .ContainerFilters {
-        display: flex;
-        margin-top: 20px;
-        align-items: center; /* Centra ContainerFilters horizontalmente */
-    }
-
-    .Filter {
-        display: flex;
-        justify-content: center;
-    }
-}
-
-.loader {
+/* Loader */
+.products-loader {
     border: 8px solid #f3f3f3;
     border-top: 8px solid #3498db;
     border-radius: 50%;
@@ -220,10 +110,57 @@ margin: 3px;
     height: 60px;
     animation: spin 1s linear infinite;
     margin: 20px auto;
-  }
-  
-  @keyframes spin {
+}
+
+@keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
-  
+}
+
+/* Media queries */
+@media screen and (max-width: 650px) {
+
+    .products-container {
+        max-width: 950px;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        margin: 50px;
+    }
+
+
+    .products-content {
+        margin-top: 90px;
+    }
+
+    .products-filters-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .products-search-container {
+        justify-content: center;
+    }
+
+    .products-filters-group {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .products-filters-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .products-search-container {
+        justify-content: center;
+    }
+
+    .products-filters-group {
+        flex-direction: column;
+        margin-top: 20px;
+        align-items: center;
+    }
+}
