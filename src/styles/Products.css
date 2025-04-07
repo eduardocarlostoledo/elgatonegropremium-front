@@ -1,6 +1,6 @@
 /* Contenedor principal */
 .products-container {
-    max-width: 950px;
+    width: 1200px;
     display: flex;
     justify-content: center;
     padding: 10px;
@@ -8,9 +8,9 @@
 }
 
 /* Contenido de productos */
-.products-content {
+/*.products-content {
     margin-top: 50px;
-}
+} */
 
 /* Contenedor de filtros y tarjetas */
 .products-filters-cards {
@@ -129,9 +129,9 @@
     }
 
 
-    .products-content {
+    /* .products-content {
         margin-top: 90px;
-    }
+    } */
 
     .products-filters-container {
         flex-direction: column;

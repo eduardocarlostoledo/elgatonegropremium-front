@@ -22,7 +22,6 @@ export default function Cart() {
     if (!userActive?.id || !userActive.email || !userActive) {
       navigate("/login");
     } else {
-      
       dispatch(getCart(userActive.id));
     }
   }, [userActive, navigate, dispatch]);
@@ -32,10 +31,16 @@ export default function Cart() {
       console.error("MercadoPago SDK no está disponible.");
       return;
     }
-    setMercadoPagoInstance(new window.MercadoPago(import.meta.env.VITE_APP_MERCADOPAGO, { locale: "es-AR" }));
+    setMercadoPagoInstance(
+      new window.MercadoPago(import.meta.env.VITE_APP_MERCADOPAGO, {
+        locale: "es-AR",
+      })
+    );
   }, []);
 
-  const total = fetchData.reduce((acc, item) => acc + item.price * item.amount, 0).toFixed(1);
+  const total = fetchData
+    .reduce((acc, item) => acc + item.price * item.amount, 0)
+    .toFixed(1);
 
   const preferencia = fetchData.map((item) => ({
     product_description: item.name,
@@ -43,14 +48,11 @@ export default function Cart() {
     product_image: item.image,
     product_amount: item.amount,
     product_unit_price: item.price,
-    prodId: item.id,    
+    prodId: item.id,
   }));
-
-
 
   const description = fetchData.map((item) => item.name).join(", ");
 
-  
   const orderData = {
     quantity: 1,
     description: description?.toString(),
@@ -71,36 +73,40 @@ export default function Cart() {
       return;
     }
     setIsButtonVisible(false);
-    
+
     try {
-      
       setIsLoading(true); // Activar el loader
 
-      const response = await fetch(`${import.meta.env.VITE_APP_BACK}/pay/create_preference`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({orderData , preferencia}),
-      }) 
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_BACK}/pay/create_preference`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ orderData, preferencia }),
+        }
+      );
 
       // Verificar si la respuesta es exitosa
-    if (!response.ok) {
-      throw new Error("Error al crear la preferencia de pago");
-    }
+      if (!response.ok) {
+        throw new Error("Error al crear la preferencia de pago");
+      }
 
-    // Obtener los datos de la respuesta
-    const data = await response.json();
+      // Obtener los datos de la respuesta
+      const data = await response.json();
 
-    if (!data.id) {
-      throw new Error("No se recibió un ID de preferencia válido");
-    }
-    createCheckoutButton(data.id);      
-          
-    }
-    catch (error) {
+      if (!data.id) {
+        throw new Error("No se recibió un ID de preferencia válido");
+      }
+      createCheckoutButton(data.id);
+    } catch (error) {
       console.error("Error al procesar el pago:", error);
-      swal("Error", "Hubo un problema al procesar el pago, contacta con soporte", "error");
+      swal(
+        "Error",
+        "Hubo un problema al procesar el pago, contacta con soporte",
+        "error"
+      );
       setIsLoading(false); // Desactivar el loader en caso de error
       setIsButtonVisible(true);
     }
@@ -129,7 +135,7 @@ export default function Cart() {
   return (
     <div className="carritoCompras">
       {fetchData.length === 0 ? (
-        <div>
+        <div className="empty-state">
           <p className="EmptyP">Carrito Vacío</p>
           <Link to="/Products">
             <button className="buttonIrTienda">Ir a la Tienda</button>
@@ -158,16 +164,21 @@ export default function Cart() {
               Pagar MercadoPago
             </button>
           )}
- {isLoading && <div className="loader">Loading...</div>} {/* Loader */}
- <div id="button-checkout"></div>        </div>
+          {isLoading && <div className="loader"></div>}
+          <div id="button-checkout"></div>
+        </div>
+        {fetchData.length !== 0 && (
+          <button
+            className="ButtonDeleteAll"
+            onClick={() => dispatch(deleteAllFromCart(userActive.id))}
+          >
+            Vaciar Carrito
+          </button>
+        )}
       </div>
-      <button className="ButtonDeleteAll" onClick={() => dispatch(deleteAllFromCart(userActive.id))}>
-        Vaciar Carrito
-      </button>
     </div>
   );
 }
-
 
 // import React, { useEffect, useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
@@ -242,7 +253,7 @@ export default function Cart() {
 //       navigate("/login");
 //     } else {
 //       setIsButtonVisible(false);
-  
+
 //       // Crear la preferencia de pago
 //       const preferencia = fetchData.map((item) => ({
 //         product_description: item.name,
@@ -252,13 +263,13 @@ export default function Cart() {
 //         product_unit_price: item.price,
 //         prodId: item.id,
 //       }));
-  
+
 //       // Agregar el total y el email del comprador
 //       preferencia.push({
 //         total_order_price: total,
 //         buyer_email: userActive.email,
 //       });
-  
+
 //       // Enviar la preferencia al backend
 //       fetch(`${import.meta.env.VITE_APP_BACK}/pay/preference`, {
 //         method: "POST",
@@ -302,7 +313,7 @@ export default function Cart() {
 //           },
 //           body: JSON.stringify({ userId: userActive.id }), // Enviar el userId en el cuerpo de la solicitud
 //         });
-  
+
 //         if (response.ok) {
 //           dispatch(deleteAllFromCart(userActive.id)); // Actualizar el estado de Redux
 //           swal("Cart is empty", "Cart is empty", "success");
@@ -333,7 +344,7 @@ export default function Cart() {
 //           {fetchData.map((item, index) => (
 //             <div key={index} className="cart-card" >
 //               <ItemCart
-              
+
 //                 name={item?.name}
 //                 price= { item?.amount * item?.price }
 //                 amount={item?.amount}

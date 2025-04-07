@@ -80,8 +80,7 @@ export const Detail = () => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      color: '#fff',
+      justifyContent: 'center',      
       textAlign: 'center',
       fontFamily: 'Arial, sans-serif',
       position: 'relative'

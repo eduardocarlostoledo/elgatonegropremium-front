@@ -25,13 +25,14 @@
   }
   
   /* Base styles */
-  * {
+  * {    
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
   
   body {
+    margin: 180px auto 0 auto;
     font-family: var(--font-family-base);
     font-size: var(--font-size-base);
     line-height: var(--line-height-base);

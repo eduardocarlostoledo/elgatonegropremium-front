@@ -43,7 +43,11 @@ export const Login = () => {
         image: "",
     });
     const [usuarioGoogle, setUsuarioGoogle] = useState ("")
-    const usuarioConectado = useSelector((state) => state.users.userActive) || {};
+      const usuarioConectado = useSelector((state) => state.users.userActive) || {};
+      console.log("Usuario conectado: orders", usuarioConectado);
+      const token = localStorage.getItem("token");
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+      
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -58,6 +62,40 @@ export const Login = () => {
         );
 
     }, []);
+    useEffect(() => {
+        const checkAuth = async () => {
+            if (token && isAuthenticated === "On") {
+                try {
+                    // Verificar token con el backend - Cambiado a GET
+                    const response = await axiosClient.get("/users/verificalogin", {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
+    
+                    console.log(response.data, "verificaUsuario");
+                    
+                    if (response.data.success) {
+                        // Token válido, redirigir según rol
+                        const user = response.data.user;
+                        dispatch(userActive(user));
+                        dispatch(changeNav());
+                        navigate(user.admin ? "/admin/users" : "/Profile");
+                    } else {
+                        // Token inválido, limpiar localStorage
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("isAuthenticated");
+                    }
+                } catch (error) {
+                    console.error("Error verifying token:", error);
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("isAuthenticated");
+                }
+            }
+        };
+    
+        checkAuth();
+    }, [token, isAuthenticated, dispatch, navigate]);
 
     function handleChange(e) {
         setInput({

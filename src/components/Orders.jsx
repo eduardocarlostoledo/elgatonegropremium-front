@@ -10,13 +10,15 @@ export const Orders = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const usuarioConectado = useSelector((state) => state.users.userActive) || {};
+  
+  console.log("Usuario conectado: orders", usuarioConectado);
   const orders = useSelector((state) => state.orders.ordersByUser) || [];
 
   // console.log("Orders:", orders);
   // console.log("User:", usuarioConectado);
   
   useEffect(() => {
-    if (!usuarioConectado.id) {
+    if (!usuarioConectado.id || !localStorage.getItem("token")) {
       navigate("/login");
     } else {
       dispatch(orderByUser(usuarioConectado.id));
@@ -28,7 +30,7 @@ export const Orders = () => {
   ).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   return (
-    <div className="container">
+    <div className="container" style={{ marginTop: "160px" }}>
       <h1 className="title">Mis Órdenes</h1>
       <input
         type="text"
@@ -39,7 +41,7 @@ export const Orders = () => {
       />
       {filteredOrders.length > 0 ? (
         <table className="table">
-          <thead>
+          <thead style={{ color: "white" }}>
             <tr>
             <th>#</th>
               <th>Order ID</th>
