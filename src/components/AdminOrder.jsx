@@ -156,7 +156,7 @@ export const AdminOrder = () => {
             status === "rejected" ? "red" : "orange"
           }
         >
-          {status.toUpperCase()}
+          {status?.toUpperCase()}
         </Tag>
       ),
       filters: [

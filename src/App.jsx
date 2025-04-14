@@ -116,6 +116,9 @@ import SuccessPage from "./components/SuccessPage.jsx";
 import { Orders } from "./components/Orders.jsx";
 import { checkAuth } from "./redux/slices/userSlice";
 import { ChatBot } from "./components/ChatBot.jsx";
+import { TermsAndConditions } from "./components/terminosycondiciones.jsx";
+import {ContactUs} from "./components/contacto.jsx";
+import {FAQ} from "./components/Faq.jsx";
 // console.log(import.meta.env.VITE_APP_BACK)
 // console.log(import.meta.env.VITE_APP_YOUR_CLIENT_ID_LOGIN)
 
@@ -155,6 +158,9 @@ function App() {
 
         <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
         <Route path="/condiciones-servicio" element={<CondicionesServicio />} />
+        <Route path="/terminos-y-condiciones" element={<TermsAndConditions />} />
+        <Route path="/contacto" element={ <ContactUs />} />
+        <Route path="/faq" element={<FAQ />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/mis-ordenes" element={<Orders />} />
         <Route path="/chatbot" element={<ChatBot />} />

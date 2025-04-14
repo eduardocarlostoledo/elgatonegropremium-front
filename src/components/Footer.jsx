@@ -12,8 +12,8 @@ export const Footer = () => {
         <div className='footer-links'>
           <Link to="/politica-privacidad">Política de Privacidad</Link>
           <Link to="/condiciones-servicio">Condiciones del Servicio</Link>
-          <Link to="/terminos">Términos y Condiciones</Link>
-          <Link to="/ayuda">Ayuda</Link>
+          <Link to="/terminos-y-condiciones">Términos y Condiciones</Link>
+          <Link to="/faq">Ayuda</Link>
           <Link to="/contacto">Contacto</Link>
         </div>
       </div>

@@ -1,11 +1,12 @@
 /* Contenedor principal */
-.products-container {
-    width: 1200px;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    margin: 100px;
-}
+.products-container 
+{
+    font-family: "Arial", sans-serif;
+    color: #333;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
 /* Contenido de productos */
 /*.products-content {
